@@ -48,3 +48,5 @@ MonoBehaviour:
   randomSeedX: 0
   randomSeedY: 0
   totemCounter: 120
+  tilePrefab: {fileID: 6686825206937651316, guid: 35c5ec0d736f5184d816422f19c73746,
+    type: 3}
