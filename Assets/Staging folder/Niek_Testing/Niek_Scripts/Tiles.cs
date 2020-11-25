@@ -2,18 +2,18 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Tile : MonoBehaviour
+public class Tiles : MonoBehaviour
 {
     public bool walkable = true;
     public bool current = false;
     public bool target = false;
     public bool selectable = false;
 
-    public List<Tile> adjacencyList = new List<Tile>();
+    public List<Tiles> adjacencyList = new List<Tiles>();
 
     //Needed BFS (Breadth first search)
     public bool visited = false;
-    public Tile parent = null;
+    public Tiles parent = null;
     public int distance = 0;
 
 
@@ -75,7 +75,7 @@ public class Tile : MonoBehaviour
 
         foreach (Collider item in colliders)
         {
-            Tile tile = item.GetComponent<Tile>();
+            Tiles tile = item.GetComponent<Tiles>();
             if (tile !=null && tile.walkable)
             {
                 RaycastHit hit;

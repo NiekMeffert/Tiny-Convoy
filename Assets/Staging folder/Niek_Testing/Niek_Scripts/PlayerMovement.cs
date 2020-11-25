@@ -36,7 +36,7 @@ public class PlayerMovement : TacticsMove
             {
                 if (hit.collider.tag == "Tile")
                 {
-                    Tile t = hit.collider.GetComponent<Tile>();
+                    Tiles t = hit.collider.GetComponent<Tiles>();
 
                     if (t.selectable)
                     {

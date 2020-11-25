@@ -5,6 +5,12 @@ TagManager:
   serializedVersion: 2
   tags:
   - Tile
+<<<<<<< HEAD
+=======
+  - Robot
+  - Plant
+  - Obstacle
+>>>>>>> 8dad55124cdcc049e9f222a6e715f5ce8fa461cc
   layers:
   - Default
   - TransparentFX
@@ -14,10 +20,10 @@ TagManager:
   - UI
   - 
   - 
-  - 
-  - 
-  - 
-  - 
+  - Tile
+  - CPU
+  - Plant
+  - Obstacle
   - 
   - 
   - 

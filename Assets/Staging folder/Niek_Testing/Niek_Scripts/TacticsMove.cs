@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class TacticsMove : MonoBehaviour
 {
-    List<Tile> selectableTiles = new List<Tile>();
+    List<Tiles> selectableTiles = new List<Tiles>();
     GameObject[] tiles;
 
-    Stack<Tile> path = new Stack<Tile>();
-    Tile currentTile;
+    Stack<Tiles> path = new Stack<Tiles>();
+    Tiles currentTile;
 
     public bool moving = false;
     public int move = 5;
@@ -40,13 +40,13 @@ public class TacticsMove : MonoBehaviour
         currentTile.current = true;
     }
 
-    public Tile GetTargetTile(GameObject target)
+    public Tiles GetTargetTile(GameObject target)
     {
         RaycastHit hit;
-        Tile tile = null;
+        Tiles tile = null;
         if (Physics.Raycast(target.transform.position, -Vector3.up, out hit, 1))
         {
-            tile = hit.collider.GetComponent<Tile>();
+            tile = hit.collider.GetComponent<Tiles>();
         }
 
         return tile;
@@ -58,7 +58,7 @@ public class TacticsMove : MonoBehaviour
 
         foreach (GameObject tile in tiles)
         {
-            Tile t = tile.GetComponent<Tile>();
+            Tiles t = tile.GetComponent<Tiles>();
             t.FindNeighbors(jumpHeight);
         }
     }
@@ -67,7 +67,7 @@ public class TacticsMove : MonoBehaviour
         ComputeAdjacencyLists();
         GetCurrentTile();
 
-        Queue<Tile> process = new Queue<Tile>();
+        Queue<Tiles> process = new Queue<Tiles>();
 
         process.Enqueue(currentTile);
         currentTile.visited = true;
@@ -75,14 +75,14 @@ public class TacticsMove : MonoBehaviour
 
         while (process.Count > 0)
         {
-            Tile t = process.Dequeue();
+            Tiles t = process.Dequeue();
 
             selectableTiles.Add(t);
             t.selectable = true;
 
             if (t.distance < move)
             {
-                foreach (Tile tile in t.adjacencyList)
+                foreach (Tiles tile in t.adjacencyList)
                 {
                     if (!tile.visited)
                     {
@@ -96,13 +96,13 @@ public class TacticsMove : MonoBehaviour
         }
     }
 
-    public void MoveToTile(Tile tile)
+    public void MoveToTile(Tiles tile)
     {
         path.Clear();
         tile.target = true;
         moving = true;
 
-        Tile next = tile;
+        Tiles next = tile;
         while (next !=null)
         {
             path.Push(next);
@@ -114,7 +114,7 @@ public class TacticsMove : MonoBehaviour
     {
         if (path.Count > 0)
         {
-            Tile t = path.Peek();
+            Tiles t = path.Peek();
             Vector3 target = t.transform.position;
 
             //calculate the units position on top of the target tile
@@ -162,7 +162,7 @@ public class TacticsMove : MonoBehaviour
             currentTile.current = false;
             currentTile = null;
         }
-        foreach (Tile tile in selectableTiles)
+        foreach (Tiles tile in selectableTiles)
         {
             tile.Reset();
         }
