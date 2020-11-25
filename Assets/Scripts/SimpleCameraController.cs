@@ -1,1 +1,0 @@
-                roll = t.eulerAngles.z;
