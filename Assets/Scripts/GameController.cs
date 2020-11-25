@@ -14,7 +14,12 @@ public class GameController : MonoBehaviour{
   void Start(){
     randomSeedX = (int) (Random.value * 1000000000f);
     randomSeedY = (int) (Random.value * 1000000000f);
-    Debug.Log(getTile(new Vector2Int(0,0)));
+    //Debug.Log(getSquare(new Vector3Int(0,0,1)));
+    //find tiles
+    GameObject[] allTiles = GameObject.FindGameObjectsWithTag("Tile");
+    foreach (GameObject candidate in allTiles){
+      candidate.GetComponent<Tile>().pos = new Vector2Int(Mathf.RoundToInt(candidate.GetComponent<Transform>().position.x), Mathf.RoundToInt(candidate.GetComponent<Transform>().position.z));
+    }
   }
 
   // Update is called once per frame
