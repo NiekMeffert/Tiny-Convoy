@@ -23,8 +23,6 @@ public class GameController : MonoBehaviour{
     foreach (GameObject candidate in allTiles){
       candidate.GetComponent<Tile>().pos = new Vector2Int(Mathf.RoundToInt(candidate.GetComponent<Transform>().position.x), Mathf.RoundToInt(candidate.GetComponent<Transform>().position.z));
     }
-
-    Debug.Log(getSquare(new Vector3Int(0,0,5)));
   }
 
   // Update is called once per frame
@@ -45,7 +43,7 @@ public class GameController : MonoBehaviour{
         tile = candidate;
       }
     }
-    if (tile==null) {createTile(target);}
+    if (tile==null) {tile = createTile(target);}
     return tile;
   }
 
@@ -66,7 +64,7 @@ public class GameController : MonoBehaviour{
     for (int x = 0; x < arraySize; x++) {
       for (int y = 0; y < arraySize; y++){
         if (tiles[x,y]==null){
-          tiles[x,y] = createTile(new Vector2Int(x,y));
+          tiles[x,y] = createTile(new Vector2Int(rangeMin.x+x,rangeMin.y+y));
         }
       }
     }

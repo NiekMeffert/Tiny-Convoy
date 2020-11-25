@@ -11,7 +11,8 @@ public class ActualThing : MonoBehaviour
   void Start()
   {
     gameController=GameObject.Find("GameController").GetComponent<GameController>();
-    tile.GetComponent<Tile>().full = true;
+    GameObject myTile = gameController.getTile(new Vector2Int(Mathf.RoundToInt(transform.position.x), Mathf.RoundToInt(transform.position.z)));
+    moveOntoTile(myTile);
   }
 
   // Update is called once per frame
@@ -21,9 +22,8 @@ public class ActualThing : MonoBehaviour
   }
 
   void moveOntoTile(GameObject newTile){
-    if (tile==null) {return;}
     newTile.GetComponent<Tile>().full = true;
-    tile.GetComponent<Tile>().full = false;
+    if (tile!=null) tile.GetComponent<Tile>().full = false;
     tile = newTile;
   }
 
