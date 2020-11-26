@@ -4,10 +4,15 @@ using UnityEngine;
 
 public class PlayerMovement : TacticsMove
 {
+    public GameObject gameController;
     // Start is called before the first frame update
     void Start()
     {
+        
         Init();
+        gameController = GameObject.Find("GameController");
+
+
     }
 
     // Update is called once per frame
