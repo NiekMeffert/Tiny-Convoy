@@ -39,4 +39,12 @@ public class ActualThing : MonoBehaviour
 
   public virtual void bumpInto(GameObject otherThing){
   }
+
+  public virtual void voxellate(bool voxIt){
+    if (voxIt==true){
+      //choose geometry based on surrounding NESW objects of same type
+    } else {
+      //set to no surroundings voxel
+    }
+  }
 }
