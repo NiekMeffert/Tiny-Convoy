@@ -28,7 +28,7 @@ public class Tiles : MonoBehaviour
     {
         if (current)
         {
-            GetComponent<Renderer>().material.color = Color.magenta;
+            GetComponent<Renderer>().material.color = Color.white;
         }
         else if (target)
         {
