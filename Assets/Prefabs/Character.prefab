@@ -45,6 +45,44 @@ CapsuleCollider:
   m_Height: 3.2207737
   m_Direction: 1
   m_Center: {x: 0, y: 1.61, z: 0}
+--- !u!114 &3018883658335143963
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8034996805729847065}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 45bc368ca84855b4998e03e9836c35e2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moving: 0
+  move: 5
+  jumpHeight: 2
+  moveSpeed: 2
+  jumpVelocity: 4.5
+  gameController: {fileID: 0}
+--- !u!114 &4485118511851930866
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8034996805729847065}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d6accc7a60eec4767ac7c456e871c7b7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tile: {fileID: 0}
+  mass: 0
+  momentum: {x: 0, y: 0}
+  power: 0
+  maxPower: 0
+  CPU: {fileID: 0}
+  hardware: []
+  totem: 0
 --- !u!1001 &7152669312726088264
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -55,7 +93,7 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: e75a37edeac05164496e8b3562aff680,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: e75a37edeac05164496e8b3562aff680,
         type: 3}

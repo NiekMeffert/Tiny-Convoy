@@ -5,7 +5,10 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 1
+  - enabled: 0
     path: Assets/Staging folder/Niek_Testing/Niek_Scene/Niek_Testing_Scene.unity
     guid: 198ba7003fc01d547b180aca67b84fcb
+  - enabled: 1
+    path: Assets/Staging folder/Lucas_Testing/Lucas_Scene/Lucas_Testing_scene.unity
+    guid: 3728636672615c04b8d505b0220e6380
   m_configObjects: {}
