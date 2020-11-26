@@ -120,20 +120,23 @@ public class TacticsMove : MonoBehaviour
             //calculate the units position on top of the target tile
             target.y += halfHeight + t.GetComponent<Collider>().bounds.extents.y;
 
-            if (Vector3.Distance(transform.position, target) >= 0.05f)
+            if (Vector3.Distance(transform.position, target) >= 0.1f)
             {
-                bool jump = transform.position.y != target.y;
+                /* bool jump = transform.position.y != target.y;
 
-                if (jump)
-                {
-                    Jump(target);
-                }
-                else
-                {
-                    CalculateHeading(target);
-                    SetHorizontalVelocity();
-                }
+                 if (jump)
+                 {
+                     Jump(target);
+                 }
+                 else
+                 {
+                     CalculateHeading(target);
+                     SetHorizontalVelocity();
+                 }
+                */
 
+                CalculateHeading(target);
+                SetHorizontalVelocity();
                 //Locomotion
                 transform.forward = heading;
                 transform.position += velocity * Time.deltaTime;
@@ -213,14 +216,14 @@ public class TacticsMove : MonoBehaviour
         {
             fallingDown = false;
             jumpingUp = false;
-            movingEdge = true;
+            movingEdge = false;
 
             jumpTarget = transform.position + (target - transform.position) / 2.0f;
         }
         else
         {
             fallingDown = false;
-            jumpingUp = true;
+            jumpingUp = false;
             movingEdge = false;
 
             velocity = heading * moveSpeed / 3.0f;
@@ -254,7 +257,7 @@ public class TacticsMove : MonoBehaviour
         if (transform.position.y > target.y)
         {
             jumpingUp = false;
-            fallingDown = true;
+            fallingDown = false;
         }
     }
 
@@ -267,7 +270,7 @@ public class TacticsMove : MonoBehaviour
         else
         {
             movingEdge = false;
-            fallingDown = true;
+            fallingDown = false;
 
             velocity /= 3.0f;
             velocity.y = 1.5f;

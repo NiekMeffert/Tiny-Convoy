@@ -13,6 +13,7 @@ public class GameController : MonoBehaviour{
 
   // Start is called before the first frame update
   void Start(){
+
     randomSeedX = (int) (Random.value * 1000000000f);
     randomSeedY = (int) (Random.value * 1000000000f);
     //find tiles
@@ -23,6 +24,10 @@ public class GameController : MonoBehaviour{
     foreach (GameObject candidate in allTiles){
       candidate.GetComponent<Tile>().pos = new Vector2Int(Mathf.RoundToInt(candidate.GetComponent<Transform>().position.x), Mathf.RoundToInt(candidate.GetComponent<Transform>().position.z));
     }
+        getSquare(new Vector3Int(0, 0, 10));
+        
+
+       
   }
 
   // Update is called once per frame
