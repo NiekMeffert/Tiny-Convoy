@@ -2,16 +2,23 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class UpgradeTile : Tile{
-  public GameObject owner;
+public class Flyer : Mover
+{
+
+  public float upSpeed;
+  public float upAccel;
+  public float downSpeed;
+  public float downAccel;
 
   // Start is called before the first frame update
-  void Start(){
+  void Start()
+  {
 
   }
 
   // Update is called once per frame
-  void Update(){
+  void Update()
+  {
 
   }
 }

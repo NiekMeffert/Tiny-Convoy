@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class UpgradeTile : Tile{
-  public GameObject owner;
+public class LongRangeScanner : Upgrade{
+  public int resolution;
 
   // Start is called before the first frame update
   void Start(){

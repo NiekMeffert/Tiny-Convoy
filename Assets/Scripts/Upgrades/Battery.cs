@@ -2,8 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class UpgradeTile : Tile{
-  public GameObject owner;
+public class Battery : Upgrade{
+  public float charge;
+  public float maxCharge;
 
   // Start is called before the first frame update
   void Start(){

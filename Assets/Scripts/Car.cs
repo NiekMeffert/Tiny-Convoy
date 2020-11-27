@@ -2,18 +2,17 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Upgrade : ActualThing
+public class Car : ActualThing
 {
-  public GameObject owner;
-  public float health;
-  public float maxHealth;
-  public bool on;
-  public float drain;
+  public GameObject cpu;
+  public GameObject[,] upgrades;
+  public int carNumber;
 
   // Start is called before the first frame update
   void Start()
   {
     setUpActualThing();
+
   }
 
   // Update is called once per frame
@@ -26,8 +25,5 @@ public class Upgrade : ActualThing
     newTile.GetComponent<Tile>().full = true;
     if (tile!=null) tile.GetComponent<Tile>().full = false;
     tile = newTile;
-    if (tile.GetComponent<UpgradeTile>()!=null){
-
-    }
   }
 }
