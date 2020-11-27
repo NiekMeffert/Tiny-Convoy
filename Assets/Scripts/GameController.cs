@@ -10,10 +10,13 @@ public class GameController : MonoBehaviour{
   public int randomSeedY;
   public float totemCounter = 120;
   public GameObject tilePrefab;
+  public GameObject CPUPrefab;
+  public GameObject carPrefab;
+  public GameObject[] upgradePrefabs = new GameObject[16];
+  public GameObject[] plantPrefabs = new GameObject[16];
 
   // Start is called before the first frame update
   void Start(){
-
     randomSeedX = (int) (Random.value * 1000000000f);
     randomSeedY = (int) (Random.value * 1000000000f);
     //find tiles
@@ -24,10 +27,7 @@ public class GameController : MonoBehaviour{
     foreach (GameObject candidate in allTiles){
       candidate.GetComponent<Tile>().pos = new Vector2Int(Mathf.RoundToInt(candidate.GetComponent<Transform>().position.x), Mathf.RoundToInt(candidate.GetComponent<Transform>().position.z));
     }
-        getSquare(new Vector3Int(0, 0, 20));
-        
-
-       
+    Debug.Log(getSquare(new Vector3Int(5,5,5)));
   }
 
   // Update is called once per frame
@@ -82,5 +82,29 @@ public class GameController : MonoBehaviour{
     newTile.transform.position = new Vector3(target.x,0,target.y);
     newTile.GetComponent<Tile>().pos = target;
     return newTile;
+  }
+
+  public GameObject createCPU(Vector2Int target){
+    GameObject newCPU = Instantiate(CPUPrefab);
+    CPU newCPUVars = newCPU.GetComponent<CPU>();
+    float[] rands = new float[]{Random.value, Random.value, Random.value, Random.value, Random.value, Random.value};
+    float randsTotal = 0;
+    foreach (float rand in rands){
+      randsTotal+=rand;
+    }
+    float randFactor = randsTotal/6f;
+    newCPUVars.baseProcessing = 1+Mathf.RoundToInt(rands[0]*randFactor);
+    newCPUVars.baseMemory = 1+Mathf.RoundToInt(rands[1]*randFactor);
+    newCPUVars.baseInputs = 1+Mathf.RoundToInt(rands[2]*randFactor);
+    newCPUVars.baseOutputs = 1+Mathf.RoundToInt(rands[3]*randFactor);
+    newCPUVars.baseBattery = 1f+Mathf.Round(rands[4]*randFactor);
+    newCPUVars.baseSight = 1f+Mathf.Round(rands[5]*randFactor);
+    newCPUVars.cars[0]=Instantiate(carPrefab);
+    Car carVars = newCPUVars.cars[0].GetComponent<Car>();
+    newCPUVars.cars[0].transform.position = new Vector3(target.x, 0, target.y);
+    //newCPU.transform.position = new Vector3(target.x, 0, target.y);
+    carVars.cpu = newCPU;
+    carVars.upgrades[0,0]=newCPU;
+    return newCPU;
   }
 }

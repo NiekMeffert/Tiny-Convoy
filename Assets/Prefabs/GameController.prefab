@@ -50,3 +50,41 @@ MonoBehaviour:
   totemCounter: 120
   tilePrefab: {fileID: 6686825206937651316, guid: 35c5ec0d736f5184d816422f19c73746,
     type: 3}
+  CPUPrefab: {fileID: 4560274283034543134, guid: 8e22b58b99bb34c6cbf253c2122707ca,
+    type: 3}
+  carPrefab: {fileID: 8998128059911170805, guid: 85a224c717b734043b41c32696d5fd03,
+    type: 3}
+  upgradePrefabs:
+  - {fileID: 4560274283034543134, guid: fc34cabdb46204fff8be2b1d90b96cba, type: 3}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  plantPrefabs:
+  - {fileID: 2498946500452104959, guid: a35488ae58bd44b4b892dbc8a09c42a5, type: 3}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
