@@ -153,8 +153,8 @@ public class TacticsMove : MonoBehaviour
         }
         else
         {
-            //todo: remove the selectable tiles
-            moving = false;
+            RemoveSelectableTiles();
+           moving = false;
         }
     }
 

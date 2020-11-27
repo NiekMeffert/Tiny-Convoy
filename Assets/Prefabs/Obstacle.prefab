@@ -44,7 +44,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 89fa18f4118924cfba738dbd669d9e5e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tile: {fileID: 0}
+  tile: {fileID: 9117996784294466476, guid: 40de43ea6d69e544e8a8a31567dea4f4, type: 3}
   mass: 0
   momentum: {x: 0, y: 0}
 --- !u!1001 &166411356250370689

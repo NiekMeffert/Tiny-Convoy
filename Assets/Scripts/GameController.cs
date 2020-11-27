@@ -24,7 +24,7 @@ public class GameController : MonoBehaviour{
     foreach (GameObject candidate in allTiles){
       candidate.GetComponent<Tile>().pos = new Vector2Int(Mathf.RoundToInt(candidate.GetComponent<Transform>().position.x), Mathf.RoundToInt(candidate.GetComponent<Transform>().position.z));
     }
-        getSquare(new Vector3Int(0, 0, 10));
+        getSquare(new Vector3Int(0, 0, 20));
         
 
        
