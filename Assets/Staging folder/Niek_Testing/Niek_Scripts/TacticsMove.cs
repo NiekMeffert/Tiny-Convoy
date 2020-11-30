@@ -26,9 +26,12 @@ public class TacticsMove : MonoBehaviour
     bool movingEdge = false;
     Vector3 jumpTarget;
 
+    GameController gameController2;
+
     protected void Init()
     {
         tiles = GameObject.FindGameObjectsWithTag("Tile");
+        gameController2 = GameObject.Find("GameController").GetComponent<GameController>();
 
         halfHeight = GetComponent<Collider>().bounds.extents.y;
 
@@ -42,12 +45,14 @@ public class TacticsMove : MonoBehaviour
 
     public Tiles GetTargetTile(GameObject target)
     {
-        RaycastHit hit;
         Tiles tile = null;
+        /*RaycastHit hit;
         if (Physics.Raycast(target.transform.position, -Vector3.up, out hit, 1))
         {
             tile = hit.collider.GetComponent<Tiles>();
-        }
+        }*/
+
+        tile = gameController2.getTile(Vector2Int.RoundToInt(target.transform.position)).GetComponent<Tiles>();
 
         return tile;
     }
@@ -202,9 +207,9 @@ public class TacticsMove : MonoBehaviour
         {
             PrepareJump(target);
         }
-            
-    }       
-    
+
+    }
+
     void PrepareJump(Vector3 target)
     {
         float targetY = target.y;
@@ -233,7 +238,7 @@ public class TacticsMove : MonoBehaviour
             velocity.y = jumpVelocity * (0.5f + difference / 2.0f);
         }
     }
-    
+
     void FallDownward(Vector3 target)
     {
         velocity += Physics.gravity * Time.deltaTime;

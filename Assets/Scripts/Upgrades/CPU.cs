@@ -66,28 +66,24 @@ public class CPU : Upgrade {
     float powerAvailable = 0;
     for (int i = cars.Length-1; i>=0; i--){
       Car carVars = cars[i].GetComponent<Car>();
-      for (int x = carVars.upgrades.GetLength(0)-1; x>=0; x--){
-        for (int y = carVars.upgrades.GetLength(1)-1; y>=0; y--){
-          if (carVars.upgrades[x,y]==null){return;}
-          Upgrade upVars = carVars.upgrades[x,y].GetComponent<Upgrade>();
-          if (upVars.on==true) powerNeeded+=upVars.drain;
-          Battery batteryVars = carVars.upgrades[x,y].GetComponent<Battery>();
-          if (batteryVars != null){powerAvailable+=batteryVars.charge;}
-        }
+      for (int h = carVars.upgrades.GetLength(0)-1; h>=0; h--){
+        if (carVars.upgrades[h]==null){return;}
+        Upgrade upVars = carVars.upgrades[h].GetComponent<Upgrade>();
+        if (upVars.on==true) powerNeeded+=upVars.drain;
+        Battery batteryVars = carVars.upgrades[h].GetComponent<Battery>();
+        if (batteryVars != null){powerAvailable+=batteryVars.charge;}
       }
     }
     //shut stuff off until there's enough power
     if (powerAvailable<powerNeeded) {
       for (int i = cars.Length-1; i>=0; i--){
         Car carVars = cars[i].GetComponent<Car>();
-        for (int x = carVars.upgrades.GetLength(0)-1; x>=0; x--){
-          for (int y = carVars.upgrades.GetLength(1)-1; y>=0; y--){
-            if (carVars.upgrades[x,y]==null || powerAvailable>powerNeeded){return;}
-            Upgrade upVars = carVars.upgrades[x,y].GetComponent<Upgrade>();
-            if (upVars.on==true && carVars.upgrades[x,y].GetComponent<CPU>()==null) {
-              upVars.on=false;
-              powerNeeded-=upVars.drain;
-            }
+        for (int h = carVars.upgrades.GetLength(0)-1; h>=0; h--){
+          if (carVars.upgrades[h]==null || powerAvailable>powerNeeded){return;}
+          Upgrade upVars = carVars.upgrades[h].GetComponent<Upgrade>();
+          if (upVars.on==true && carVars.upgrades[h].GetComponent<CPU>()==null) {
+            upVars.on=false;
+            powerNeeded-=upVars.drain;
           }
         }
       }
@@ -95,16 +91,14 @@ public class CPU : Upgrade {
     //discharge batteries sequentially (backwards)
     for (int i = cars.Length-1; i>=0; i--){
       Car carVars = cars[i].GetComponent<Car>();
-      for (int x = carVars.upgrades.GetLength(0)-1; x>=0; x--){
-        for (int y = carVars.upgrades.GetLength(1)-1; y>=0; y--){
-          Battery batteryVars = carVars.upgrades[x,y].GetComponent<Battery>();
-          if (carVars.upgrades[x,y]==null || powerNeeded<=0 || batteryVars==null){return;}
-          batteryVars.charge -= powerNeeded;
-          powerNeeded = 0;
-          if (batteryVars.charge<0){
-            powerNeeded = -1f*batteryVars.charge;
-            batteryVars.charge=0;
-          }
+      for (int h = carVars.upgrades.GetLength(0)-1; h>=0; h--){
+        Battery batteryVars = carVars.upgrades[h].GetComponent<Battery>();
+        if (carVars.upgrades[h]==null || powerNeeded<=0 || batteryVars==null){return;}
+        batteryVars.charge -= powerNeeded;
+        powerNeeded = 0;
+        if (batteryVars.charge<0){
+          powerNeeded = -1f*batteryVars.charge;
+          batteryVars.charge=0;
         }
       }
     }
@@ -112,27 +106,25 @@ public class CPU : Upgrade {
     for (int i = cars.Length-1; i>=0; i--){
       Car carVars = cars[i].GetComponent<Car>();
       carVars.mass=0;
-      for (int x = carVars.upgrades.GetLength(0)-1; x>=0; x--){
-        for (int y = carVars.upgrades.GetLength(1)-1; y>=0; y--){
-          Upgrade upVars = carVars.upgrades[x,y].GetComponent<Upgrade>();
-          if (upVars==null){return;}
-          carVars.mass += upVars.mass;
-          if (upVars.on==false){return;}
-          Sensor sensorVars = carVars.upgrades[x,y].GetComponent<Sensor>();
-          if (sensorVars!=null){sight+=sensorVars.sightDistance;}
-          LongRangeScanner scannerVars = carVars.upgrades[x,y].GetComponent<LongRangeScanner>();
-          if (scannerVars!=null){longDistanceResolution+=scannerVars.resolution;}
-          Mover moverVars = carVars.upgrades[x,y].GetComponent<Mover>();
-          if (moverVars!=null){
-            fSpeed+=moverVars.fSpeed;
-            bSpeed+=moverVars.bSpeed;
-            turnSpeed+=moverVars.turnSpeed;
-          }
-          Flyer flyerVars = carVars.upgrades[x,y].GetComponent<Flyer>();
-          if (flyerVars!=null){
-            upSpeed+=flyerVars.upSpeed;
-            downSpeed+=flyerVars.downSpeed;
-          }
+      for (int h = carVars.upgrades.GetLength(0)-1; h>=0; h--){
+        Upgrade upVars = carVars.upgrades[h].GetComponent<Upgrade>();
+        if (upVars==null){return;}
+        carVars.mass += upVars.mass;
+        if (upVars.on==false){return;}
+        Sensor sensorVars = carVars.upgrades[h].GetComponent<Sensor>();
+        if (sensorVars!=null){sight+=sensorVars.sightDistance;}
+        LongRangeScanner scannerVars = carVars.upgrades[h].GetComponent<LongRangeScanner>();
+        if (scannerVars!=null){longDistanceResolution+=scannerVars.resolution;}
+        Mover moverVars = carVars.upgrades[h].GetComponent<Mover>();
+        if (moverVars!=null){
+          fSpeed+=moverVars.fSpeed;
+          bSpeed+=moverVars.bSpeed;
+          turnSpeed+=moverVars.turnSpeed;
+        }
+        Flyer flyerVars = carVars.upgrades[h].GetComponent<Flyer>();
+        if (flyerVars!=null){
+          upSpeed+=flyerVars.upSpeed;
+          downSpeed+=flyerVars.downSpeed;
         }
       }
     }

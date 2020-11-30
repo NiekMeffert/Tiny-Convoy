@@ -4,14 +4,13 @@ using UnityEngine;
 
 public class PlayerMovement : TacticsMove
 {
-    public GameObject gameController;
+    GameController gameController;
     // Start is called before the first frame update
     void Start()
     {
-        
-        Init();
-        gameController = GameObject.Find("GameController");
 
+        gameController = GameObject.Find("GameController").GetComponent<GameController>();
+        Init();
 
     }
 
@@ -46,7 +45,7 @@ public class PlayerMovement : TacticsMove
                     if (t.selectable)
                     {
                         MoveToTile(t);
-                        
+
                     }
                 }
             }

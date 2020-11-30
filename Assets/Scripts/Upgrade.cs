@@ -22,12 +22,5 @@ public class Upgrade : ActualThing
 
   }
 
-  public override void moveOntoTile(GameObject newTile){
-    newTile.GetComponent<Tile>().full = true;
-    if (tile!=null) tile.GetComponent<Tile>().full = false;
-    tile = newTile;
-    if (tile.GetComponent<UpgradeTile>()!=null){
-
-    }
-  }
+  //public override void moveOntoTile(GameObject newTile, int heightSlot){}
 }

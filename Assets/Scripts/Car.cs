@@ -5,7 +5,7 @@ using UnityEngine;
 public class Car : ActualThing
 {
   public GameObject cpu;
-  public GameObject[,] upgrades;
+  public GameObject[] upgrades;
   public int carNumber;
 
   // Start is called before the first frame update
@@ -21,9 +21,9 @@ public class Car : ActualThing
 
   }
 
-  public override void moveOntoTile(GameObject newTile){
+  /*public override void moveOntoTile(GameObject newTile, int){
     newTile.GetComponent<Tile>().full = true;
     if (tile!=null) tile.GetComponent<Tile>().full = false;
     tile = newTile;
-  }
+  }*/
 }

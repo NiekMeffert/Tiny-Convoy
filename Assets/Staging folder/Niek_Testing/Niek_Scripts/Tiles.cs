@@ -20,7 +20,7 @@ public class Tiles : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+      
     }
 
     // Update is called once per frame
@@ -50,8 +50,8 @@ public class Tiles : MonoBehaviour
 
         current = false;
         target = false;
-        selectable = false;    
-    
+        selectable = false;
+
          visited = false;
          parent = null;
          distance = 0;
@@ -82,8 +82,8 @@ public class Tiles : MonoBehaviour
                 if (!Physics.Raycast(tile.transform.position, Vector3.up, out hit, 1))
                 {
                     adjacencyList.Add(tile);
-                }                
+                }
             }
-        }        
+        }
     }
 }

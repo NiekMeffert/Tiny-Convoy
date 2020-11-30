@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: -8363313600597166253}
   - component: {fileID: -4350674005958398891}
   - component: {fileID: 6367191920460437128}
+  - component: {fileID: 6852842989459785530}
   m_Layer: 0
   m_Name: Character
   m_TagString: Untagged
@@ -65,6 +66,38 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f551f4a2dcf7d4537ab7b4179a44b071, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  tile: {fileID: 0}
+  mass: 0
+  momentum: {x: 0, y: 0}
+  owner: {fileID: 0}
+  health: 0
+  maxHealth: 0
+  on: 0
+  drain: 0
+  totem: 0
+  processing: 0
+  memory: 0
+  inputs: 0
+  outputs: 0
+  battery: 0
+  sight: 0
+  baseProcessing: 0
+  baseMemory: 0
+  baseInputs: 0
+  baseOutputs: 0
+  baseBattery: 0
+  baseSight: 0
+  fSpeed: 0
+  bSpeed: 0
+  turnSpeed: 0
+  upSpeed: 0
+  downSpeed: 0
+  flyHeight: 0
+  sightDistance: 0
+  longDistanceResolution: 0
+  meshDistance: 0
+  waterResistance: 0
+  cars: []
 --- !u!114 &6367191920460437128
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -83,13 +116,13 @@ MonoBehaviour:
   moveSpeed: 2
   jumpVelocity: 4.5
   gameController: {fileID: 0}
---- !u!136 &1760598531292650041
+--- !u!136 &6852842989459785530
 CapsuleCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8034996805729847065}
+  m_GameObject: {fileID: 7460493793974548106}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
@@ -97,44 +130,6 @@ CapsuleCollider:
   m_Height: 3.2207737
   m_Direction: 1
   m_Center: {x: 0, y: 1.61, z: 0}
---- !u!114 &3018883658335143963
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8034996805729847065}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 45bc368ca84855b4998e03e9836c35e2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  moving: 0
-  move: 5
-  jumpHeight: 2
-  moveSpeed: 2
-  jumpVelocity: 4.5
-  gameController: {fileID: 0}
---- !u!114 &4485118511851930866
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8034996805729847065}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d6accc7a60eec4767ac7c456e871c7b7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  tile: {fileID: 0}
-  mass: 0
-  momentum: {x: 0, y: 0}
-  power: 0
-  maxPower: 0
-  CPU: {fileID: 0}
-  hardware: []
-  totem: 0
 --- !u!1001 &7152669312726088264
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -204,12 +199,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e75a37edeac05164496e8b3562aff680, type: 3}
---- !u!1 &8034996805729847065 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: e75a37edeac05164496e8b3562aff680,
-    type: 3}
-  m_PrefabInstance: {fileID: 7152669312726088264}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &7262577399758151075 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: e75a37edeac05164496e8b3562aff680,
