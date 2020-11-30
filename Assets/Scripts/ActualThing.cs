@@ -5,7 +5,7 @@ using UnityEngine;
 public class ActualThing : MonoBehaviour
 {
   public GameObject tile;
-  GameController gameController;
+  public GameController gameController;
   public float mass;
   public Vector2 momentum;
   public int height;
@@ -29,6 +29,7 @@ public class ActualThing : MonoBehaviour
   }
 
   public virtual void moveOntoTile(GameObject newTile, int heightSlot){
+  
     Tile newTileVars = newTile.GetComponent<Tile>();
     for (int h=heightSlot; h<height; h++){
       newTileVars.heightSlots[h] = gameObject;

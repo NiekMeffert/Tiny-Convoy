@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class CPU : Upgrade {
-  public bool totem;
+  public GameObject[] cars;
   public int processing;
   public int memory;
   public int inputs;
@@ -26,10 +26,10 @@ public class CPU : Upgrade {
   public int longDistanceResolution;
   public float meshDistance;
   public float waterResistance;
-  public GameObject[] cars;
 
   // Start is called before the first frame update
   void Start(){
+    gameController.CPUs = GameObject.FindGameObjectsWithTag("CPU");
   }
 
   // Update is called once per frame

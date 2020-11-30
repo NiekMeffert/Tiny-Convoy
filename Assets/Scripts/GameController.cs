@@ -17,6 +17,8 @@ public class GameController : MonoBehaviour{
   public GameObject[] bigTilePrefabs = new GameObject[16];
   public GameObject mainCamera;
   public GameObject lastBigTile;
+  public GameObject[] CPUs;
+  public GameObject totem;
 
   // Start is called before the first frame update
   void Start(){
@@ -44,6 +46,7 @@ public class GameController : MonoBehaviour{
     if (paused==true) {return;}
     totemCounter-=Time.deltaTime;
     if (totemCounter<0){
+      totem = CPUs[Mathf.FloorToInt(Random.value*CPUs.Length)];
       totemCounter=120;
     }
     //Transform cam = GameObject.Find("Player").GetComponent<Transform>();

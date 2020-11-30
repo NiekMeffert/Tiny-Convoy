@@ -6,9 +6,7 @@ public class Mover : Upgrade
 {
 
   public float fSpeed;
-  public float fAccel;
   public float bSpeed;
-  public float bAccel;
   public float turnSpeed;
 
   // Start is called before the first frame update
