@@ -43,14 +43,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fc0ec2c4039e04cdcb48908dd48cd248, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  paused: 0
+  mode: 1
   level: 0
   randomSeedX: 0
   randomSeedY: 0
-  totemCounter: 120
+  totemCounter: 0
   tilePrefab: {fileID: 6686825206937651316, guid: 35c5ec0d736f5184d816422f19c73746,
     type: 3}
-  CPUPrefab: {fileID: 4560274283034543134, guid: 8e22b58b99bb34c6cbf253c2122707ca,
+  CPUPrefab: {fileID: 4560274283034543134, guid: fa4b0808637c74c73b0db5b4531fa2cf,
     type: 3}
   carPrefab: {fileID: 8998128059911170805, guid: 85a224c717b734043b41c32696d5fd03,
     type: 3}
@@ -105,3 +105,7 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
+  mainCamera: {fileID: 0}
+  lastBigTile: {fileID: 0}
+  CPUs: []
+  totem: {fileID: 0}

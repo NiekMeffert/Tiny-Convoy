@@ -8,7 +8,7 @@ public class GameController : MonoBehaviour{
   public int level = 0;
   public int randomSeedX;
   public int randomSeedY;
-  public float totemCounter = 120;
+  public float totemCounter = 0;
   public GameObject tilePrefab;
   public GameObject CPUPrefab;
   public GameObject carPrefab;
@@ -34,21 +34,30 @@ public class GameController : MonoBehaviour{
         bigTilePrefabs[i]=bigTilePrefabs[0];
       }
     }
-    /*randomSeedX = (int) (Random.value * 1000000000f);
-    randomSeedY = (int) (Random.value * 1000000000f);*/
+    randomSeedX = (int) (Random.value * 1000000000f);
+    randomSeedY = (int) (Random.value * 1000000000f);
     //createBigTile(new Vector2Int(0,0), null);
   }
 
   // Update is called once per frame
   void Update(){
-    if (mode==0) {return;} //paused
-    totemCounter-=Time.deltaTime;
-    if (totemCounter<0){
-      totem = CPUs[Mathf.FloorToInt(Random.value*CPUs.Length)];
-      totemCounter=120;
+    //normal game mode
+    if (mode==1) {
+      totemCounter-=Time.deltaTime;
+      if (totemCounter<0){
+        totem = CPUs[Mathf.FloorToInt(Random.value*CPUs.Length)];
+        totemCounter=120;
+      }
+      if (Input.GetMouseButtonUp(0)){
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        RaycastHit hit;
+        if (Physics.Raycast(ray, out hit)){
+          if (hit.collider.tag == "Tile"){
+            totem.GetComponent<Pathfinder>().moveToTile(hit.collider.gameObject);
+          }
+        }
+      }
     }
-    //Transform cam = GameObject.Find("Player").GetComponent<Transform>();
-    //getSquare(new Vector3Int(Mathf.RoundToInt(cam.position.x),Mathf.RoundToInt(cam.position.z),20));
   }
 
   public GameObject getTile(Vector2Int target){
@@ -126,29 +135,5 @@ public class GameController : MonoBehaviour{
       if (safeHeight==true) fit = i;
     }
     return fit;
-  }
-
-  public GameObject createCPU(Vector2Int target){
-    GameObject newCPU = Instantiate(CPUPrefab);
-    CPU newCPUVars = newCPU.GetComponent<CPU>();
-    float[] rands = new float[]{Random.value, Random.value, Random.value, Random.value, Random.value, Random.value};
-    float randsTotal = 0;
-    foreach (float rand in rands){
-      randsTotal+=rand;
-    }
-    float randFactor = randsTotal/6f;
-    newCPUVars.baseProcessing = 1+Mathf.RoundToInt(rands[0]*randFactor);
-    newCPUVars.baseMemory = 1+Mathf.RoundToInt(rands[1]*randFactor);
-    newCPUVars.baseInputs = 1+Mathf.RoundToInt(rands[2]*randFactor);
-    newCPUVars.baseOutputs = 1+Mathf.RoundToInt(rands[3]*randFactor);
-    newCPUVars.baseBattery = 1f+Mathf.Round(rands[4]*randFactor);
-    newCPUVars.baseSight = 1f+Mathf.Round(rands[5]*randFactor);
-    newCPUVars.cars[0]=Instantiate(carPrefab);
-    Car carVars = newCPUVars.cars[0].GetComponent<Car>();
-    newCPUVars.cars[0].transform.position = new Vector3(target.x, 0, target.y);
-    //newCPU.transform.position = new Vector3(target.x, 0, target.y);
-    carVars.cpu = newCPU;
-    carVars.upgrades[0]=newCPU;
-    return newCPU;
   }
 }

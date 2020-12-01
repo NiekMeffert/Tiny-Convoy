@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 4508962620240257089}
   - component: {fileID: 1888845540430804005}
   - component: {fileID: 6245490217280536511}
-  - component: {fileID: 1661372030873856919}
   m_Layer: 0
   m_Name: Base_Grid_Visual
   m_TagString: Untagged
@@ -80,19 +79,6 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!65 &1661372030873856919
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2937704220043774248}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &6686825206937651316
 GameObject:
   m_ObjectHideFlags: 0
@@ -105,6 +91,7 @@ GameObject:
   - component: {fileID: 7672871710909103130}
   - component: {fileID: -2803228003514494271}
   - component: {fileID: -2499208791995984739}
+  - component: {fileID: 5114958907395811936}
   m_Layer: 0
   m_Name: Base_Grid
   m_TagString: Tile
@@ -141,7 +128,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pos: {x: 0, y: 0}
   full: 0
-  inhabitants:
+  heightSlots:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
@@ -150,6 +137,16 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  level: 0
+  bigTile: {fileID: 0}
 --- !u!114 &-2803228003514494271
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -209,3 +206,16 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!65 &5114958907395811936
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6686825206937651316}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: -0.5, z: 0}

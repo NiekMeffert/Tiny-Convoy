@@ -26,10 +26,25 @@ public class CPU : Upgrade {
   public int longDistanceResolution;
   public float meshDistance;
   public float waterResistance;
+  Pathfinder pathfinder;
 
   // Start is called before the first frame update
   void Start(){
     setUpActualThing();
+    pathfinder = gameObject.GetComponent<Pathfinder>();
+    Random.InitState(tile.GetComponent<Tile>().pos.x+gameController.randomSeedX+tile.GetComponent<Tile>().pos.y+gameController.randomSeedY);
+    float[] rands = new float[]{Random.value, Random.value, Random.value, Random.value, Random.value, Random.value};
+    float randsTotal = 0;
+    foreach (float rand in rands){
+      randsTotal+=rand;
+    }
+    float randFactor = 10f/randsTotal;
+    baseProcessing = 1+Mathf.RoundToInt(rands[0]*randFactor);
+    baseMemory = 1+Mathf.RoundToInt(rands[1]*randFactor);
+    baseInputs = 1+Mathf.RoundToInt(rands[2]*randFactor);
+    baseOutputs = 1+Mathf.RoundToInt(rands[3]*randFactor);
+    baseBattery = 1f+Mathf.Round(rands[4]*randFactor);
+    baseSight = 1f+Mathf.Round(rands[5]*randFactor);
     gameController.CPUs = GameObject.FindGameObjectsWithTag("CPU");
   }
 
@@ -141,5 +156,35 @@ public class CPU : Upgrade {
       }
     }
     //update stats from meshing
+  }
+
+  public void startMovers(){
+    for (int i = cars.Length-1; i>=0; i--){
+      Car carVars = cars[i].GetComponent<Car>();
+      for (int h = carVars.upgrades.GetLength(0)-1; h>=0; h--){
+        Upgrade upVars = carVars.upgrades[h].GetComponent<Upgrade>();
+        if (upVars!=null){
+          Mover moverVars = carVars.upgrades[h].GetComponent<Mover>();
+          if (moverVars!=null){
+            moverVars.on=true;
+          }
+        }
+      }
+    }
+  }
+
+  public void stopMovers(){
+    for (int i = cars.Length-1; i>=0; i--){
+      Car carVars = cars[i].GetComponent<Car>();
+      for (int h = carVars.upgrades.GetLength(0)-1; h>=0; h--){
+        Upgrade upVars = carVars.upgrades[h].GetComponent<Upgrade>();
+        if (upVars!=null){
+          Mover moverVars = carVars.upgrades[h].GetComponent<Mover>();
+          if (moverVars!=null){
+            moverVars.on=false;
+          }
+        }
+      }
+    }
   }
 }

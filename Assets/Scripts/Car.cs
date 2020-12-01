@@ -20,8 +20,8 @@ public class Car : ActualThing
   void Update()
   {
     if (lateSetup==false) lateStart();
-    transform.position += new Vector3(0,0,-.5f*Time.deltaTime);
-    moveOntoTile(gameController.getTile(new Vector2Int(Mathf.RoundToInt(transform.position.x), Mathf.RoundToInt(transform.position.z))), 0);
+    //transform.position += new Vector3(0,0,-.5f*Time.deltaTime);
+    //moveOntoTile(gameController.getTile(new Vector2Int(Mathf.RoundToInt(transform.position.x), Mathf.RoundToInt(transform.position.z))), 0);
   }
 
   void lateStart(){

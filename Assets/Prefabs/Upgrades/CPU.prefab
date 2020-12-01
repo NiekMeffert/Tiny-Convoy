@@ -23,6 +23,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5996756132322463612}
   - component: {fileID: 1775756268011119912}
+  - component: {fileID: 8985038422992580534}
   m_Layer: 0
   m_Name: CPU
   m_TagString: CPU
@@ -62,7 +63,7 @@ MonoBehaviour:
   mass: 1
   momentum: {x: 0, y: 0}
   height: 1
-  owner: {fileID: 0}
+  cpu: {fileID: 0}
   health: 10
   maxHealth: 10
   on: 0
@@ -92,6 +93,21 @@ MonoBehaviour:
   longDistanceResolution: 0
   meshDistance: 0
   waterResistance: 0
+--- !u!114 &8985038422992580534
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4560274283034543134}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dd7cb568a97d140e59a150ff91bb2ba9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameController: {fileID: 0}
+  cpu: {fileID: 0}
+  destination: {fileID: 0}
 --- !u!1001 &458337661728279151
 PrefabInstance:
   m_ObjectHideFlags: 0
