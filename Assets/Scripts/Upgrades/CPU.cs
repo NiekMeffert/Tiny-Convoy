@@ -29,12 +29,14 @@ public class CPU : Upgrade {
 
   // Start is called before the first frame update
   void Start(){
+    setUpActualThing();
     gameController.CPUs = GameObject.FindGameObjectsWithTag("CPU");
   }
 
   // Update is called once per frame
   void Update(){
-
+    if (gameController.mode!=1){return;}
+    updateStats();
   }
 
   public void upgrade(){}
@@ -69,9 +71,13 @@ public class CPU : Upgrade {
       for (int h = carVars.upgrades.GetLength(0)-1; h>=0; h--){
         if (carVars.upgrades[h]==null){return;}
         Upgrade upVars = carVars.upgrades[h].GetComponent<Upgrade>();
+        if (upVars.health<0) upVars.on=false;
         if (upVars.on==true) powerNeeded+=upVars.drain;
         Battery batteryVars = carVars.upgrades[h].GetComponent<Battery>();
-        if (batteryVars != null){powerAvailable+=batteryVars.charge;}
+        if (batteryVars != null){
+          if (batteryVars.health<0) batteryVars.charge=0;
+          powerAvailable+=batteryVars.charge;
+        }
       }
     }
     //shut stuff off until there's enough power

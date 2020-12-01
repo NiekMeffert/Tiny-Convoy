@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class GameController : MonoBehaviour{
 
-  public bool paused = false;
+  public int mode = 1; //0 paused, 1 normal, 2 upgrade, 3 long-distance scanning
   public int level = 0;
   public int randomSeedX;
   public int randomSeedY;
@@ -37,13 +37,11 @@ public class GameController : MonoBehaviour{
     /*randomSeedX = (int) (Random.value * 1000000000f);
     randomSeedY = (int) (Random.value * 1000000000f);*/
     //createBigTile(new Vector2Int(0,0), null);
-    getTile(new Vector2Int(0,0));
-    getSquare(new Vector3Int(11,22,5));
   }
 
   // Update is called once per frame
   void Update(){
-    if (paused==true) {return;}
+    if (mode==0) {return;} //paused
     totemCounter-=Time.deltaTime;
     if (totemCounter<0){
       totem = CPUs[Mathf.FloorToInt(Random.value*CPUs.Length)];
@@ -117,11 +115,13 @@ public class GameController : MonoBehaviour{
     int loadHeight = load.GetComponent<ActualThing>().height;
     Tile tileVars = tile.GetComponent<Tile>();
     int fit = -1;
-    for (int i=0; i<loadHeight; i++){
+    for (int i=0; i<tileVars.heightSlots.Length; i++){
       if (fit > -1) {break;}
       bool safeHeight=true;
       for (int h=0; h<loadHeight; h++){
-        if (tileVars.heightSlots[i+h]!=null) {safeHeight=false;}
+        if (i+h>=tileVars.heightSlots.Length || tileVars.heightSlots[i+h]!=null) {
+          safeHeight=false;
+        }
       }
       if (safeHeight==true) fit = i;
     }

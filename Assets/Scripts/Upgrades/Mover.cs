@@ -12,7 +12,7 @@ public class Mover : Upgrade
   // Start is called before the first frame update
   void Start()
   {
-
+    setUpActualThing();
   }
 
   // Update is called once per frame

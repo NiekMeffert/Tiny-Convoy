@@ -45,10 +45,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tile: {fileID: 0}
-  mass: 0
+  gameController: {fileID: 0}
+  mass: 1
   momentum: {x: 0, y: 0}
-  power: 0
-  maxPower: 0
+  height: 3
+  power: 10
+  maxPower: 10
 --- !u!65 &830440076620964693
 BoxCollider:
   m_ObjectHideFlags: 0

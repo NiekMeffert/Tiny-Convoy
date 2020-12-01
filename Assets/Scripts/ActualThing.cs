@@ -25,19 +25,19 @@ public class ActualThing : MonoBehaviour
   public void setUpActualThing(){
     gameController=GameObject.Find("GameController").GetComponent<GameController>();
     GameObject myTile = gameController.getTile(new Vector2Int(Mathf.RoundToInt(transform.position.x), Mathf.RoundToInt(transform.position.z)));
-    moveOntoTile(myTile, gameController.canFit(gameObject, myTile));
+    moveOntoTile(myTile, Mathf.RoundToInt(transform.position.y*2f));
   }
 
   public virtual void moveOntoTile(GameObject newTile, int heightSlot){
-  
+    if (newTile==tile) return;
     Tile newTileVars = newTile.GetComponent<Tile>();
-    for (int h=heightSlot; h<height; h++){
+    for (int h=heightSlot; h<height+heightSlot; h++){
       newTileVars.heightSlots[h] = gameObject;
     }
     if (tile!=null){
-      for (int h=0; h<16; h++){
-        GameObject oldSlot = tile.GetComponent<Tile>().heightSlots[h];
-        if (oldSlot==gameObject) {oldSlot=null;}
+      GameObject[] oldSlots = tile.GetComponent<Tile>().heightSlots;
+      for (int h=0; h<oldSlots.Length; h++){
+        if (oldSlots[h]==gameObject) oldSlots[h]=null;
       }
     }
     tile = newTile;
