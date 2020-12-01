@@ -156,7 +156,7 @@ MonoBehaviour:
   gameController: {fileID: 0}
   mass: 1
   momentum: {x: 0, y: 0}
-  height: 2
+  height: 1
   owner: {fileID: 0}
   health: 10
   maxHealth: 10
@@ -197,17 +197,17 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: 794ac4c4d3057bd43ae34d9bc6d5f903,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -8.104784e-11
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 794ac4c4d3057bd43ae34d9bc6d5f903,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.642
+      value: 0.4
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 794ac4c4d3057bd43ae34d9bc6d5f903,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.0051203296
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 794ac4c4d3057bd43ae34d9bc6d5f903,
         type: 3}
