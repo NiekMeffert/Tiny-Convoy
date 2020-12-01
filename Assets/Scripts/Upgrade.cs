@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Upgrade : ActualThing
 {
-  public GameObject owner;
+  public GameObject cpu;
   public float health;
   public float maxHealth;
   public bool on;

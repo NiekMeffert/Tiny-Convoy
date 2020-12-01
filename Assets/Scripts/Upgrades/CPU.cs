@@ -69,27 +69,30 @@ public class CPU : Upgrade {
     for (int i = cars.Length-1; i>=0; i--){
       Car carVars = cars[i].GetComponent<Car>();
       for (int h = carVars.upgrades.GetLength(0)-1; h>=0; h--){
-        if (carVars.upgrades[h]==null){return;}
-        Upgrade upVars = carVars.upgrades[h].GetComponent<Upgrade>();
-        if (upVars.health<0) upVars.on=false;
-        if (upVars.on==true) powerNeeded+=upVars.drain;
-        Battery batteryVars = carVars.upgrades[h].GetComponent<Battery>();
-        if (batteryVars != null){
-          if (batteryVars.health<0) batteryVars.charge=0;
-          powerAvailable+=batteryVars.charge;
+        if (carVars.upgrades[h]!=null){
+          Upgrade upVars = carVars.upgrades[h].GetComponent<Upgrade>();
+          if (upVars.health<0) upVars.on=false;
+          if (upVars.on==true) powerNeeded+=upVars.drain*Time.deltaTime;
+          Battery batteryVars = carVars.upgrades[h].GetComponent<Battery>();
+          if (batteryVars != null){
+            if (batteryVars.health<0) batteryVars.charge=0;
+            powerAvailable+=batteryVars.charge*Time.deltaTime;
+          }
         }
       }
     }
+
     //shut stuff off until there's enough power
     if (powerAvailable<powerNeeded) {
       for (int i = cars.Length-1; i>=0; i--){
         Car carVars = cars[i].GetComponent<Car>();
         for (int h = carVars.upgrades.GetLength(0)-1; h>=0; h--){
-          if (carVars.upgrades[h]==null || powerAvailable>powerNeeded){return;}
-          Upgrade upVars = carVars.upgrades[h].GetComponent<Upgrade>();
-          if (upVars.on==true && carVars.upgrades[h].GetComponent<CPU>()==null) {
-            upVars.on=false;
-            powerNeeded-=upVars.drain;
+          if (carVars.upgrades[h]!=null && powerAvailable<powerNeeded){
+            Upgrade upVars = carVars.upgrades[h].GetComponent<Upgrade>();
+            if (upVars.on==true && carVars.upgrades[h].GetComponent<CPU>()==null) {
+              upVars.on=false;
+              powerNeeded-=upVars.drain*Time.deltaTime;
+            }
           }
         }
       }
@@ -99,12 +102,13 @@ public class CPU : Upgrade {
       Car carVars = cars[i].GetComponent<Car>();
       for (int h = carVars.upgrades.GetLength(0)-1; h>=0; h--){
         Battery batteryVars = carVars.upgrades[h].GetComponent<Battery>();
-        if (carVars.upgrades[h]==null || powerNeeded<=0 || batteryVars==null){return;}
-        batteryVars.charge -= powerNeeded;
-        powerNeeded = 0;
-        if (batteryVars.charge<0){
-          powerNeeded = -1f*batteryVars.charge;
-          batteryVars.charge=0;
+        if (carVars.upgrades[h]!=null && powerNeeded>0 && batteryVars!=null){
+          batteryVars.charge -= powerNeeded;
+          powerNeeded = 0;
+          if (batteryVars.charge<0){
+            powerNeeded = -1f*batteryVars.charge;
+            batteryVars.charge=0;
+          }
         }
       }
     }
@@ -114,23 +118,25 @@ public class CPU : Upgrade {
       carVars.mass=0;
       for (int h = carVars.upgrades.GetLength(0)-1; h>=0; h--){
         Upgrade upVars = carVars.upgrades[h].GetComponent<Upgrade>();
-        if (upVars==null){return;}
-        carVars.mass += upVars.mass;
-        if (upVars.on==false){return;}
-        Sensor sensorVars = carVars.upgrades[h].GetComponent<Sensor>();
-        if (sensorVars!=null){sight+=sensorVars.sightDistance;}
-        LongRangeScanner scannerVars = carVars.upgrades[h].GetComponent<LongRangeScanner>();
-        if (scannerVars!=null){longDistanceResolution+=scannerVars.resolution;}
-        Mover moverVars = carVars.upgrades[h].GetComponent<Mover>();
-        if (moverVars!=null){
-          fSpeed+=moverVars.fSpeed;
-          bSpeed+=moverVars.bSpeed;
-          turnSpeed+=moverVars.turnSpeed;
-        }
-        Flyer flyerVars = carVars.upgrades[h].GetComponent<Flyer>();
-        if (flyerVars!=null){
-          upSpeed+=flyerVars.upSpeed;
-          downSpeed+=flyerVars.downSpeed;
+        if (upVars!=null){
+          carVars.mass += upVars.mass;
+          if (upVars.on==true){
+            Sensor sensorVars = carVars.upgrades[h].GetComponent<Sensor>();
+            if (sensorVars!=null){sight+=sensorVars.sightDistance;}
+            LongRangeScanner scannerVars = carVars.upgrades[h].GetComponent<LongRangeScanner>();
+            if (scannerVars!=null){longDistanceResolution+=scannerVars.resolution;}
+            Mover moverVars = carVars.upgrades[h].GetComponent<Mover>();
+            if (moverVars!=null){
+              fSpeed+=moverVars.fSpeed;
+              bSpeed+=moverVars.bSpeed;
+              turnSpeed+=moverVars.turnSpeed;
+            }
+            Flyer flyerVars = carVars.upgrades[h].GetComponent<Flyer>();
+            if (flyerVars!=null){
+              upSpeed+=flyerVars.upSpeed;
+              downSpeed+=flyerVars.downSpeed;
+            }
+          }
         }
       }
     }
