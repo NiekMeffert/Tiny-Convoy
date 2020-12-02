@@ -63,6 +63,7 @@ MonoBehaviour:
   mass: 1
   momentum: {x: 0, y: 0}
   height: 1
+  standable: 1
   cpu: {fileID: 0}
   health: 10
   maxHealth: 10
@@ -93,6 +94,12 @@ MonoBehaviour:
   longDistanceResolution: 0
   meshDistance: 0
   waterResistance: 0
+  objective: {fileID: 0}
+  powerNeeded: 0
+  powerAvailable: 0
+  maxPower: 0
+  maxChargeIn: 0
+  maxChargeOut: 0
 --- !u!114 &8985038422992580534
 MonoBehaviour:
   m_ObjectHideFlags: 0

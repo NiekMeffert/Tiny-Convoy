@@ -114,6 +114,7 @@ MonoBehaviour:
   mass: 0
   momentum: {x: 0, y: 0}
   height: 0
+  standable: 1
   cpu: {fileID: 0}
   upgrades: []
   upgradeTile: {fileID: 309975477927867900}

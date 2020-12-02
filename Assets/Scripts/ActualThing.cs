@@ -9,6 +9,7 @@ public class ActualThing : MonoBehaviour
   public float mass;
   public Vector2 momentum;
   public int height;
+  public bool standable;
 
   // Start is called before the first frame update
   void Start()
