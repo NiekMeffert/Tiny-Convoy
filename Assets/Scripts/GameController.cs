@@ -52,11 +52,19 @@ public class GameController : MonoBehaviour{
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
         if (Physics.Raycast(ray, out hit)){
-          if (hit.collider.tag == "Tile"){
-            totem.GetComponent<Pathfinder>().moveToTile(hit.collider.gameObject);
-          }
+          pickDefaultAction(hit);
         }
       }
+    }
+  }
+
+  void pickDefaultAction(RaycastHit hit){
+    if (hit.collider.tag == "Tile"){
+      totem.GetComponent<Pathfinder>().moveToTile(hit.collider.gameObject);
+    }
+    if (hit.collider.tag == "Plant"){
+      totem.GetComponent<CPU>().harvest(hit.collider.gameObject);
+      Debug.Log("Plant");
     }
   }
 

@@ -27,6 +27,12 @@ public class CPU : Upgrade {
   public float meshDistance;
   public float waterResistance;
   Pathfinder pathfinder;
+  public GameObject objective;
+  public float powerNeeded;
+  public float powerAvailable;
+  public float maxPower;
+  public float maxChargeIn;
+  public float maxChargeOut;
 
   // Start is called before the first frame update
   void Start(){
@@ -78,25 +84,26 @@ public class CPU : Upgrade {
     longDistanceResolution = 1;
     meshDistance = 5;
     waterResistance = 0;
+    powerNeeded = 0;
+    powerAvailable = 0;
+    maxPower = 0;
     //get charge & charge requirements
-    float powerNeeded = 0;
-    float powerAvailable = 0;
     for (int i = cars.Length-1; i>=0; i--){
       Car carVars = cars[i].GetComponent<Car>();
       for (int h = carVars.upgrades.GetLength(0)-1; h>=0; h--){
         if (carVars.upgrades[h]!=null){
           Upgrade upVars = carVars.upgrades[h].GetComponent<Upgrade>();
           if (upVars.health<0) upVars.on=false;
-          if (upVars.on==true) powerNeeded+=upVars.drain*Time.deltaTime;
+          if (upVars.on==true) powerNeeded+=upVars.drain;
           Battery batteryVars = carVars.upgrades[h].GetComponent<Battery>();
           if (batteryVars != null){
             if (batteryVars.health<0) batteryVars.charge=0;
-            powerAvailable+=batteryVars.charge*Time.deltaTime;
+            powerAvailable+=batteryVars.charge;
+            maxPower+=batteryVars.maxCharge;
           }
         }
       }
     }
-
     //shut stuff off until there's enough power
     if (powerAvailable<powerNeeded) {
       for (int i = cars.Length-1; i>=0; i--){
@@ -106,7 +113,7 @@ public class CPU : Upgrade {
             Upgrade upVars = carVars.upgrades[h].GetComponent<Upgrade>();
             if (upVars.on==true && carVars.upgrades[h].GetComponent<CPU>()==null) {
               upVars.on=false;
-              powerNeeded-=upVars.drain*Time.deltaTime;
+              powerNeeded-=upVars.drain;
             }
           }
         }
@@ -118,7 +125,7 @@ public class CPU : Upgrade {
       for (int h = carVars.upgrades.GetLength(0)-1; h>=0; h--){
         Battery batteryVars = carVars.upgrades[h].GetComponent<Battery>();
         if (carVars.upgrades[h]!=null && powerNeeded>0 && batteryVars!=null){
-          batteryVars.charge -= powerNeeded;
+          batteryVars.charge -= powerNeeded*Time.deltaTime;
           powerNeeded = 0;
           if (batteryVars.charge<0){
             powerNeeded = -1f*batteryVars.charge;
@@ -182,6 +189,41 @@ public class CPU : Upgrade {
           Mover moverVars = carVars.upgrades[h].GetComponent<Mover>();
           if (moverVars!=null){
             moverVars.on=false;
+          }
+        }
+      }
+    }
+    if (objective!=null && objective.GetComponent<Plant>()!=null){
+      harvest(objective);
+    }
+  }
+
+  public void harvest(GameObject plant){
+    bool closeEnough=false;
+    for (int i=0; i<cars.Length; i++){
+      if (Vector2.Distance(new Vector2(plant.transform.position.x, plant.transform.position.z), new Vector2(cars[i].transform.position.x, cars[i].transform.position.z))<1.3f) closeEnough=true;
+    }
+    if (closeEnough){
+      chargeFrom(plant);
+    } else {
+      pathfinder.moveNextTo(plant.GetComponent<Plant>().tile);
+      objective=plant;
+    }
+  }
+
+  public void chargeFrom(GameObject source){
+    float intake = Mathf.Max(maxPower-powerAvailable, maxChargeIn*Time.deltaTime);
+    float chargeIn = source.GetComponent<Powered>().discharge(intake);
+    for (int i = 0; i<cars.Length; i++){
+      Car carVars = cars[i].GetComponent<Car>();
+      for (int h = 0; h<carVars.upgrades.GetLength(0); h++){
+        Battery batteryVars = carVars.upgrades[h].GetComponent<Battery>();
+        if (carVars.upgrades[h]!=null && chargeIn>0 && batteryVars!=null){
+          batteryVars.charge += chargeIn;
+          chargeIn = 0;
+          if (batteryVars.charge>batteryVars.maxCharge){
+            chargeIn = batteryVars.charge-batteryVars.maxCharge;
+            batteryVars.charge=batteryVars.maxCharge;
           }
         }
       }

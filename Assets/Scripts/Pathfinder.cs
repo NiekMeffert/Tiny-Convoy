@@ -18,6 +18,8 @@ public class Pathfinder : MonoBehaviour
 
   public virtual void moveToTile(GameObject tile){}
 
+  public virtual void moveNextTo(GameObject tile){}
+
   public virtual void stop(){
     destination=null;
     cpu.stopMovers();

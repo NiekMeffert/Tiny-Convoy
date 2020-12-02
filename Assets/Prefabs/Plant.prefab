@@ -10,9 +10,10 @@ GameObject:
   m_Component:
   - component: {fileID: 2379986652546534500}
   - component: {fileID: 1706230667351803242}
+  - component: {fileID: 9220264105873827093}
   m_Layer: 0
   m_Name: Plant
-  m_TagString: Untagged
+  m_TagString: Plant
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -51,19 +52,19 @@ MonoBehaviour:
   height: 3
   power: 10
   maxPower: 10
---- !u!65 &830440076620964693
+--- !u!65 &9220264105873827093
 BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5062429390765369650}
+  m_GameObject: {fileID: 2498946500452104959}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1.3022135, y: 1.527319, z: 1.4425342}
-  m_Center: {x: 0, y: 0.7783711, z: 0.4485234}
+  m_Size: {x: 1, y: 1.5374098, z: 1.4109603}
+  m_Center: {x: 0, y: 0.77450204, z: 0.43466955}
 --- !u!1001 &5368349461134972003
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -138,12 +139,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 79c2429161593bd4a838448a2916e28a, type: 3}
---- !u!1 &5062429390765369650 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 79c2429161593bd4a838448a2916e28a,
-    type: 3}
-  m_PrefabInstance: {fileID: 5368349461134972003}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &5551403530153194376 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 79c2429161593bd4a838448a2916e28a,
