@@ -12,9 +12,9 @@ public class GameController : MonoBehaviour{
   public GameObject tilePrefab;
   public GameObject CPUPrefab;
   public GameObject carPrefab;
-  public GameObject[] upgradePrefabs = new GameObject[16];
-  public GameObject[] plantPrefabs = new GameObject[16];
-  public GameObject[] bigTilePrefabs = new GameObject[16];
+  public GameObject[] upgradePrefabs;
+  public GameObject[] plantPrefabs;
+  public GameObject[] bigTilePrefabs;
   public GameObject mainCamera;
   public GameObject lastBigTile;
   public GameObject[] CPUs;
@@ -23,7 +23,7 @@ public class GameController : MonoBehaviour{
   // Start is called before the first frame update
   void Start(){
     mainCamera = GameObject.Find("Main Camera");
-    for (int i = 0; i<upgradePrefabs.Length; i++){
+    /*for (int i = 0; i<upgradePrefabs.Length; i++){
       if (upgradePrefabs[i]==null){upgradePrefabs[i]=upgradePrefabs[0];}
     }
     for (int i = 0; i<plantPrefabs.Length; i++){
@@ -33,7 +33,8 @@ public class GameController : MonoBehaviour{
       if (bigTilePrefabs[i]==null){
         bigTilePrefabs[i]=bigTilePrefabs[0];
       }
-    }
+    }*/
+
     randomSeedX = (int) (Random.value * 1000000000f);
     randomSeedY = (int) (Random.value * 1000000000f);
     //createBigTile(new Vector2Int(0,0), null);
@@ -44,7 +45,7 @@ public class GameController : MonoBehaviour{
     //normal game mode
     if (mode==1) {
       totemCounter-=Time.deltaTime;
-      if (totemCounter<0){
+      if (totemCounter<0&&(CPUs.Length>0)){
         totem = CPUs[Mathf.FloorToInt(Random.value*CPUs.Length)];
         totemCounter=120;
       }
@@ -64,7 +65,6 @@ public class GameController : MonoBehaviour{
     }
     if (hit.collider.tag == "Plant"){
       totem.GetComponent<CPU>().harvest(hit.collider.gameObject);
-      Debug.Log("Plant");
     }
   }
 
@@ -103,11 +103,22 @@ public class GameController : MonoBehaviour{
     return tiles;
   }
 
+  public float[] getRands(Vector2Int vec2){
+    int rInit = vec2.x+randomSeedX+vec2.y+randomSeedY;
+    float[] rands = new float[16];
+    for (int i=0; i<rands.Length; i++){
+      Random.InitState(rInit);
+      rands[i]=Random.value;
+      rInit++;
+    }
+    return rands;
+  }
+
   public GameObject createBigTile(Vector2Int targetFloor, GameObject forcedBigTile){
     GameObject btPrefab = null;
     if (forcedBigTile==null){
-      Random.InitState(targetFloor.x+randomSeedX+targetFloor.y+randomSeedY);
-      btPrefab = bigTilePrefabs[Mathf.RoundToInt(Random.value*(bigTilePrefabs.Length-1))];
+      float[] rands = getRands(targetFloor);
+      btPrefab = bigTilePrefabs[Mathf.RoundToInt(rands[0]*(bigTilePrefabs.Length-1))];
     } else {
       btPrefab = forcedBigTile;
     }

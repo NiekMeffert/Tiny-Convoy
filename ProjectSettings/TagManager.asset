@@ -7,6 +7,7 @@ TagManager:
   - Tile
   - BigTile
   - CPU
+  - Plant
   layers:
   - Default
   - TransparentFX
