@@ -5,10 +5,10 @@ public class CamZoom : MonoBehaviour
     public Vector3 offset = new Vector3(0, 0, 0);
     public Transform target;
 
-    public float minZoom = 5f;
-    public float maxZoom = 15f;
-    public float zoomSpeed = 4f;
-    private float currentZoom = 10f;
+    public float minZoom = -5f;
+    public float maxZoom = 5f;
+    public float zoomSpeed = 1f;
+    private float currentZoom = 0f;
 
     void Start(){
       offset = target.position-transform.position;

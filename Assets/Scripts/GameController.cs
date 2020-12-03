@@ -19,6 +19,8 @@ public class GameController : MonoBehaviour{
   public GameObject lastBigTile;
   public GameObject[] CPUs;
   public GameObject totem;
+  float visibilityPainterX = .5f;
+  float visibilityPainterY = .5f;
 
   // Start is called before the first frame update
   void Start(){
@@ -56,6 +58,21 @@ public class GameController : MonoBehaviour{
           pickDefaultAction(hit);
         }
       }
+    }
+    updateVisibleTiles();
+  }
+
+  public void updateVisibleTiles(){
+    for (int i=1; i>=0; i--){
+      visibilityPainterX+=.07f;
+      if (visibilityPainterX>1.2f){
+        visibilityPainterX -= 1.4f;
+        visibilityPainterY+=.07f;
+        if (visibilityPainterY>1.2f) visibilityPainterY-=1.4f;
+      }
+      Ray r = mainCamera.GetComponent<Camera>().ViewportPointToRay(new Vector3(visibilityPainterX, visibilityPainterY, 0));
+      Vector3 zeroPoint = r.origin + (((r.origin.y) / -r.direction.y) * r.direction);
+      getTile(new Vector2Int(Mathf.RoundToInt(zeroPoint.x), Mathf.RoundToInt(zeroPoint.z)));
     }
   }
 
