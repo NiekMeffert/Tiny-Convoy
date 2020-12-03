@@ -6,9 +6,9 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Staging folder/Niek_Testing/Niek_Scene/Niek_Testing_menu.unity
-    guid: 866cb09605dce4e408501d37ff68bccb
+    path: Assets/Scenes/Menu.unity
+    guid: 2099af41d19c547b4b17f6cb7e59ae8f
   - enabled: 1
-    path: Assets/Staging folder/Niek_Testing/Niek_Scene/Niek_Testing_Scene.unity
-    guid: 198ba7003fc01d547b180aca67b84fcb
+    path: Assets/Scenes/Game.unity
+    guid: a8cd26c98e62a4daebb0780b0c792191
   m_configObjects: {}

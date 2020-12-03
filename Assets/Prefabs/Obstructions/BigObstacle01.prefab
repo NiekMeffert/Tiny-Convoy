@@ -417,6 +417,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: InvisibleObstruction
       objectReference: {fileID: 0}
+    - target: {fileID: 8791922788125365343, guid: 2ceb7892596e847f5baa17a942983e3e,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2ceb7892596e847f5baa17a942983e3e, type: 3}
 --- !u!4 &6705079702846614075 stripped

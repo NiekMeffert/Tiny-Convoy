@@ -8,8 +8,11 @@ public class CamZoom : MonoBehaviour
     public float minZoom = 5f;
     public float maxZoom = 15f;
     public float zoomSpeed = 4f;
-
     private float currentZoom = 10f;
+
+    void Start(){
+      offset = target.position-transform.position;
+    }
 
     void Update()
     {
@@ -19,6 +22,6 @@ public class CamZoom : MonoBehaviour
 
     void LateUpdate()
     {
-        transform.position = target.position - offset * currentZoom;
+        transform.position = target.position - (offset * currentZoom);
     }
 }
