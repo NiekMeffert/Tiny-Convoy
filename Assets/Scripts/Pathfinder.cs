@@ -21,8 +21,10 @@ public class Pathfinder : MonoBehaviour
   public GameController gameController;
   public CPU cpu;
   public GameObject destination;
-  Stack<navTile> path = new Stack<navTile>();
   public Car firstCarVars;
+  public Stack<navTile> path = new Stack<navTile>();
+  public List<navTile> selectableTiles = new List<navTile>();
+  public navTile currentTile;
 
   // Start is called before the first frame update
   void Start(){
@@ -54,7 +56,11 @@ public class Pathfinder : MonoBehaviour
       cpu.cars[0].transform.position += twoDDirClamped;
       cpu.cars[0].GetComponent<Car>().moveOntoTile(gameController.getTile(Vector2Int.RoundToInt(cpu.cars[0].transform.position)),0);
     }
-    if (twoDDir.magnitude<.1f && rotAngle<.1f) stop();
+    if (twoDDir.magnitude<.1f && rotAngle<.1f) {
+      transform.position = destination.transform.position;
+      transform.rotation = lookRot;
+      stop();
+    }
   }
 
   public virtual void moveNextTo(GameObject tile){}
@@ -64,8 +70,8 @@ public class Pathfinder : MonoBehaviour
     cpu.stopMovers();
   }
 
-  public virtual (float, Stack<navTile>) getPath(GameObject tile){
+  public virtual (float, Stack<navTile>, List<navTile>, navTile, navTile) getPath(GameObject tile){
     float cost = 0;
-    return (cost, path);
+    return (cost, path, selectableTiles, currentTile, currentTile);
   }
 }

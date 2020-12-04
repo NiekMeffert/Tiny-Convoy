@@ -4,22 +4,8 @@ using UnityEngine;
 
 public class AStarPathfinder : Pathfinder
 {
-  List<navTile> selectableTiles = new List<navTile>();
-  Stack<navTile> path = new Stack<navTile>();
-  navTile currentTile;
   public bool moving = false;
   public int move = 5;
-  public float jumpHeight = 2;
-  public float moveSpeed = 2;
-  public float jumpVelocity = 4.5f;
-  Vector3 velocity = new Vector3();
-  Vector3 heading = new Vector3();
-  float halfHeight = 0;
-  bool fallingDown = false;
-  bool jumpingUp = false;
-  bool movingEdge = false;
-  Vector3 jumpTarget;
-  navTile[,] memoryTiles;
 
   // Start is called before the first frame update
   void Start(){
@@ -28,13 +14,25 @@ public class AStarPathfinder : Pathfinder
 
   // Update is called once per frame
   void Update(){
+    if (destination!=null || gameController.mode==1 || firstCarVars.tile!=null){
+      if (path.Count > 0 && path.Peek().tile!=destination){
+        destination=path.Peek().tile;
+      }
+      moveToTile();
+    }
   }
 
-  public override (float, Stack<navTile>) getPath(GameObject tile){
+  public override (float, Stack<navTile>, List<navTile>, navTile, navTile) getPath(GameObject tile){
     float cost = 0;
+    List<navTile> selectableTiles2 = new List<navTile>();
+    Stack<navTile> path2 = new Stack<navTile>();
+    navTile currentTile2;
+    navTile[,] memoryTiles;
     Tile firstCarTile = firstCarVars.tile.GetComponent<Tile>();
+    Vector2Int offset = new Vector2Int(firstCarTile.pos.x-tile.GetComponent<Tile>().pos.x, firstCarTile.pos.y-tile.GetComponent<Tile>().pos.y);
+    if (Mathf.Abs(offset.x)>cpu.memory || Mathf.Abs(offset.y)>cpu.memory) return (cost, path2, selectableTiles2, new navTile(), new navTile());
     GameObject[,] mTiles = gameController.getSquare(new Vector3Int(firstCarTile.pos.x, firstCarTile.pos.y, cpu.memory));
-    navTile[,] memoryTiles = new navTile[mTiles.GetLength(0), mTiles.GetLength(1)];
+    memoryTiles = new navTile[mTiles.GetLength(0), mTiles.GetLength(1)];
     for (int x = 0; x<memoryTiles.GetLength(0); x++){
       for (int y = 0; y<memoryTiles.GetLength(1); y++){
         memoryTiles[x,y] = makeNavTile(mTiles[x,y]);
@@ -42,22 +40,30 @@ public class AStarPathfinder : Pathfinder
     }
     for (int x = 0; x<memoryTiles.GetLength(0); x++){
       for (int y = 0; y<memoryTiles.GetLength(1); y++){
-        computeAdjacencyLists(x,y);
+        computeAdjacencyLists(x,y,memoryTiles);
       }
     }
-    currentTile = memoryTiles[cpu.memory,cpu.memory];
-    currentTile.current = true;
-    FindSelectableTiles();
-    return (cost, path);
+    currentTile2 = memoryTiles[cpu.memory,cpu.memory];
+    currentTile2.current = true;
+    selectableTiles2 = FindSelectableTiles(currentTile2, selectableTiles2);
+    navTile targetNavTile = memoryTiles[cpu.memory+offset.x,cpu.memory+offset.y];
+    targetNavTile.target = true;
+    navTile next = targetNavTile;
+    while (next !=null)
+    {
+      path.Push(next);
+      next = next.parent;
+    }
+    return (cost, path2, selectableTiles2, currentTile2, targetNavTile);
+  }
+
+  public void setPath(float cost, Stack<navTile> path2, List<navTile> selectableTiles2, navTile currentTile2){
+    path=path2;
+    selectableTiles=selectableTiles2;
+    currentTile=currentTile2;
   }
 
   public override void moveNextTo(GameObject tile){
-    GameObject[,] adjacents = gameController.getSquare(new Vector3Int(tile.GetComponent<Tile>().pos.x, tile.GetComponent<Tile>().pos.y, 1));
-    destination=adjacents[Mathf.RoundToInt(Random.Range(0,2)), Mathf.RoundToInt(Random.Range(0,2))];
-    if (destination==tile){
-      destination=adjacents[0,0];
-    }
-    cpu.startMovers();
   }
 
   public navTile makeNavTile(GameObject tile){
@@ -75,7 +81,7 @@ public class AStarPathfinder : Pathfinder
     return nt;
   }
 
-  public void computeAdjacencyLists(int ntx, int nty){
+  public void computeAdjacencyLists(int ntx, int nty, navTile[,] memoryTiles){
     Vector2Int[] neighbors = new Vector2Int[] {new Vector2Int(0,1), new Vector2Int(1,1), new Vector2Int(1,0), new Vector2Int(1,-1), new Vector2Int(0,-1), new Vector2Int(-1,-1), new Vector2Int(-1,0), new Vector2Int(-1,1)};
     foreach (Vector2Int n in neighbors){
       if (ntx+n.x>-1 && ntx+n.x<memoryTiles.GetLength(0) && nty+n.y>-1 && nty+n.y<memoryTiles.GetLength(1)){
@@ -87,14 +93,14 @@ public class AStarPathfinder : Pathfinder
     }
   }
 
-  public void FindSelectableTiles(){
+  public List<navTile> FindSelectableTiles(navTile currentTile2, List<navTile> selectableTiles2){
     Queue<navTile> process = new Queue<navTile>();
-    process.Enqueue(currentTile);
-    currentTile.visited = true;
+    process.Enqueue(currentTile2);
+    currentTile2.visited = true;
    // currentTile.parent = ?? leave as null
     while (process.Count > 0){
       navTile t = process.Dequeue();
-      selectableTiles.Add(t);
+      selectableTiles2.Add(t);
       t.selectable = true;
       if (t.distance < move){
         foreach (navTile tile in t.adjacencyList){
@@ -107,186 +113,15 @@ public class AStarPathfinder : Pathfinder
         }
       }
     }
+    return selectableTiles2;
   }
 
-  public void MoveToTile(navTile tile)
-  {
-      path.Clear();
-      tile.target = true;
-      moving = true;
-
-      navTile next = tile;
-      while (next !=null)
-      {
-          path.Push(next);
-          next = next.parent;
-      }
-  }
-
-  public void Move()
-  {
-      if (path.Count > 0)
-      {
-          navTile t = path.Peek();
-          Vector3 target = t.tile.transform.position;
-
-          //calculate the units position on top of the target tile
-          target.y += halfHeight + t.GetComponent<Collider>().bounds.extents.y;
-
-          if (Vector3.Distance(transform.position, target) >= 0.1f)
-          {
-              /* bool jump = transform.position.y != target.y;
-
-               if (jump)
-               {
-                   Jump(target);
-               }
-               else
-               {
-                   CalculateHeading(target);
-                   SetHorizontalVelocity();
-               }
-              */
-
-              CalculateHeading(target);
-              SetHorizontalVelocity();
-              //Locomotion
-              transform.forward = heading;
-              transform.position += velocity * Time.deltaTime;
-          }
-          else
-          {
-              //Tile center reached
-              transform.position = target;
-              path.Pop();
-
-          }
-
-
-      }
-      else
-      {
-          RemoveSelectableTiles();
-         moving = false;
-      }
-  }
-
-  protected void RemoveSelectableTiles()
-  {
-      if (currentTile != null)
-      {
-          currentTile.current = false;
-          currentTile = null;
-      }
-      foreach (navTile tile in selectableTiles)
-      {
-          tile.Reset();
-      }
-
-      selectableTiles.Clear();
-  }
-
-  void CalculateHeading(Vector3 target)
-  {
-      heading = target - transform.position;
-      heading.Normalize();
-  }
-
-  void SetHorizontalVelocity()
-  {
-      velocity = heading * moveSpeed;
-  }
-
-  void Jump(Vector3 target)
-  {
-      if (fallingDown)
-      {
-          FallDownward(target);
-      }
-      else if (jumpingUp)
-      {
-          JumpUpward(target);
-      }
-      else if (movingEdge)
-      {
-          MoveToEdge();
-      }
-      else
-      {
-          PrepareJump(target);
-      }
-
-  }
-
-  void PrepareJump(Vector3 target)
-  {
-      float targetY = target.y;
-      target.y = transform.position.y;
-
-      CalculateHeading(target);
-
-      if(transform.position.y > targetY)
-      {
-          fallingDown = false;
-          jumpingUp = false;
-          movingEdge = false;
-
-          jumpTarget = transform.position + (target - transform.position) / 2.0f;
-      }
-      else
-      {
-          fallingDown = false;
-          jumpingUp = false;
-          movingEdge = false;
-
-          velocity = heading * moveSpeed / 3.0f;
-
-          float difference = targetY - transform.position.y;
-
-          velocity.y = jumpVelocity * (0.5f + difference / 2.0f);
-      }
-  }
-
-  void FallDownward(Vector3 target)
-  {
-      velocity += Physics.gravity * Time.deltaTime;
-
-      if (transform.position.y <= target.y)
-      {
-          fallingDown = false;
-
-          Vector3 p = transform.position;
-          p.y = target.y;
-          transform.position = p;
-
-          velocity = new Vector3();
-      }
-  }
-
-  void JumpUpward(Vector3 target)
-  {
-      velocity += Physics.gravity * Time.deltaTime;
-
-      if (transform.position.y > target.y)
-      {
-          jumpingUp = false;
-          fallingDown = false;
-      }
-  }
-
-  void MoveToEdge()
-  {
-      if (Vector3.Distance(transform.position, jumpTarget) >= 0.05f)
-      {
-          SetHorizontalVelocity();
-      }
-      else
-      {
-          movingEdge = false;
-          fallingDown = false;
-
-          velocity /= 3.0f;
-          velocity.y = 1.5f;
-      }
+  public override void stop(){
+    if (path.Count > 0){
+      path.Pop();
+    } else {
+      destination=null;
+      cpu.stopMovers();
+    }
   }
 }
