@@ -25,21 +25,8 @@ public class GameController : MonoBehaviour{
   // Start is called before the first frame update
   void Start(){
     mainCamera = GameObject.Find("Main Camera");
-    /*for (int i = 0; i<upgradePrefabs.Length; i++){
-      if (upgradePrefabs[i]==null){upgradePrefabs[i]=upgradePrefabs[0];}
-    }
-    for (int i = 0; i<plantPrefabs.Length; i++){
-      if (plantPrefabs[i]==null){plantPrefabs[i]=plantPrefabs[0];}
-    }
-    for (int i = 0; i<bigTilePrefabs.Length; i++){
-      if (bigTilePrefabs[i]==null){
-        bigTilePrefabs[i]=bigTilePrefabs[0];
-      }
-    }*/
-
     randomSeedX = (int) (Random.value * 1000000000f);
     randomSeedY = (int) (Random.value * 1000000000f);
-    //createBigTile(new Vector2Int(0,0), null);
   }
 
   // Update is called once per frame
@@ -78,7 +65,7 @@ public class GameController : MonoBehaviour{
 
   void pickDefaultAction(RaycastHit hit){
     if (hit.collider.tag == "Tile"){
-      totem.GetComponent<Pathfinder>().moveToTile(hit.collider.gameObject);
+      totem.GetComponent<Pathfinder>().destination = hit.collider.gameObject;
     }
     if (hit.collider.tag == "Plant"){
       totem.GetComponent<CPU>().harvest(hit.collider.gameObject);

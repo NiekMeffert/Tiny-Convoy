@@ -16,11 +16,10 @@ public class CPU : Upgrade {
   public int baseOutputs;
   public float baseBattery;
   public float baseSight;
-  public float fSpeed;
-  public float bSpeed;
+  public float hSpeed;
   public float turnSpeed;
-  public float upSpeed;
-  public float downSpeed;
+  public float vSpeed;
+  public float climb;
   public int flyHeight;
   public float sightDistance;
   public int longDistanceResolution;
@@ -33,6 +32,7 @@ public class CPU : Upgrade {
   public float maxPower;
   public float maxChargeIn;
   public float maxChargeOut;
+  public bool waitForRotation;
 
   // Start is called before the first frame update
   void Start(){
@@ -77,9 +77,9 @@ public class CPU : Upgrade {
     outputs = baseOutputs;
     battery = baseBattery;
     sight = baseSight;
-    fSpeed = 0;
-    bSpeed = 0;
+    hSpeed = 0;
     turnSpeed = 0;
+    vSpeed = 0;
     flyHeight = 0;
     longDistanceResolution = 1;
     meshDistance = 5;
@@ -87,6 +87,7 @@ public class CPU : Upgrade {
     powerNeeded = 0;
     powerAvailable = 0;
     maxPower = 0;
+    waitForRotation = false;
     //get charge & charge requirements
     for (int i = cars.Length-1; i>=0; i--){
       Car carVars = cars[i].GetComponent<Car>();
@@ -149,14 +150,14 @@ public class CPU : Upgrade {
             if (scannerVars!=null){longDistanceResolution+=scannerVars.resolution;}
             Mover moverVars = carVars.upgrades[h].GetComponent<Mover>();
             if (moverVars!=null){
-              fSpeed+=moverVars.fSpeed;
-              bSpeed+=moverVars.bSpeed;
+              hSpeed+=moverVars.hSpeed;
               turnSpeed+=moverVars.turnSpeed;
+              if (moverVars.waitForRotation) waitForRotation=true;
             }
             Flyer flyerVars = carVars.upgrades[h].GetComponent<Flyer>();
             if (flyerVars!=null){
-              upSpeed+=flyerVars.upSpeed;
-              downSpeed+=flyerVars.downSpeed;
+              vSpeed+=flyerVars.vSpeed;
+              vSpeed+=flyerVars.vSpeed;
             }
           }
         }

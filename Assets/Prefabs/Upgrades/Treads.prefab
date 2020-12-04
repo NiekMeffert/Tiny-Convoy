@@ -71,6 +71,7 @@ MonoBehaviour:
   fSpeed: 1
   bSpeed: 0.5
   turnSpeed: 1
+  waitForRotation: 0
 --- !u!1001 &1749776086661070561
 PrefabInstance:
   m_ObjectHideFlags: 0

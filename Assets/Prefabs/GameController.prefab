@@ -67,6 +67,7 @@ MonoBehaviour:
   - {fileID: 5364779908445073467, guid: c49cce630da994b73bdc1c694ac7f0c3, type: 3}
   - {fileID: 5364779908445073467, guid: b0898f3b0b036455a88ac03937998cd1, type: 3}
   - {fileID: 5364779908445073467, guid: e834719ee9ccd4f86afc3fbc9a6b9870, type: 3}
+  - {fileID: 5364779908445073467, guid: ba9d856d39c214ef1984bde317c5e272, type: 3}
   mainCamera: {fileID: 0}
   lastBigTile: {fileID: 0}
   CPUs: []

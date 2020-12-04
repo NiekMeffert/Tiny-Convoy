@@ -5,9 +5,9 @@ using UnityEngine;
 public class Mover : Upgrade
 {
 
-  public float fSpeed;
-  public float bSpeed;
+  public float hSpeed;
   public float turnSpeed;
+  public bool waitForRotation;
 
   // Start is called before the first frame update
   void Start()

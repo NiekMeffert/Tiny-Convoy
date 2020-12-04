@@ -5,10 +5,7 @@ using UnityEngine;
 public class Flyer : Mover
 {
 
-  public float upSpeed;
-  public float upAccel;
-  public float downSpeed;
-  public float downAccel;
+  public float vSpeed;
 
   // Start is called before the first frame update
   void Start()
