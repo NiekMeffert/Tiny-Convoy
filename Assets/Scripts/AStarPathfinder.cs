@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class AStarPathfinder : Pathfinder
 {
-  public bool moving = false;
   public int move = 5;
 
   // Start is called before the first frame update
@@ -14,12 +13,12 @@ public class AStarPathfinder : Pathfinder
 
   // Update is called once per frame
   void Update(){
-    if (destination!=null || gameController.mode==1 || firstCarVars.tile!=null){
-      if (path.Count > 0 && path.Peek().tile!=destination){
-        destination=path.Peek().tile;
-      }
-      moveToTile();
+    if (destination==null) return;
+    if (gameController.mode!=1 || firstCarVars.tile==null) return;
+    if (path.Count > 0 && path.Peek().tile!=destination){
+      destination=path.Peek().tile;
     }
+    moveToTile();
   }
 
   public override (float, Stack<navTile>, List<navTile>, navTile, navTile) getPath(GameObject tile){

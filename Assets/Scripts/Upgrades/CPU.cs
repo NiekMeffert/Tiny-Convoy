@@ -206,9 +206,10 @@ public class CPU : Upgrade {
     }
     if (closeEnough){
       chargeFrom(plant);
+      objective=null;
     } else {
-      pathfinder.moveNextTo(plant.GetComponent<Plant>().tile);
-      objective=plant;
+      pathfinder.destination = plant.GetComponent<Plant>().tile;
+      pathfinder.moveToTile();
     }
   }
 

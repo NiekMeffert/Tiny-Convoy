@@ -25,6 +25,7 @@ public class Pathfinder : MonoBehaviour
   public Stack<navTile> path = new Stack<navTile>();
   public List<navTile> selectableTiles = new List<navTile>();
   public navTile currentTile;
+  public bool moving = false;
 
   // Start is called before the first frame update
   void Start(){
@@ -33,9 +34,9 @@ public class Pathfinder : MonoBehaviour
 
   // Update is called once per frame
   void Update(){
-    if (destination!=null || gameController.mode==1 || firstCarVars.tile!=null){
-      moveToTile();
-    }
+    if (destination==null) return;
+    if (gameController.mode!=1 || firstCarVars.tile==null) return;
+    moveToTile();
   }
 
   public virtual void setUpPathfinder(){
@@ -46,19 +47,35 @@ public class Pathfinder : MonoBehaviour
 
   public virtual void moveToTile(){
     //Have a destination & in normal game mode
+    if (moving==false) cpu.startMovers();
+    moving=true;
     Vector3 dir3 = destination.transform.position-transform.position;
     Vector3 twoDDir = new Vector3(dir3.x, 0, dir3.z);
     Vector3 twoDDirClamped = Vector3.ClampMagnitude(twoDDir, cpu.hSpeed*Time.deltaTime);
     Quaternion lookRot = Quaternion.LookRotation(twoDDir, Vector3.up);
-    float rotAngle = Mathf.Min(cpu.turnSpeed*Time.deltaTime, Quaternion.Angle(cpu.cars[0].transform.rotation, lookRot));
-    cpu.cars[0].transform.rotation = Quaternion.Slerp(cpu.cars[0].transform.rotation, lookRot, rotAngle);
-    if (cpu.waitForRotation==false || rotAngle<.1f) {
-      cpu.cars[0].transform.position += twoDDirClamped;
-      cpu.cars[0].GetComponent<Car>().moveOntoTile(gameController.getTile(Vector2Int.RoundToInt(cpu.cars[0].transform.position)),0);
+    float totalTurn = Quaternion.Angle(cpu.cars[0].transform.rotation, lookRot);
+    if (totalTurn>0){
+      float frameTurn = Mathf.Min(360f*cpu.turnSpeed*Time.deltaTime, totalTurn);
+      cpu.cars[0].transform.rotation = Quaternion.Slerp(cpu.cars[0].transform.rotation, lookRot, frameTurn/totalTurn);
     }
-    if (twoDDir.magnitude<.1f && rotAngle<.1f) {
-      transform.position = destination.transform.position;
-      transform.rotation = lookRot;
+    if (cpu.waitForRotation==false || totalTurn<.01f) {
+      cpu.cars[0].transform.position += twoDDirClamped;
+      GameObject maybeNewTile = gameController.getTile(Vector2Int.RoundToInt(cpu.cars[0].transform.position));
+      if (maybeNewTile!=firstCarVars.tile) {
+        int fitSlot = gameController.canFit(cpu.cars[0], maybeNewTile);
+        //Debug.Log(fitSlot);
+        if (fitSlot==0){
+          firstCarVars.moveOntoTile(maybeNewTile,0);
+        } else {
+          cpu.cars[0].transform.position -= twoDDirClamped;
+          stop();
+        }
+
+      }
+    }
+    if (twoDDir.magnitude<.1f && totalTurn<.01f) {
+      cpu.cars[0].transform.position = destination.transform.position;
+      cpu.cars[0].transform.rotation = lookRot;
       stop();
     }
   }
@@ -68,6 +85,7 @@ public class Pathfinder : MonoBehaviour
   public virtual void stop(){
     destination=null;
     cpu.stopMovers();
+    moving=false;
   }
 
   public virtual (float, Stack<navTile>, List<navTile>, navTile, navTile) getPath(GameObject tile){

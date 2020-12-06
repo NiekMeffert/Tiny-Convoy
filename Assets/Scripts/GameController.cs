@@ -66,9 +66,11 @@ public class GameController : MonoBehaviour{
   void pickDefaultAction(RaycastHit hit){
     if (hit.collider.tag == "Tile"){
       totem.GetComponent<Pathfinder>().destination = hit.collider.gameObject;
+      totem.GetComponent<CPU>().objective = null;
     }
     if (hit.collider.tag == "Plant"){
       totem.GetComponent<CPU>().harvest(hit.collider.gameObject);
+      totem.GetComponent<CPU>().objective = hit.collider.gameObject;
     }
   }
 

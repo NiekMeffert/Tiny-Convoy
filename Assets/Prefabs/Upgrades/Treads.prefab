@@ -68,8 +68,7 @@ MonoBehaviour:
   maxHealth: 10
   on: 0
   drain: 0.5
-  fSpeed: 1
-  bSpeed: 0.5
+  hSpeed: 2
   turnSpeed: 1
   waitForRotation: 0
 --- !u!1001 &1749776086661070561

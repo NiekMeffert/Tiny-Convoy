@@ -55,8 +55,8 @@ MonoBehaviour:
   maxHealth: 10
   on: 0
   drain: 0
-  charge: 50
-  maxCharge: 50
+  charge: 150
+  maxCharge: 150
 --- !u!65 &1899807132759462187
 BoxCollider:
   m_ObjectHideFlags: 0
