@@ -68,13 +68,8 @@ MonoBehaviour:
   - {fileID: 5364779908445073467, guid: b0898f3b0b036455a88ac03937998cd1, type: 3}
   - {fileID: 5364779908445073467, guid: e834719ee9ccd4f86afc3fbc9a6b9870, type: 3}
   - {fileID: 5364779908445073467, guid: ba9d856d39c214ef1984bde317c5e272, type: 3}
+  - {fileID: 5364779908445073467, guid: 5f613c2f47c474cd4b7a2558849015b0, type: 3}
   mainCamera: {fileID: 0}
   lastBigTile: {fileID: 0}
   CPUs: []
   totem: {fileID: 0}
-  rock1: {fileID: 2100000, guid: eca75fe0cbe524d3eb5787be434c22e5, type: 2}
-  rock2: {fileID: 0}
-  metal1: {fileID: 0}
-  metal2: {fileID: 0}
-  liquid1: {fileID: 0}
-  liquid2: {fileID: 0}

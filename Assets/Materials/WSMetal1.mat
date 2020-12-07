@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: WSMetal
+  m_Name: WSMetal1
   m_Shader: {fileID: -6465566751694194690, guid: 63c85bb6bda664761be0befe164ef8be,
     type: 3}
   m_ShaderKeywords: 

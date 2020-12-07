@@ -6,6 +6,7 @@ public class BigTile : MonoBehaviour
 {
 
   public Vector2Int pos;
+  public int rarity;
   public GameObject[,] tiles = new GameObject[10,10];
 
     // Start is called before the first frame update
