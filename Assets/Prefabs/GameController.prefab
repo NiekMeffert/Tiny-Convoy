@@ -72,3 +72,9 @@ MonoBehaviour:
   lastBigTile: {fileID: 0}
   CPUs: []
   totem: {fileID: 0}
+  rock1: {fileID: 2100000, guid: eca75fe0cbe524d3eb5787be434c22e5, type: 2}
+  rock2: {fileID: 0}
+  metal1: {fileID: 0}
+  metal2: {fileID: 0}
+  liquid1: {fileID: 0}
+  liquid2: {fileID: 0}
