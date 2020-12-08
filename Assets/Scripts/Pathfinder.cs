@@ -4,19 +4,6 @@ using UnityEngine;
 
 public class Pathfinder : MonoBehaviour
 {
-  public class navTile
-  {
-    public GameObject tile;
-    public Tile tileVars;
-    public bool walkable = true;
-    public bool current = false;
-    public bool target = false;
-    public bool selectable = false;
-    public List<navTile> adjacencyList = new List<navTile>();
-    public bool visited = false;
-    public navTile parent = null;
-    public int distance = 0;
-  }
 
   public GameController gameController;
   public CPU cpu;
