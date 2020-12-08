@@ -605,7 +605,7 @@ PrefabInstance:
     - target: {fileID: 322126913087276710, guid: b51d71589dd6c4f25a8b46502c160fda,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 322126913087276710, guid: b51d71589dd6c4f25a8b46502c160fda,
         type: 3}
@@ -615,7 +615,7 @@ PrefabInstance:
     - target: {fileID: 322126913087276710, guid: b51d71589dd6c4f25a8b46502c160fda,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 322126913087276710, guid: b51d71589dd6c4f25a8b46502c160fda,
         type: 3}
@@ -662,6 +662,12 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 6897911497581890440, guid: b51d71589dd6c4f25a8b46502c160fda,
+        type: 3}
+      propertyPath: marker
+      value: 
+      objectReference: {fileID: 1739288848109875228, guid: 4bc2feb4f25414281b632a9bf950734c,
+        type: 3}
     - target: {fileID: 6905369431080068047, guid: b51d71589dd6c4f25a8b46502c160fda,
         type: 3}
       propertyPath: m_Name
@@ -687,35 +693,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: GameController
       objectReference: {fileID: 0}
-    - target: {fileID: 7950635501605379246, guid: 4d99ac08a05ec4547b8f7ca79e9c50f1,
-        type: 3}
-      propertyPath: bigTilePrefabs.Array.size
-      value: 8
-      objectReference: {fileID: 0}
-    - target: {fileID: 7950635501605379246, guid: 4d99ac08a05ec4547b8f7ca79e9c50f1,
-        type: 3}
-      propertyPath: bigTilePrefabs.Array.data[5]
-      value: 
-      objectReference: {fileID: 5364779908445073467, guid: c49cce630da994b73bdc1c694ac7f0c3,
-        type: 3}
-    - target: {fileID: 7950635501605379246, guid: 4d99ac08a05ec4547b8f7ca79e9c50f1,
-        type: 3}
-      propertyPath: bigTilePrefabs.Array.data[6]
-      value: 
-      objectReference: {fileID: 5364779908445073467, guid: b0898f3b0b036455a88ac03937998cd1,
-        type: 3}
-    - target: {fileID: 7950635501605379246, guid: 4d99ac08a05ec4547b8f7ca79e9c50f1,
-        type: 3}
-      propertyPath: bigTilePrefabs.Array.data[1]
-      value: 
-      objectReference: {fileID: 5041918099155140764, guid: 2aa4caa21ffcbd54a8f75cf516d9758e,
-        type: 3}
-    - target: {fileID: 7950635501605379246, guid: 4d99ac08a05ec4547b8f7ca79e9c50f1,
-        type: 3}
-      propertyPath: bigTilePrefabs.Array.data[7]
-      value: 
-      objectReference: {fileID: 5041918099155140764, guid: 2aa4caa21ffcbd54a8f75cf516d9758e,
-        type: 3}
     - target: {fileID: 7950635501605379247, guid: 4d99ac08a05ec4547b8f7ca79e9c50f1,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -960,6 +937,7 @@ MonoBehaviour:
   destination: {fileID: 0}
   firstCarVars: {fileID: 0}
   moving: 0
+  marker: {fileID: 1739288848109875228, guid: 4bc2feb4f25414281b632a9bf950734c, type: 3}
   move: 5
 --- !u!1001 &2945564420689585814
 PrefabInstance:

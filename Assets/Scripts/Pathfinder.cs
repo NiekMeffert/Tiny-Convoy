@@ -26,6 +26,7 @@ public class Pathfinder : MonoBehaviour
   public List<navTile> selectableTiles = new List<navTile>();
   public navTile currentTile;
   public bool moving = false;
+  public GameObject marker;
 
   // Start is called before the first frame update
   void Start(){
@@ -60,12 +61,14 @@ public class Pathfinder : MonoBehaviour
     }
     if (cpu.waitForRotation==false || totalTurn<.01f) {
       cpu.cars[0].transform.position += twoDDirClamped;
-      GameObject maybeNewTile = gameController.getTile(Vector2Int.RoundToInt(cpu.cars[0].transform.position));
+      GameObject maybeNewTile = gameController.getTile(new Vector2Int(Mathf.RoundToInt(cpu.cars[0].transform.position.x), Mathf.RoundToInt(cpu.cars[0].transform.position.z)));
       if (maybeNewTile!=firstCarVars.tile) {
+        //GameObject mkr2 = Instantiate(marker);
+        //mkr2.transform.position = cpu.cars[0].GetComponent<Car>().tile.transform.position;
         int fitSlot = gameController.canFit(cpu.cars[0], maybeNewTile);
-        //Debug.Log(fitSlot);
         if (fitSlot==0){
           firstCarVars.moveOntoTile(maybeNewTile,0);
+
         } else {
           cpu.cars[0].transform.position -= twoDDirClamped;
           stop();

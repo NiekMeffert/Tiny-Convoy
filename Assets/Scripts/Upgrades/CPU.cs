@@ -209,7 +209,6 @@ public class CPU : Upgrade {
       objective=null;
     } else {
       pathfinder.destination = plant.GetComponent<Plant>().tile;
-      pathfinder.moveToTile();
     }
   }
 
