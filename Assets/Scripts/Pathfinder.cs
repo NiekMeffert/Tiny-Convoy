@@ -26,7 +26,7 @@ public class Pathfinder : MonoBehaviour
   public List<navTile> selectableTiles = new List<navTile>();
   public navTile currentTile;
   public bool moving = false;
-  public GameObject marker;
+  //public GameObject marker;
 
   // Start is called before the first frame update
   void Start(){
@@ -50,16 +50,19 @@ public class Pathfinder : MonoBehaviour
     //Have a destination & in normal game mode
     if (moving==false) cpu.startMovers();
     moving=true;
-    Vector3 dir3 = destination.transform.position-transform.position;
+    float totalTurn = 0;
+    Vector3 dir3 = destination.transform.position-cpu.cars[0].transform.position;
     Vector3 twoDDir = new Vector3(dir3.x, 0, dir3.z);
-    Vector3 twoDDirClamped = Vector3.ClampMagnitude(twoDDir, cpu.hSpeed*Time.deltaTime);
-    Quaternion lookRot = Quaternion.LookRotation(twoDDir, Vector3.up);
-    float totalTurn = Quaternion.Angle(cpu.cars[0].transform.rotation, lookRot);
-    if (totalTurn>0){
+    Vector3 twoDCar = new Vector3(cpu.cars[0].transform.position.x, 0, cpu.cars[0].transform.position.z);
+    if (twoDDir.sqrMagnitude>.01f){
+      Quaternion lookRot = Quaternion.LookRotation(twoDDir, Vector3.up);
+      Quaternion carRot = Quaternion.LookRotation(twoDCar, Vector3.up);
+      totalTurn = Quaternion.Angle(carRot, lookRot);
       float frameTurn = Mathf.Min(360f*cpu.turnSpeed*Time.deltaTime, totalTurn);
       cpu.cars[0].transform.rotation = Quaternion.Slerp(cpu.cars[0].transform.rotation, lookRot, frameTurn/totalTurn);
     }
     if (cpu.waitForRotation==false || totalTurn<.01f) {
+      Vector3 twoDDirClamped = Vector3.ClampMagnitude(twoDDir, cpu.hSpeed*Time.deltaTime);
       cpu.cars[0].transform.position += twoDDirClamped;
       GameObject maybeNewTile = gameController.getTile(new Vector2Int(Mathf.RoundToInt(cpu.cars[0].transform.position.x), Mathf.RoundToInt(cpu.cars[0].transform.position.z)));
       if (maybeNewTile!=firstCarVars.tile) {
@@ -78,7 +81,7 @@ public class Pathfinder : MonoBehaviour
     }
     if (twoDDir.magnitude<.1f && totalTurn<.01f) {
       cpu.cars[0].transform.position = destination.transform.position;
-      cpu.cars[0].transform.rotation = lookRot;
+      //cpu.cars[0].transform.rotation = lookRot;
       stop();
     }
   }

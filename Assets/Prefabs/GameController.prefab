@@ -69,7 +69,13 @@ MonoBehaviour:
   - {fileID: 5364779908445073467, guid: e834719ee9ccd4f86afc3fbc9a6b9870, type: 3}
   - {fileID: 5364779908445073467, guid: ba9d856d39c214ef1984bde317c5e272, type: 3}
   - {fileID: 5364779908445073467, guid: 5f613c2f47c474cd4b7a2558849015b0, type: 3}
+  - {fileID: 5364779908445073467, guid: f02777bb063154c30870bb8cfaaf7cfc, type: 3}
+  - {fileID: 5364779908445073467, guid: 14f9a6c99caba4ef48e586741309397f, type: 3}
   mainCamera: {fileID: 0}
   lastBigTile: {fileID: 0}
   CPUs: []
   totem: {fileID: 0}
+  fullPower: {fileID: 0}
+  hightPower: {fileID: 0}
+  lowPower: {fileID: 0}
+  noPower: {fileID: 0}

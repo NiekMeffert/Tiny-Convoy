@@ -23,7 +23,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5996756132322463612}
   - component: {fileID: 1775756268011119912}
-  - component: {fileID: 8985038422992580534}
+  - component: {fileID: 7456990125429083905}
   m_Layer: 0
   m_Name: CPU
   m_TagString: CPU
@@ -84,11 +84,10 @@ MonoBehaviour:
   baseOutputs: 0
   baseBattery: 0
   baseSight: 0
-  fSpeed: 0
-  bSpeed: 0
+  hSpeed: 0
   turnSpeed: 0
-  upSpeed: 0
-  downSpeed: 0
+  vSpeed: 0
+  climb: 0
   flyHeight: 0
   sightDistance: 0
   longDistanceResolution: 0
@@ -100,7 +99,8 @@ MonoBehaviour:
   maxPower: 0
   maxChargeIn: 0
   maxChargeOut: 0
---- !u!114 &8985038422992580534
+  waitForRotation: 0
+--- !u!114 &7456990125429083905
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -109,12 +109,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 4560274283034543134}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dd7cb568a97d140e59a150ff91bb2ba9, type: 3}
+  m_Script: {fileID: 11500000, guid: d7df51e2bed4f49b8a9903222ea7df4e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   gameController: {fileID: 0}
   cpu: {fileID: 0}
   destination: {fileID: 0}
+  firstCarVars: {fileID: 0}
+  moving: 0
+  marker: {fileID: 1739288848109875228, guid: 4bc2feb4f25414281b632a9bf950734c, type: 3}
+  move: 5
 --- !u!1001 &458337661728279151
 PrefabInstance:
   m_ObjectHideFlags: 0
