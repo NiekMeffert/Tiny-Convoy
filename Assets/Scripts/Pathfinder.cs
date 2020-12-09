@@ -74,7 +74,25 @@ public class Pathfinder : MonoBehaviour
     }
   }
 
-  public virtual void moveNextTo(GameObject tile){}
+  public virtual void moveNextTo(GameObject tile){
+    Tile tileVars = tile.GetComponent<Tile>();
+    GameObject[,] square = gameController.getSquare(new Vector3Int(tileVars.pos.x, tileVars.pos.y, 1));
+    float min=1000f;
+    GameObject adjacentTile=null;
+    for (int x = 0; x<square.GetLength(0); x++){
+      for (int y = 0; y<square.GetLength(1); y++){
+        float dist = Vector3.Distance(square[x,y].transform.position, gameObject.transform.position);
+        int slot = gameController.canFit(gameObject,square[x,y]);
+        if (dist<min && slot==0){
+          min=dist;
+          adjacentTile=square[x,y];
+        }
+      }
+    }
+    if (adjacentTile!=null){
+      destination=adjacentTile;
+    }
+  }
 
   public virtual void stop(){
     destination=null;

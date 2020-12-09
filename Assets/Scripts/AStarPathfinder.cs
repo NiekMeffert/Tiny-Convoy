@@ -75,9 +75,6 @@ public class AStarPathfinder : Pathfinder
     currentTile=currentTile2;
   }
 
-  public override void moveNextTo(GameObject tile){
-  }
-
   public navTile makeNavTile(GameObject tile){
     navTile nt = new navTile();
     nt.tile = tile;

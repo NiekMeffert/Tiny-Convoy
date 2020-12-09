@@ -210,7 +210,7 @@ public class CPU : Upgrade {
       chargeFrom(plant);
       objective=null;
     } else {
-      pathfinder.destination = plant.GetComponent<Plant>().tile;
+      pathfinder.moveNextTo(plant.GetComponent<Plant>().tile);
     }
   }
 

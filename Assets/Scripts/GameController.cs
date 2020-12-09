@@ -68,6 +68,17 @@ public class GameController : MonoBehaviour{
     updateVisibleTiles();
   }
 
+  void pickDefaultAction(){
+    if (mouseOver.tag == "Tile"){
+      totem.GetComponent<Pathfinder>().destination = mouseOver;
+      totem.GetComponent<CPU>().objective = null;
+    }
+    if (mouseOver.tag == "Plant"){
+      totem.GetComponent<CPU>().harvest(mouseOver);
+      totem.GetComponent<CPU>().objective = mouseOver;
+    }
+  }
+
   public void updateVisibleTiles(){
     for (int i=1; i>=0; i--){
       visibilityPainterX+=.07f;
@@ -79,17 +90,6 @@ public class GameController : MonoBehaviour{
       Ray r = mainCamera.GetComponent<Camera>().ViewportPointToRay(new Vector3(visibilityPainterX, visibilityPainterY, 0));
       Vector3 zeroPoint = r.origin + (((r.origin.y) / -r.direction.y) * r.direction);
       getTile(new Vector2Int(Mathf.RoundToInt(zeroPoint.x), Mathf.RoundToInt(zeroPoint.z)));
-    }
-  }
-
-  void pickDefaultAction(){
-    if (mouseOver.tag == "Tile"){
-      totem.GetComponent<Pathfinder>().destination = mouseOver;
-      totem.GetComponent<CPU>().objective = null;
-    }
-    if (mouseOver.tag == "Plant"){
-      totem.GetComponent<CPU>().harvest(mouseOver);
-      totem.GetComponent<CPU>().objective = mouseOver;
     }
   }
 
