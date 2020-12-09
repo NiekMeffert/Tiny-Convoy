@@ -8,14 +8,14 @@ public class CPU : Upgrade {
   public int memory;
   public int inputs;
   public int outputs;
-  public float battery;
   public float sight;
+  public float battery;
   public int baseProcessing;
   public int baseMemory;
   public int baseInputs;
   public int baseOutputs;
-  public float baseBattery;
   public float baseSight;
+  public float baseBattery;
   public float hSpeed;
   public float turnSpeed;
   public float vSpeed;
@@ -82,7 +82,7 @@ public class CPU : Upgrade {
     vSpeed = 0;
     flyHeight = 0;
     longDistanceResolution = 1;
-    meshDistance = 5;
+    meshDistance = 5f;
     waterResistance = 0;
     powerNeeded = 0;
     powerAvailable = 0;
@@ -161,11 +161,29 @@ public class CPU : Upgrade {
               vSpeed+=flyerVars.vSpeed;
               vSpeed+=flyerVars.vSpeed;
             }
+            Router routerVars = carVars.upgrades[h].GetComponent<Router>();
+            if (routerVars!=null){
+              meshDistance+=routerVars.meshBonus;
+            }
           }
         }
       }
     }
     //update stats from meshing
+    foreach (GameObject cpu in gameController.CPUs) {
+      if (cpu!=gameObject){
+        CPU cpuVars = cpu.GetComponent<CPU>();
+        float dist = Vector3.Distance(gameObject.transform.position, cpu.transform.position);
+        if (dist<meshDistance){
+          dist = 1f-(dist/meshDistance);
+          if (cpuVars.baseProcessing>processing) processing+=Mathf.RoundToInt(dist*(cpuVars.baseProcessing-processing));
+          if (cpuVars.baseMemory>memory) memory+=Mathf.RoundToInt(dist*(cpuVars.baseMemory-memory));
+          if (cpuVars.baseInputs>inputs) inputs+=Mathf.RoundToInt(dist*(cpuVars.baseInputs-inputs));
+          if (cpuVars.baseOutputs>outputs) outputs+=Mathf.RoundToInt(dist*(cpuVars.baseOutputs-outputs));
+          if (cpuVars.baseSight>sight) sight+=dist*(cpuVars.baseSight-sight);
+        }
+      }
+    }
   }
 
   public void startMovers(){
