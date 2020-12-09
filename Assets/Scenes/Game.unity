@@ -395,6 +395,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: TestingBot (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 6905369431080068047, guid: b51d71589dd6c4f25a8b46502c160fda,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 0}
   m_SourcePrefab: {fileID: 100100000, guid: b51d71589dd6c4f25a8b46502c160fda, type: 3}
@@ -999,6 +1004,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: TestingBot
       objectReference: {fileID: 0}
+    - target: {fileID: 6905369431080068047, guid: b51d71589dd6c4f25a8b46502c160fda,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 0}
   m_SourcePrefab: {fileID: 100100000, guid: b51d71589dd6c4f25a8b46502c160fda, type: 3}
@@ -1327,6 +1337,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalPosition.y
       value: -2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2945564420538419519, guid: 01d823ae9c570474299d8df82691943e,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 40
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 01d823ae9c570474299d8df82691943e, type: 3}
