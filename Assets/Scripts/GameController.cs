@@ -21,11 +21,7 @@ public class GameController : MonoBehaviour{
   public GameObject totem;
   float visibilityPainterX = .5f;
   float visibilityPainterY = .5f;
-  public Material fullPower;
-  public Material highPower;
-  public Material midPower;
-  public Material lowPower;
-  public Material noPower;
+  public Material[] powerLevels;
 
   // Start is called before the first frame update
   void Start(){

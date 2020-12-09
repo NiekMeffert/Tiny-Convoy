@@ -101,6 +101,7 @@ public class CPU : Upgrade {
             if (batteryVars.health<0) batteryVars.charge=0;
             powerAvailable+=batteryVars.charge;
             maxPower+=batteryVars.maxCharge;
+            batteryVars.updateBatteryLevel();
           }
         }
       }
@@ -132,6 +133,7 @@ public class CPU : Upgrade {
             powerNeeded = -1f*batteryVars.charge;
             batteryVars.charge=0;
           }
+          batteryVars.updateBatteryLevel();
         }
       }
     }
@@ -226,6 +228,7 @@ public class CPU : Upgrade {
             chargeIn = batteryVars.charge-batteryVars.maxCharge;
             batteryVars.charge=batteryVars.maxCharge;
           }
+          batteryVars.updateBatteryLevel();
         }
       }
     }

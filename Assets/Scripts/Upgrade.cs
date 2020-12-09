@@ -29,9 +29,9 @@ public class Upgrade : ActualThing
     foreach (Renderer rend in gameObject.GetComponentsInChildren<Renderer>()){
       Material[] mats = rend.materials;
       for (int i=0; i<mats.Length; i++){
-        if (mats[i].name.StartsWith(gameController.noPower.name)) {
+        if (mats[i].name.StartsWith("Light")) {
           Object.Destroy(mats[i]);
-          mats[i]=gameController.fullPower;
+          mats[i]=gameController.powerLevels[4];
         }
       }
       rend.materials = mats;
@@ -43,9 +43,9 @@ public class Upgrade : ActualThing
     foreach (Renderer rend in gameObject.GetComponentsInChildren<Renderer>()){
       Material[] mats = rend.materials;
       for (int i=0; i<mats.Length; i++){
-        if (mats[i].name.StartsWith(gameController.fullPower.name)) {
+        if (mats[i].name.StartsWith("Light")) {
           Object.Destroy(mats[i]);
-          mats[i]=gameController.noPower;
+          mats[i]=gameController.powerLevels[0];
         }
       }
       rend.materials = mats;
