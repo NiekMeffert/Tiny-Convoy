@@ -23,7 +23,7 @@ public class ActualThing : MonoBehaviour
 
   }
 
-  public void setUpActualThing(){
+  public virtual void setUpActualThing(){
     gameController=GameObject.Find("GameController").GetComponent<GameController>();
     GameObject myTile = gameController.getTile(new Vector2Int(Mathf.RoundToInt(transform.position.x), Mathf.RoundToInt(transform.position.z)));
     moveOntoTile(myTile, Mathf.RoundToInt(transform.position.y*2f));

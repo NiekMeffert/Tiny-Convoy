@@ -22,7 +22,8 @@ public class GameController : MonoBehaviour{
   float visibilityPainterX = .5f;
   float visibilityPainterY = .5f;
   public Material fullPower;
-  public Material hightPower;
+  public Material highPower;
+  public Material midPower;
   public Material lowPower;
   public Material noPower;
 

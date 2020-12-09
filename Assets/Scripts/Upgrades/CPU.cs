@@ -94,7 +94,7 @@ public class CPU : Upgrade {
       for (int h = carVars.upgrades.GetLength(0)-1; h>=0; h--){
         if (carVars.upgrades[h]!=null){
           Upgrade upVars = carVars.upgrades[h].GetComponent<Upgrade>();
-          if (upVars.health<0) upVars.on=false;
+          if (upVars.health<0) upVars.turnOff();
           if (upVars.on==true) powerNeeded+=upVars.drain;
           Battery batteryVars = carVars.upgrades[h].GetComponent<Battery>();
           if (batteryVars != null){
@@ -113,7 +113,7 @@ public class CPU : Upgrade {
           if (carVars.upgrades[h]!=null && powerAvailable<powerNeeded){
             Upgrade upVars = carVars.upgrades[h].GetComponent<Upgrade>();
             if (upVars.on==true && carVars.upgrades[h].GetComponent<CPU>()==null) {
-              upVars.on=false;
+              upVars.turnOff();
               powerNeeded-=upVars.drain;
             }
           }
@@ -174,7 +174,7 @@ public class CPU : Upgrade {
         if (upVars!=null){
           Mover moverVars = carVars.upgrades[h].GetComponent<Mover>();
           if (moverVars!=null){
-            moverVars.on=true;
+            moverVars.turnOn();
           }
         }
       }
@@ -189,7 +189,7 @@ public class CPU : Upgrade {
         if (upVars!=null){
           Mover moverVars = carVars.upgrades[h].GetComponent<Mover>();
           if (moverVars!=null){
-            moverVars.on=false;
+            moverVars.turnOff();
           }
         }
       }

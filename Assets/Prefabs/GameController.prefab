@@ -75,7 +75,8 @@ MonoBehaviour:
   lastBigTile: {fileID: 0}
   CPUs: []
   totem: {fileID: 0}
-  fullPower: {fileID: 0}
-  hightPower: {fileID: 0}
-  lowPower: {fileID: 0}
-  noPower: {fileID: 0}
+  fullPower: {fileID: 2100000, guid: 6b8df80aade98294480ed0a552ae148f, type: 2}
+  highPower: {fileID: 2100000, guid: 7c35bd813bdf5134d892d8dbf27aa8bb, type: 2}
+  midPower: {fileID: 2100000, guid: 58c07dbd87fecef45a62e00d9743133b, type: 2}
+  lowPower: {fileID: 2100000, guid: abb347d7e2c32bc46a1b433e47f078a5, type: 2}
+  noPower: {fileID: 2100000, guid: b6a231bfb1c6df44cb84487b4e202bac, type: 2}
