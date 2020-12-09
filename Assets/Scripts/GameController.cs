@@ -22,16 +22,20 @@ public class GameController : MonoBehaviour{
   float visibilityPainterX = .5f;
   float visibilityPainterY = .5f;
   public Material[] powerLevels;
+  public GameObject reticule;
+  GameObject mouseOver;
 
   // Start is called before the first frame update
   void Start(){
     mainCamera = GameObject.Find("Main Camera");
     randomSeedX = (int) (Random.value * 1000000000f);
     randomSeedY = (int) (Random.value * 1000000000f);
+    reticule = GameObject.Find("Reticule");
   }
 
   // Update is called once per frame
   void Update(){
+    reticule.SetActive(false);
     //normal game mode
     if (mode==1) {
       totemCounter-=Time.deltaTime;
@@ -39,12 +43,26 @@ public class GameController : MonoBehaviour{
         totem = CPUs[Mathf.FloorToInt(Random.value*CPUs.Length)];
         totemCounter=120;
       }
-      if (Input.GetMouseButtonUp(0)){
-        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        RaycastHit hit;
-        if (Physics.Raycast(ray, out hit)){
-          pickDefaultAction(hit);
+      Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+      RaycastHit hit;
+      if (Physics.Raycast(ray, out hit)){
+        mouseOver = hit.collider.gameObject;
+        float maxDist = Mathf.Max(Mathf.Abs(mouseOver.transform.position.x-totem.transform.position.x), Mathf.Abs(mouseOver.transform.position.z-totem.transform.position.z));
+        int seeDist = totem.GetComponent<CPU>().memory + totem.GetComponent<Pathfinder>().freeMemory;
+        if (maxDist<=seeDist){
+          reticule.SetActive(true);
+          ActualThing aThing = mouseOver.GetComponent<ActualThing>();
+          if (aThing==null){
+            reticule.transform.position = mouseOver.transform.position;
+          } else {
+            reticule.transform.position = aThing.tile.transform.position;
+          }
         }
+      } else {
+        mouseOver=null;
+      }
+      if (Input.GetMouseButtonUp(0)){
+        pickDefaultAction();
       }
     }
     updateVisibleTiles();
@@ -64,14 +82,14 @@ public class GameController : MonoBehaviour{
     }
   }
 
-  void pickDefaultAction(RaycastHit hit){
-    if (hit.collider.tag == "Tile"){
-      totem.GetComponent<Pathfinder>().destination = hit.collider.gameObject;
+  void pickDefaultAction(){
+    if (mouseOver.tag == "Tile"){
+      totem.GetComponent<Pathfinder>().destination = mouseOver;
       totem.GetComponent<CPU>().objective = null;
     }
-    if (hit.collider.tag == "Plant"){
-      totem.GetComponent<CPU>().harvest(hit.collider.gameObject);
-      totem.GetComponent<CPU>().objective = hit.collider.gameObject;
+    if (mouseOver.tag == "Plant"){
+      totem.GetComponent<CPU>().harvest(mouseOver);
+      totem.GetComponent<CPU>().objective = mouseOver;
     }
   }
 

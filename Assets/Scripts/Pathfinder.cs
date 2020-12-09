@@ -14,6 +14,7 @@ public class Pathfinder : MonoBehaviour
   public navTile currentTile;
   public bool moving = false;
   //public GameObject marker;
+  public int freeMemory = 5;
 
   // Start is called before the first frame update
   void Start(){

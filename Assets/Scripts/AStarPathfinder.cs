@@ -5,7 +5,6 @@ using UnityEngine;
 public class AStarPathfinder : Pathfinder
 {
   //public int move = 9;
-  int freeMemory = 5;
 
   // Start is called before the first frame update
   void Start(){
