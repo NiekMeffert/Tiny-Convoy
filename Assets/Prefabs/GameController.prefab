@@ -81,3 +81,6 @@ MonoBehaviour:
   - {fileID: 2100000, guid: 58c07dbd87fecef45a62e00d9743133b, type: 2}
   - {fileID: 2100000, guid: 7c35bd813bdf5134d892d8dbf27aa8bb, type: 2}
   - {fileID: 2100000, guid: 6b8df80aade98294480ed0a552ae148f, type: 2}
+  reticule: {fileID: 0}
+  reticulePlant: {fileID: 0}
+  reticuleUpgrade: {fileID: 0}

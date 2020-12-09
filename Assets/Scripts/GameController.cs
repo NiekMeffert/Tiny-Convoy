@@ -23,6 +23,8 @@ public class GameController : MonoBehaviour{
   float visibilityPainterY = .5f;
   public Material[] powerLevels;
   public GameObject reticule;
+  public GameObject reticulePlant;
+  public GameObject reticuleUpgrade;
   GameObject mouseOver;
 
   // Start is called before the first frame update
@@ -31,11 +33,15 @@ public class GameController : MonoBehaviour{
     randomSeedX = (int) (Random.value * 1000000000f);
     randomSeedY = (int) (Random.value * 1000000000f);
     reticule = GameObject.Find("Reticule");
+    reticulePlant = GameObject.Find("Reticule-Plant");
+    reticuleUpgrade = GameObject.Find("Reticule-Upgrade");
   }
 
   // Update is called once per frame
   void Update(){
     reticule.SetActive(false);
+    reticulePlant.SetActive(false);
+    reticuleUpgrade.SetActive(false);
     //normal game mode
     if (mode==1) {
       totemCounter-=Time.deltaTime;
@@ -50,12 +56,19 @@ public class GameController : MonoBehaviour{
         float maxDist = Mathf.Max(Mathf.Abs(mouseOver.transform.position.x-totem.transform.position.x), Mathf.Abs(mouseOver.transform.position.z-totem.transform.position.z));
         int seeDist = totem.GetComponent<CPU>().memory + totem.GetComponent<Pathfinder>().freeMemory;
         if (maxDist<=seeDist){
-          reticule.SetActive(true);
-          ActualThing aThing = mouseOver.GetComponent<ActualThing>();
-          if (aThing==null){
-            reticule.transform.position = mouseOver.transform.position;
-          } else {
-            reticule.transform.position = aThing.tile.transform.position;
+          if (mouseOver.GetComponent<Tile>()!=null){
+            if (canFit(totem,mouseOver)==0){
+              reticule.SetActive(true);
+              reticule.transform.position = mouseOver.transform.position;
+            }
+          }
+          if (mouseOver.GetComponent<Plant>()!=null){
+            reticulePlant.SetActive(true);
+            reticulePlant.transform.position = mouseOver.transform.position;
+          }
+          if (mouseOver.GetComponent<Upgrade>()!=null){
+            reticuleUpgrade.SetActive(true);
+            reticuleUpgrade.transform.position = mouseOver.transform.position;
           }
         }
       } else {
