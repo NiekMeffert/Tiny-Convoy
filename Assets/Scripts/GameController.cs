@@ -49,7 +49,7 @@ public class GameController : MonoBehaviour{
       if (totemCounter<0&&(CPUs.Length>0)){
         totem = CPUs[Mathf.FloorToInt(Random.value*CPUs.Length)];
         totemCounter=120;
-        bigBotCheck();
+        //bigBotCheck();
       }
       Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
       RaycastHit hit;
@@ -205,14 +205,15 @@ public class GameController : MonoBehaviour{
     int botNumber = 1 + (Mathf.FloorToInt(level*.4f));
     if (allBots.Length<botNumber){
       GameObject newBigBot = Instantiate(bigBot);
-      float edge1 = Random.value * 200f;
+      BigBot botVars = newBigBot.GetComponent<BigBot>();
+      float edge1 = Random.value * botVars.maxDistance;
       if (Random.value>.5f) edge1 *= -1f;
-      float edge2 = 200f;
+      float edge2 = botVars.maxDistance;
       if (Random.value>.5f) edge2 *= -1f;
       Vector3 botVec = new Vector3(edge1,0,edge2);
       if (Random.value>.5) botVec = new Vector3(edge2,0,edge1);
       botVec += mainCamera.transform.position;
-      newBigBot.transform.position = botVec;
+      //newBigBot.transform.position = botVec;
     }
   }
 }
