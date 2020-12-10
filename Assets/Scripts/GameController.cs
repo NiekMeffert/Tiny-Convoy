@@ -26,6 +26,7 @@ public class GameController : MonoBehaviour{
   public GameObject reticulePlant;
   public GameObject reticuleUpgrade;
   GameObject mouseOver;
+  public GameObject bigBot;
 
   // Start is called before the first frame update
   void Start(){
@@ -48,6 +49,7 @@ public class GameController : MonoBehaviour{
       if (totemCounter<0&&(CPUs.Length>0)){
         totem = CPUs[Mathf.FloorToInt(Random.value*CPUs.Length)];
         totemCounter=120;
+        bigBotCheck();
       }
       Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
       RaycastHit hit;
@@ -82,12 +84,16 @@ public class GameController : MonoBehaviour{
   }
 
   void pickDefaultAction(){
-    if (mouseOver.tag == "Tile"){
+    if (mouseOver.GetComponent<Tile>() != null){
       totem.GetComponent<Pathfinder>().destination = mouseOver;
       totem.GetComponent<CPU>().objective = null;
     }
-    if (mouseOver.tag == "Plant"){
+    if (mouseOver.GetComponent<Plant>() != null){
       totem.GetComponent<CPU>().harvest(mouseOver);
+      totem.GetComponent<CPU>().objective = mouseOver;
+    }
+    if (mouseOver.GetComponent<Upgrade>() != null){
+      totem.GetComponent<CPU>().upgrade(mouseOver);
       totem.GetComponent<CPU>().objective = mouseOver;
     }
   }
@@ -192,5 +198,21 @@ public class GameController : MonoBehaviour{
       if (safeHeight==true) fit = i;
     }
     return fit;
+  }
+
+  public void bigBotCheck(){
+    GameObject[] allBots = GameObject.FindGameObjectsWithTag("BigBot");
+    int botNumber = 1 + (Mathf.FloorToInt(level*.4f));
+    if (allBots.Length<botNumber){
+      GameObject newBigBot = Instantiate(bigBot);
+      float edge1 = Random.value * 200f;
+      if (Random.value>.5f) edge1 *= -1f;
+      float edge2 = 200f;
+      if (Random.value>.5f) edge2 *= -1f;
+      Vector3 botVec = new Vector3(edge1,0,edge2);
+      if (Random.value>.5) botVec = new Vector3(edge2,0,edge1);
+      botVec += mainCamera.transform.position;
+      newBigBot.transform.position = botVec;
+    }
   }
 }

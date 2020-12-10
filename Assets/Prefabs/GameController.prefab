@@ -84,3 +84,4 @@ MonoBehaviour:
   reticule: {fileID: 0}
   reticulePlant: {fileID: 0}
   reticuleUpgrade: {fileID: 0}
+  bigBot: {fileID: 951337288592004824, guid: 0a61df93ec56c46ef9938ae54e623330, type: 3}

@@ -214,8 +214,13 @@ public class CPU : Upgrade {
         }
       }
     }
-    if (objective!=null && objective.GetComponent<Plant>()!=null){
-      harvest(objective);
+    if (objective!=null){
+      if (objective.GetComponent<Plant>()!=null){
+        harvest(objective);
+      }
+      if (objective.GetComponent<Upgrade>()!=null){
+        upgrade(objective);
+      }
     }
   }
 
@@ -229,6 +234,19 @@ public class CPU : Upgrade {
       objective=null;
     } else {
       pathfinder.moveNextTo(plant.GetComponent<Plant>().tile);
+    }
+  }
+
+  public void upgrade(GameObject newToy){
+    bool closeEnough=false;
+    for (int i=0; i<cars.Length; i++){
+      if (Vector2.Distance(new Vector2(newToy.transform.position.x, newToy.transform.position.z), new Vector2(cars[i].transform.position.x, cars[i].transform.position.z))<1.3f) closeEnough=true;
+    }
+    if (closeEnough){
+      //go into upgrade screen...
+      objective=null;
+    } else {
+      pathfinder.moveNextTo(newToy.GetComponent<Upgrade>().tile);
     }
   }
 
