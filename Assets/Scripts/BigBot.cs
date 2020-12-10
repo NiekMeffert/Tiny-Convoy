@@ -6,7 +6,6 @@ public class BigBot : MonoBehaviour
 {
   public float maxDistance = 200f;
   Vector3 nextHeading;
-  Quaternion nextQuat;
   Vector4 safeBox;
   Vector3 flipX = new Vector3(-1,1,1);
   Vector3 flipZ = new Vector3(1,1,-1);
@@ -14,6 +13,7 @@ public class BigBot : MonoBehaviour
 
   // Start is called before the first frame update
   void Start(){
+    nextHeading = Vector3.forward;
     gameController = GameObject.Find("GameController").GetComponent<GameController>();
     newHeading();
   }
@@ -22,11 +22,11 @@ public class BigBot : MonoBehaviour
   void Update(){
     if (gameController.mode!=1) return;
     safeBox.Set(gameController.mainCamera.transform.position.x+maxDistance, gameController.mainCamera.transform.position.z+maxDistance, gameController.mainCamera.transform.position.x-maxDistance, gameController.mainCamera.transform.position.z-maxDistance);
-    float ang = Quaternion.Angle(transform.rotation,nextQuat);
-    transform.rotation = Quaternion.Slerp(transform.rotation, nextQuat, Mathf.Min(.1f/ang,1f));
-    transform.position += Vector3.ClampMagnitude(transform.forward, .5f*Time.deltaTime);
+    transform.position += Vector3.ClampMagnitude(transform.forward, 1.5f*Time.deltaTime);
+    Quaternion headingQuat = Quaternion.LookRotation(nextHeading, Vector3.up);
+    float ang = Quaternion.Angle(headingQuat,transform.rotation);
+    transform.rotation = Quaternion.RotateTowards(transform.rotation, headingQuat, Mathf.Min(ang,2f*Time.deltaTime));
     if (ang<.1f) newHeading();
-    //Debug.Log(Quaternion.Angle(transform.rotation,nextQuat));
   }
 
   void newHeading(){
@@ -36,7 +36,5 @@ public class BigBot : MonoBehaviour
     if (transform.position.z>safeBox.y && nextHeading.z>0) nextHeading.Scale(flipZ);
     if (transform.position.x<safeBox.z && nextHeading.x<0) nextHeading.Scale(flipX);
     if (transform.position.z<safeBox.w && nextHeading.z<0) nextHeading.Scale(flipZ);
-    nextQuat = Quaternion.LookRotation(nextHeading, Vector3.up);
-    Debug.Log("Change");
   }
 }
