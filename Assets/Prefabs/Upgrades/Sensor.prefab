@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5996756132322463612}
   - component: {fileID: 138797471473135773}
+  - component: {fileID: 1070950003250976445}
   m_Layer: 0
   m_Name: Sensor
   m_TagString: Untagged
@@ -49,25 +50,26 @@ MonoBehaviour:
   mass: 1
   momentum: {x: 0, y: 0}
   height: 2
-  owner: {fileID: 0}
+  standable: 0
+  cpu: {fileID: 0}
   health: 5
   maxHealth: 5
   on: 0
   drain: 0.2
   sightDistance: 7
---- !u!65 &4088992229964085729
+--- !u!65 &1070950003250976445
 BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9119921860473053879}
+  m_GameObject: {fileID: 4560274283034543134}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.77920216, y: 1.1343307, z: 0.7568636}
-  m_Center: {x: 0, y: 0.5669544, z: 0.015655473}
+  m_Size: {x: 0.77920216, y: 1.0016705, z: 0.7568636}
+  m_Center: {x: 0, y: 0.50062424, z: 0.015655458}
 --- !u!1001 &8237384216868675558
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -137,12 +139,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 682843f2d52ac3844add48c0f5525764, type: 3}
---- !u!1 &9119921860473053879 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 682843f2d52ac3844add48c0f5525764,
-    type: 3}
-  m_PrefabInstance: {fileID: 8237384216868675558}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &8492566447562733581 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 682843f2d52ac3844add48c0f5525764,

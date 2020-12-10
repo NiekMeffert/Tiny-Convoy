@@ -8,6 +8,7 @@ TagManager:
   - BigTile
   - CPU
   - Plant
+  - BigBot
   layers:
   - Default
   - TransparentFX

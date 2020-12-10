@@ -1,18 +1,5 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!65 &9214266286245713441
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1479746686223565744}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 0.74467504, y: 0.35607618, z: 0.74467504}
-  m_Center: {x: -0.000000044703484, y: 0.17803809, z: -0.000000044703484}
 --- !u!1 &8998128059911170805
 GameObject:
   m_ObjectHideFlags: 0
@@ -23,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2842727502219939740}
   - component: {fileID: -6227657931618606335}
+  - component: {fileID: 1724169981659359749}
   m_Layer: 0
   m_Name: Treads
   m_TagString: Untagged
@@ -71,6 +59,19 @@ MonoBehaviour:
   hSpeed: 2
   turnSpeed: 1
   waitForRotation: 0
+--- !u!65 &1724169981659359749
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8998128059911170805}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.74467504, y: 0.5097974, z: 0.74467504}
+  m_Center: {x: -0.000000059604645, y: 0.2548987, z: -0.000000059604645}
 --- !u!1001 &1749776086661070561
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -145,12 +146,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c8b28081ce922174a818c165ecdba3f1, type: 3}
---- !u!1 &1479746686223565744 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: c8b28081ce922174a818c165ecdba3f1,
-    type: 3}
-  m_PrefabInstance: {fileID: 1749776086661070561}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &2288617415797020938 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: c8b28081ce922174a818c165ecdba3f1,
