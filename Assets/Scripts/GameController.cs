@@ -62,7 +62,7 @@ public class GameController : MonoBehaviour{
         int seeDist = totem.GetComponent<CPU>().memory + totem.GetComponent<Pathfinder>().freeMemory;
         if (maxDist<=seeDist){
           if (mouseOver.GetComponent<Tile>()!=null){
-            if (canFit(totem,mouseOver)==0){
+            if (canFit(totem,mouseOver,true)==0){
               reticule.SetActive(true);
               reticule.transform.position = mouseOver.transform.position;
             }
@@ -191,7 +191,7 @@ public class GameController : MonoBehaviour{
     return newBigTile;
   }
 
-  public int canFit(GameObject load, GameObject tile){
+  public int canFit(GameObject load, GameObject tile, bool mustBeStandable){
     int loadHeight = load.GetComponent<ActualThing>().height;
     Tile tileVars = tile.GetComponent<Tile>();
     int fit = -1;
@@ -204,6 +204,12 @@ public class GameController : MonoBehaviour{
         }
       }
       if (safeHeight==true) fit = i;
+      if (fit>0 && mustBeStandable==true){
+        GameObject topper = tileVars.heightSlots[fit-1];
+        if (topper!=null){
+          if (topper.GetComponent<ActualThing>().standable==false) fit = -1;
+        }
+      }
     }
     return fit;
   }
