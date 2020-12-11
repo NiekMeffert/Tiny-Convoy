@@ -45,13 +45,23 @@ public class PlayerInteractable : MonoBehaviour
 
     void SetFocus (Interactable newFocus)
     {
+        if (newFocus != focus)
+        {
+            if (focus != null)
+            focus.OnDefocused();
+
+           
+        }
+
         focus = newFocus;
         newFocus.onFocused(transform);
     }
 
     void RemoveFocus ()
     {
-        focus.OnDefocused();
+        if (focus != null)
+             focus.OnDefocused();
+
         focus = null;
     }
 }
