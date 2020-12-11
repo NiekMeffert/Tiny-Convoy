@@ -214,13 +214,11 @@ public class CPU : Upgrade {
         }
       }
     }
-    if (objective!=null){
-      if (objective.GetComponent<Plant>()!=null){
-        harvest(objective);
-      }
-      if (objective.GetComponent<Upgrade>()!=null){
-        upgrade(objective);
-      }
+    if (objective!=null && objective.GetComponent<Plant>()!=null){
+      harvest(objective);
+    }
+    if (objective!=null && objective.GetComponent<Upgrade>()!=null){
+      upgrade(objective);
     }
   }
 

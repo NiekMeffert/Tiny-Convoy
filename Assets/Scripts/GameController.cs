@@ -148,12 +148,16 @@ public class GameController : MonoBehaviour{
   }
 
   public float[] getRands(Vector2Int vec2){
-    int rInit = vec2.x+randomSeedX+vec2.y+randomSeedY;
+    Random.InitState(vec2.x+randomSeedX);
+    int a = Mathf.RoundToInt(Random.value*1000000);
+    Random.InitState(vec2.y+randomSeedY);
+    int b = Mathf.RoundToInt(Random.value*1000000);
+    int r = a+b;
     float[] rands = new float[16];
     for (int i=0; i<rands.Length; i++){
-      Random.InitState(rInit);
+      Random.InitState(r);
       rands[i]=Random.value;
-      rInit++;
+      r++;
     }
     return rands;
   }
@@ -205,9 +209,10 @@ public class GameController : MonoBehaviour{
     int botNumber = 1 + (Mathf.FloorToInt(level*.4f));
     if (allBots.Length<botNumber){
       GameObject newBigBot = Instantiate(bigBot);
-      float edge1 = Random.value * 200f;
+      BigBot botVars = newBigBot.GetComponent<BigBot>();
+      float edge1 = Random.value * botVars.maxDistance;
       if (Random.value>.5f) edge1 *= -1f;
-      float edge2 = 200f;
+      float edge2 = botVars.maxDistance;
       if (Random.value>.5f) edge2 *= -1f;
       Vector3 botVec = new Vector3(edge1,0,edge2);
       if (Random.value>.5) botVec = new Vector3(edge2,0,edge1);
