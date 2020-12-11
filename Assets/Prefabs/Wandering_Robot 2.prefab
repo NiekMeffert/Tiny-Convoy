@@ -784,6 +784,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4269745631822345833}
   - component: {fileID: 7899599427088034835}
+  - component: {fileID: 8885136892479073353}
   m_Layer: 0
   m_Name: Wandering_Robot 2
   m_TagString: Untagged
@@ -799,8 +800,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3461860374175526099}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.6391983, y: 1.6903372, z: -3.239551}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 10, y: 10, z: 10}
   m_Children:
   - {fileID: 8555410203709862318}
   - {fileID: 3403839090586923592}
@@ -826,6 +827,19 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &8885136892479073353
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3461860374175526099}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b6890ed651f1b438b80ec544e65c14ef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxDistance: 200
 --- !u!1 &3743976824945634110
 GameObject:
   m_ObjectHideFlags: 0
@@ -973,7 +987,7 @@ SkinnedMeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 670224309865224971, guid: 9a67991575d45409f85f48d4e68bcf83, type: 3}
+  - {fileID: 2100000, guid: 4090e65c210f5406f87e0572d5cdb3f1, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

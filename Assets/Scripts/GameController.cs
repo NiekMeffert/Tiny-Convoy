@@ -15,6 +15,7 @@ public class GameController : MonoBehaviour{
   public GameObject[] upgradePrefabs;
   public GameObject[] plantPrefabs;
   public GameObject[] bigTilePrefabs;
+  public GameObject[] specialBigTilePrefabs;
   public GameObject mainCamera;
   public GameObject lastBigTile;
   public GameObject[] CPUs;
@@ -27,6 +28,7 @@ public class GameController : MonoBehaviour{
   public GameObject reticuleUpgrade;
   GameObject mouseOver;
   public GameObject bigBot;
+  SparseMatrix<GameObject> forcedBigTiles = new SparseMatrix<GameObject>();
 
   // Start is called before the first frame update
   void Start(){
@@ -36,6 +38,7 @@ public class GameController : MonoBehaviour{
     reticule = GameObject.Find("Reticule");
     reticulePlant = GameObject.Find("Reticule-Plant");
     reticuleUpgrade = GameObject.Find("Reticule-Upgrade");
+    forcedBigTiles[0,0] = specialBigTilePrefabs[0];
   }
 
   // Update is called once per frame
@@ -125,7 +128,7 @@ public class GameController : MonoBehaviour{
         }
       }
       if (bigTile==null) {
-        bigTile = createBigTile(targetFloor, null);
+        bigTile = createBigTile(targetFloor);
       }
     }
     lastBigTile = bigTile;
@@ -162,8 +165,9 @@ public class GameController : MonoBehaviour{
     return rands;
   }
 
-  public GameObject createBigTile(Vector2Int targetFloor, GameObject forcedBigTile){
+  public GameObject createBigTile(Vector2Int targetFloor){
     GameObject btPrefab = null;
+    GameObject forcedBigTile = forcedBigTiles[targetFloor.x, targetFloor.y];
     if (forcedBigTile==null){
       float[] rands = getRands(targetFloor);
       btPrefab = bigTilePrefabs[Mathf.RoundToInt(rands[0]*(bigTilePrefabs.Length-1))];

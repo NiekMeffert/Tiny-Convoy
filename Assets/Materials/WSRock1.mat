@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: WSRock
+  m_Name: WSRock1
   m_Shader: {fileID: -6465566751694194690, guid: 28263236ad8fc4a47b5db3135ea057b0,
     type: 3}
   m_ShaderKeywords: 

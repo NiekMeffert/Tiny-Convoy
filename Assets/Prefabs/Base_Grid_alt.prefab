@@ -58,7 +58,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 939fe06fd85c74547a25380846459f39, type: 2}
+  - {fileID: 2100000, guid: d9df9d8da7849476095a141c02f9ea69, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -92,7 +92,7 @@ GameObject:
   - component: {fileID: -2499208791995984739}
   - component: {fileID: 5114958907395811936}
   m_Layer: 0
-  m_Name: Base_Grid
+  m_Name: Base_Grid_alt
   m_TagString: Tile
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
