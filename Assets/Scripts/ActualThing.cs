@@ -26,7 +26,13 @@ public class ActualThing : MonoBehaviour
   public virtual void setUpActualThing(){
     gameController=GameObject.Find("GameController").GetComponent<GameController>();
     GameObject myTile = gameController.getTile(new Vector2Int(Mathf.RoundToInt(transform.position.x), Mathf.RoundToInt(transform.position.z)));
-    moveOntoTile(myTile, Mathf.RoundToInt(transform.position.y*2f));
+    int fit = gameController.canFit(gameObject, myTile, true);
+    if (fit==-1){
+      Destroy(gameObject);
+    } else {
+      if (fit>Mathf.RoundToInt(transform.position.y*2f)) transform.position += new Vector3(0,(float)fit*.5f,0);
+      moveOntoTile(myTile, fit);
+    }
   }
 
   public virtual void moveOntoTile(GameObject newTile, int heightSlot){

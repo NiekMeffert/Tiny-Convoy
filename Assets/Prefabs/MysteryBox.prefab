@@ -53,6 +53,7 @@ MonoBehaviour:
   options:
   - {fileID: 2498946500452104959, guid: a35488ae58bd44b4b892dbc8a09c42a5, type: 3}
   - {fileID: 2378289897662061969, guid: 1c932d34f8886f34780fd7ab6e5de3a7, type: 3}
+  - {fileID: 8075479545111315069, guid: e4cf742fb4b3b48cc94fec682fa871c2, type: 3}
   nothingChance: 0.1
   wiggleRoom: {x: 5, y: 5}
 --- !u!1 &7182459785606539970
