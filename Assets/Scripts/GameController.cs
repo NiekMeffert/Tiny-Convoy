@@ -148,12 +148,16 @@ public class GameController : MonoBehaviour{
   }
 
   public float[] getRands(Vector2Int vec2){
-    int rInit = vec2.x+randomSeedX+vec2.y+randomSeedY;
+    Random.InitState(vec2.x+randomSeedX);
+    int a = Mathf.RoundToInt(Random.value*1000000);
+    Random.InitState(vec2.y+randomSeedY);
+    int b = Mathf.RoundToInt(Random.value*1000000);
+    int r = a+b;
     float[] rands = new float[16];
     for (int i=0; i<rands.Length; i++){
-      Random.InitState(rInit);
+      Random.InitState(r);
       rands[i]=Random.value;
-      rInit++;
+      r++;
     }
     return rands;
   }
