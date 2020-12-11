@@ -56,7 +56,7 @@ public class Pathfinder : MonoBehaviour
       if (maybeNewTile!=firstCarVars.tile) {
         //GameObject mkr2 = Instantiate(marker);
         //mkr2.transform.position = cpu.cars[0].GetComponent<Car>().tile.transform.position;
-        int fitSlot = gameController.canFit(cpu.cars[0], maybeNewTile);
+        int fitSlot = gameController.canFit(cpu.cars[0], maybeNewTile, true);
         if (fitSlot==0){
           firstCarVars.moveOntoTile(maybeNewTile,0);
 
@@ -82,7 +82,7 @@ public class Pathfinder : MonoBehaviour
     for (int x = 0; x<square.GetLength(0); x++){
       for (int y = 0; y<square.GetLength(1); y++){
         float dist = Vector3.Distance(square[x,y].transform.position, gameObject.transform.position);
-        int slot = gameController.canFit(gameObject,square[x,y]);
+        int slot = gameController.canFit(gameObject,square[x,y], true);
         if (dist<min && slot==0){
           min=dist;
           adjacentTile=square[x,y];

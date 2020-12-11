@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 2139465742248094714}
   - component: {fileID: -6411268289987582075}
   m_Layer: 0
-  m_Name: MysteryBox
+  m_Name: RandomPlant
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -52,8 +52,7 @@ MonoBehaviour:
   standable: 0
   options:
   - {fileID: 2498946500452104959, guid: a35488ae58bd44b4b892dbc8a09c42a5, type: 3}
-  - {fileID: 2378289897662061969, guid: 1c932d34f8886f34780fd7ab6e5de3a7, type: 3}
-  nothingChance: 0.1
+  nothingChance: 0
   wiggleRoom: {x: 5, y: 5}
 --- !u!1 &7182459785606539970
 GameObject:
@@ -113,7 +112,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: c92174901ff44451d9e2e72cda8daaef, type: 2}
+  - {fileID: 2100000, guid: c84ced2c00d9740fe8a48d5ac1e22498, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

@@ -95,7 +95,7 @@ public class AStarPathfinder : Pathfinder
     foreach (Vector2Int n in neighbors){
       if (ntx+n.x>-1 && ntx+n.x<memoryTiles.GetLength(0) && nty+n.y>-1 && nty+n.y<memoryTiles.GetLength(1)){
         GameObject otherTile = memoryTiles[ntx+n.x,nty+n.y].tile;
-        if (gameController.canFit(cpu.cars[0], otherTile)==0){
+        if (gameController.canFit(cpu.cars[0], otherTile, true)==0){
            memoryTiles[ntx,nty].adjacencyList.Add(memoryTiles[ntx+n.x,nty+n.y]);
         }
       }
