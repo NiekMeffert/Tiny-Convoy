@@ -131,6 +131,8 @@ Transform:
   - {fileID: 875054819267681820}
   - {fileID: 1592644040158146098}
   - {fileID: 7375613650061505843}
+  - {fileID: 7152361780464721544}
+  - {fileID: 6831094674950032403}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -148,6 +150,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pos: {x: 0, y: 0}
   rarity: 0
+  gameController: {fileID: 0}
 --- !u!1001 &258832505433312819
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6010,6 +6013,81 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 6875021506934011790}
   m_PrefabAsset: {fileID: 0}
+--- !u!1001 &7101148941758865104
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 656386780864332291}
+    m_Modifications:
+    - target: {fileID: 130061720998871128, guid: 025ea9ba692312548b9484bd3ff42d09,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 8.024592
+      objectReference: {fileID: 0}
+    - target: {fileID: 130061720998871128, guid: 025ea9ba692312548b9484bd3ff42d09,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1.0408944
+      objectReference: {fileID: 0}
+    - target: {fileID: 130061720998871128, guid: 025ea9ba692312548b9484bd3ff42d09,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 4.469693
+      objectReference: {fileID: 0}
+    - target: {fileID: 130061720998871128, guid: 025ea9ba692312548b9484bd3ff42d09,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 130061720998871128, guid: 025ea9ba692312548b9484bd3ff42d09,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 130061720998871128, guid: 025ea9ba692312548b9484bd3ff42d09,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 130061720998871128, guid: 025ea9ba692312548b9484bd3ff42d09,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 130061720998871128, guid: 025ea9ba692312548b9484bd3ff42d09,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 103
+      objectReference: {fileID: 0}
+    - target: {fileID: 130061720998871128, guid: 025ea9ba692312548b9484bd3ff42d09,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 130061720998871128, guid: 025ea9ba692312548b9484bd3ff42d09,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 130061720998871128, guid: 025ea9ba692312548b9484bd3ff42d09,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 130061720998871135, guid: 025ea9ba692312548b9484bd3ff42d09,
+        type: 3}
+      propertyPath: m_Name
+      value: Helmet of Derp
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 025ea9ba692312548b9484bd3ff42d09, type: 3}
+--- !u!4 &7152361780464721544 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 130061720998871128, guid: 025ea9ba692312548b9484bd3ff42d09,
+    type: 3}
+  m_PrefabInstance: {fileID: 7101148941758865104}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &7230447138468848788
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7821,6 +7899,81 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 6670137569603726386, guid: 35c5ec0d736f5184d816422f19c73746,
     type: 3}
   m_PrefabInstance: {fileID: 9087739643460662998}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &9091735086466827418
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 656386780864332291}
+    m_Modifications:
+    - target: {fileID: 2369096324486924425, guid: 982a8736a2eb38648837d069f85091dc,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 6.1092086
+      objectReference: {fileID: 0}
+    - target: {fileID: 2369096324486924425, guid: 982a8736a2eb38648837d069f85091dc,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.52817065
+      objectReference: {fileID: 0}
+    - target: {fileID: 2369096324486924425, guid: 982a8736a2eb38648837d069f85091dc,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 7.3234124
+      objectReference: {fileID: 0}
+    - target: {fileID: 2369096324486924425, guid: 982a8736a2eb38648837d069f85091dc,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2369096324486924425, guid: 982a8736a2eb38648837d069f85091dc,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2369096324486924425, guid: 982a8736a2eb38648837d069f85091dc,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2369096324486924425, guid: 982a8736a2eb38648837d069f85091dc,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2369096324486924425, guid: 982a8736a2eb38648837d069f85091dc,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 104
+      objectReference: {fileID: 0}
+    - target: {fileID: 2369096324486924425, guid: 982a8736a2eb38648837d069f85091dc,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2369096324486924425, guid: 982a8736a2eb38648837d069f85091dc,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2369096324486924425, guid: 982a8736a2eb38648837d069f85091dc,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2369096324486924436, guid: 982a8736a2eb38648837d069f85091dc,
+        type: 3}
+      propertyPath: m_Name
+      value: Lesser Helmet of Derp
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 982a8736a2eb38648837d069f85091dc, type: 3}
+--- !u!4 &6831094674950032403 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 2369096324486924425, guid: 982a8736a2eb38648837d069f85091dc,
+    type: 3}
+  m_PrefabInstance: {fileID: 9091735086466827418}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &9141959875072264507
 PrefabInstance:

@@ -10,8 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9fd3bde6c9fec5e429f6b1a8ab2e8a45, type: 3}
-  m_Name: Helmet of Derp
+  m_Name: Lesser helmet of Derp
   m_EditorClassIdentifier: 
-  name: Helmet of Derp
-  icon: {fileID: 0}
+  name: Lesser Helmet of Derp
+  icon: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
   isDefaultItem: 0
+  armorModifier: 0
+  damageModifer: 0
+  equipslot: 0
