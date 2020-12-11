@@ -10,6 +10,7 @@ public class Equipment : Item
     public int damageModifer;
 
     public EquipmentSlot equipslot;
+    public MeshRenderer mesh;
 
     public override void Use()
     {

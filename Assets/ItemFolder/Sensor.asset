@@ -10,11 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9fd3bde6c9fec5e429f6b1a8ab2e8a45, type: 3}
-  m_Name: Helmet of Derp 1
+  m_Name: Sensor
   m_EditorClassIdentifier: 
-  name: Helmet of Derp
+  name: Sensor
   icon: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
   isDefaultItem: 0
   armorModifier: 0
   damageModifer: 0
   equipslot: 0
+  mesh: {fileID: 0}
