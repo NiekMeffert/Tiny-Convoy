@@ -242,6 +242,7 @@ public class CPU : Upgrade {
     }
     if (closeEnough){
       //go into upgrade screen...
+      gameController.setMode(2); //upgrade screen
       objective=null;
     } else {
       pathfinder.moveNextTo(newToy.GetComponent<Upgrade>().tile);

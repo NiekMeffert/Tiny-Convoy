@@ -29,6 +29,7 @@ public class GameController : MonoBehaviour{
   GameObject mouseOver;
   public GameObject bigBot;
   SparseMatrix<GameObject> forcedBigTiles = new SparseMatrix<GameObject>();
+  GameObject inventory;
 
   // Start is called before the first frame update
   void Start(){
@@ -38,6 +39,8 @@ public class GameController : MonoBehaviour{
     reticule = GameObject.Find("Reticule");
     reticulePlant = GameObject.Find("Reticule-Plant");
     reticuleUpgrade = GameObject.Find("Reticule-Upgrade");
+    inventory = GameObject.Find("Inventory");
+    inventory.SetActive(false);
     forcedBigTiles[0,0] = specialBigTilePrefabs[0];
   }
 
@@ -83,7 +86,21 @@ public class GameController : MonoBehaviour{
         pickDefaultAction();
       }
     }
+    if (mode==2){
+    }
     updateVisibleTiles();
+  }
+
+  public void setMode(int newMode){
+    if (newMode==1){
+      mode=1;
+      inventory.SetActive(false);
+    }
+    if (newMode==2){
+      mode=2;
+      inventory.SetActive(true);
+      //upgradeWith(totem.objective);
+    }
   }
 
   void pickDefaultAction(){
