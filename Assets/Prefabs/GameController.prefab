@@ -87,3 +87,4 @@ MonoBehaviour:
   reticulePlant: {fileID: 0}
   reticuleUpgrade: {fileID: 0}
   bigBot: {fileID: 3461860374175526099, guid: 109b4a651f99b0745b40ca08033bc58a, type: 3}
+  LRSTexture: {fileID: 8400000, guid: fa6bab8afe29e44d69c2f77a1e6ee9b6, type: 2}

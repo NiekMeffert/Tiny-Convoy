@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class GameController : MonoBehaviour{
 
-  public int mode = 1; //0 paused, 1 normal, 2 upgrade, 3 long-distance scanning
+  public int mode = 1; //0 paused, 1 normal, 2 upgrade, 3 long-distance scanner, 4 conversation
   public int level = 0;
   public int randomSeedX;
   public int randomSeedY;
@@ -29,7 +29,8 @@ public class GameController : MonoBehaviour{
   GameObject mouseOver;
   public GameObject bigBot;
   SparseMatrix<GameObject> forcedBigTiles = new SparseMatrix<GameObject>();
-  GameObject inventory;
+  public GameObject inventory;
+  //public GameObject scanner;
 
   // Start is called before the first frame update
   void Start(){
@@ -41,6 +42,8 @@ public class GameController : MonoBehaviour{
     reticuleUpgrade = GameObject.Find("Reticule-Upgrade");
     inventory = GameObject.Find("Inventory");
     inventory.SetActive(false);
+    //scanner = GameObject.Find("LRScannerDisplay");
+    //scanner.SetActive(false);
     forcedBigTiles[0,0] = specialBigTilePrefabs[0];
   }
 
@@ -94,12 +97,19 @@ public class GameController : MonoBehaviour{
   public void setMode(int newMode){
     if (newMode==1){
       mode=1;
-      inventory.SetActive(false);
+      //if (scanner!=null) scanner.SetActive(false);
+      if (inventory!=null) inventory.SetActive(false);
     }
     if (newMode==2){
       mode=2;
-      inventory.SetActive(true);
+      //if (scanner!=null) scanner.SetActive(false);
+      if (inventory!=null) inventory.SetActive(true);
       //upgradeWith(totem.objective);
+    }
+    if (newMode==3){
+      mode=3;
+      //scanner.SetActive(true);
+      if (inventory!=null) inventory.SetActive(false);
     }
   }
 
