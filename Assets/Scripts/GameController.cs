@@ -30,7 +30,7 @@ public class GameController : MonoBehaviour{
   public GameObject bigBot;
   SparseMatrix<GameObject> forcedBigTiles = new SparseMatrix<GameObject>();
   public GameObject inventory;
-  //public GameObject scanner;
+  public GameObject scanner;
 
   // Start is called before the first frame update
   void Start(){
@@ -40,10 +40,10 @@ public class GameController : MonoBehaviour{
     reticule = GameObject.Find("Reticule");
     reticulePlant = GameObject.Find("Reticule-Plant");
     reticuleUpgrade = GameObject.Find("Reticule-Upgrade");
-    inventory = GameObject.Find("Inventory");
+    inventory = GameObject.Find("InventoryCanvas");
     inventory.SetActive(false);
-    //scanner = GameObject.Find("LRScannerDisplay");
-    //scanner.SetActive(false);
+    scanner = GameObject.Find("LRScannerCanvas");
+    scanner.SetActive(false);
     forcedBigTiles[0,0] = specialBigTilePrefabs[0];
   }
 
@@ -95,21 +95,24 @@ public class GameController : MonoBehaviour{
   }
 
   public void setMode(int newMode){
+    if (mode==1){}
+    if (mode==2){
+      inventory.SetActive(false);
+    }
+    if (mode==3){
+      scanner.SetActive(false);
+    }
     if (newMode==1){
       mode=1;
-      //if (scanner!=null) scanner.SetActive(false);
-      if (inventory!=null) inventory.SetActive(false);
     }
     if (newMode==2){
       mode=2;
-      //if (scanner!=null) scanner.SetActive(false);
-      if (inventory!=null) inventory.SetActive(true);
+      inventory.SetActive(true);
       //upgradeWith(totem.objective);
     }
     if (newMode==3){
       mode=3;
-      //scanner.SetActive(true);
-      if (inventory!=null) inventory.SetActive(false);
+      scanner.SetActive(true);
     }
   }
 

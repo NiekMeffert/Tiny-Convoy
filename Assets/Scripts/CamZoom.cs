@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 
 public class CamZoom : MonoBehaviour
 {
@@ -12,6 +13,7 @@ public class CamZoom : MonoBehaviour
     public float zoomSpeed;
     private float currentZoom = 1f;
     private float currentRotation = 0f;
+    public GameObject zoomSlider;
 
     void Start(){
       gameController=GameObject.Find("GameController").GetComponent<GameController>();
@@ -31,5 +33,12 @@ public class CamZoom : MonoBehaviour
       camRotator.transform.rotation = baseRotation;
       mainCam.transform.position = transform.position - (offset * currentZoom);
       camRotator.transform.RotateAround(transform.position,Vector3.up,currentRotation);
+      zoomSlider.GetComponent<Slider>().value = (currentZoom-minZoom)/(maxZoom-minZoom);
+    }
+
+    public void zoomTo(){
+      float z = zoomSlider.GetComponent<Slider>().value;
+      z = (z*(maxZoom-minZoom))+minZoom;
+      currentZoom = z;
     }
 }
