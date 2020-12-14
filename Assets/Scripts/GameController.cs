@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GameController : MonoBehaviour{
 
@@ -33,20 +34,22 @@ public class GameController : MonoBehaviour{
   public GameObject inventory;
   public GameObject scanner;
   public bool uiBlocker = false;
+  RectTransform scannerNoise;
 
   // Start is called before the first frame update
   void Start(){
     mainCamera = GameObject.Find("Main Camera");
     randomSeedX = (int) (Random.value * 1000000000f);
     randomSeedY = (int) (Random.value * 1000000000f);
+    forcedBigTiles[0,0] = specialBigTilePrefabs[0];
     reticule = GameObject.Find("Reticule");
     reticulePlant = GameObject.Find("Reticule-Plant");
     reticuleUpgrade = GameObject.Find("Reticule-Upgrade");
     inventory = GameObject.Find("InventoryCanvas");
     inventory.SetActive(false);
     scanner = GameObject.Find("LRScannerCanvas");
+    scannerNoise = GameObject.Find("NoiseParent").transform.GetChild(0).GetComponent<RectTransform>();
     scanner.SetActive(false);
-    forcedBigTiles[0,0] = specialBigTilePrefabs[0];
   }
 
   // Update is called once per frame
@@ -94,6 +97,12 @@ public class GameController : MonoBehaviour{
     if (mode==2){
     }
     if (mode==3){
+      if (totem != null){
+        float opacity = .01f+Random.value;
+        opacity *= 10f-totem.GetComponent<CPU>().scanner;
+        opacity = Mathf.Clamp(opacity,0,1f);
+        scannerNoise.GetComponent<CanvasRenderer>().SetAlpha(opacity);
+      }
       if (Input.GetMouseButtonUp(0)){
         setMode(1);
       }

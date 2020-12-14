@@ -92,3 +92,4 @@ MonoBehaviour:
   inventory: {fileID: 0}
   scanner: {fileID: 0}
   uiBlocker: 0
+  scannerNoise: []

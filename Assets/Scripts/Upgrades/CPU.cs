@@ -22,7 +22,7 @@ public class CPU : Upgrade {
   public float climb;
   public int flyHeight;
   public float sightDistance;
-  public int longDistanceResolution;
+  public int scanner;
   public float meshDistance;
   public float waterResistance;
   Pathfinder pathfinder;
@@ -81,7 +81,7 @@ public class CPU : Upgrade {
     turnSpeed = 0;
     vSpeed = 0;
     flyHeight = 0;
-    longDistanceResolution = 1;
+    scanner = 1;
     meshDistance = 5f;
     waterResistance = 0;
     powerNeeded = 0;
@@ -149,7 +149,7 @@ public class CPU : Upgrade {
             Sensor sensorVars = carVars.upgrades[h].GetComponent<Sensor>();
             if (sensorVars!=null){sight+=sensorVars.sightDistance;}
             LongRangeScanner scannerVars = carVars.upgrades[h].GetComponent<LongRangeScanner>();
-            if (scannerVars!=null){longDistanceResolution+=scannerVars.resolution;}
+            if (scannerVars!=null){scanner+=scannerVars.resolution;}
             Mover moverVars = carVars.upgrades[h].GetComponent<Mover>();
             if (moverVars!=null){
               hSpeed+=moverVars.hSpeed;
