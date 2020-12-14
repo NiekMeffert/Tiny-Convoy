@@ -210,6 +210,8 @@ MonoBehaviour:
   pos: {x: 0, y: 0}
   rarity: 1
   gameController: {fileID: 0}
+  minLevel: 0
+  maxLevel: 1000
 --- !u!1001 &130601512921906000
 PrefabInstance:
   m_ObjectHideFlags: 0

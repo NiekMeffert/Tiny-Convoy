@@ -10,11 +10,12 @@ public class BigTile : MonoBehaviour
   public GameObject[,] tiles = new GameObject[10,10];
   List<GameObject> bigObstructions = new List<GameObject>();
   List<GameObject> mysteryBoxes = new List<GameObject>();
-  public GameController gameController;
+  GameController gameController;
+  public int minLevel;
+  public int maxLevel;
 
     // Start is called before the first frame update
     void Start(){
-
       gameController=GameObject.Find("GameController").GetComponent<GameController>();
       foreach (Transform child in transform){
         if (child.gameObject.GetComponent<ThingOnBigTile>()!=null){

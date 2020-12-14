@@ -44,6 +44,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mode: 1
+  nextMode: 1
   level: 0
   randomSeedX: 0
   randomSeedY: 0
@@ -71,6 +72,7 @@ MonoBehaviour:
   - {fileID: 5364779908445073467, guid: 5f613c2f47c474cd4b7a2558849015b0, type: 3}
   - {fileID: 5364779908445073467, guid: f02777bb063154c30870bb8cfaaf7cfc, type: 3}
   - {fileID: 5364779908445073467, guid: 14f9a6c99caba4ef48e586741309397f, type: 3}
+  - {fileID: 5364779908445073467, guid: b07bdf594b408470880716095d0c4096, type: 3}
   specialBigTilePrefabs:
   - {fileID: 5364779908445073467, guid: 4201f765c92c84cce8c33c12b3f4dd08, type: 3}
   mainCamera: {fileID: 0}
@@ -87,4 +89,6 @@ MonoBehaviour:
   reticulePlant: {fileID: 0}
   reticuleUpgrade: {fileID: 0}
   bigBot: {fileID: 3461860374175526099, guid: 109b4a651f99b0745b40ca08033bc58a, type: 3}
-  LRSTexture: {fileID: 8400000, guid: fa6bab8afe29e44d69c2f77a1e6ee9b6, type: 2}
+  inventory: {fileID: 0}
+  scanner: {fileID: 0}
+  uiBlocker: 0

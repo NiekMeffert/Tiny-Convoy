@@ -15,7 +15,7 @@ public class GameController : MonoBehaviour{
   public GameObject carPrefab;
   public GameObject[] upgradePrefabs;
   public GameObject[] plantPrefabs;
-  public List<GameObject> bigTilePrefabs = new List<GameObject>();
+  public GameObject[] bigTilePrefabs;
   public GameObject[] specialBigTilePrefabs;
   public GameObject mainCamera;
   public GameObject lastBigTile;
@@ -47,13 +47,6 @@ public class GameController : MonoBehaviour{
     scanner = GameObject.Find("LRScannerCanvas");
     scanner.SetActive(false);
     forcedBigTiles[0,0] = specialBigTilePrefabs[0];
-    for (int n = bigTilePrefabs.Count-1; n>=0; n--){
-      int prei = 11-bigTilePrefabs[n].GetComponent<BigTile>().rarity;
-      if (prei<1) prei=1;
-      for (int i = prei; i>=0; i--){
-        bigTilePrefabs.Add(bigTilePrefabs[n]);
-      }
-    }
   }
 
   // Update is called once per frame
@@ -221,8 +214,20 @@ public class GameController : MonoBehaviour{
     GameObject btPrefab = null;
     GameObject forcedBigTile = forcedBigTiles[targetFloor.x, targetFloor.y];
     if (forcedBigTile==null){
+      int level = Mathf.CeilToInt(Vector2Int.Distance(targetFloor,Vector2Int.zero)*.02f);
+      List<GameObject> btOptions = new List<GameObject>();
+      for (int n = bigTilePrefabs.Length-1; n>=0; n--){
+        BigTile btVars = bigTilePrefabs[n].GetComponent<BigTile>();
+        if (btVars.minLevel<=level && btVars.maxLevel>=level){
+          int prei = 11-btVars.rarity;
+          if (prei<1) prei=1;
+          for (int i = prei; i>=0; i--){
+            btOptions.Add(bigTilePrefabs[n]);
+          }
+        }
+      }
       float[] rands = getRands(targetFloor);
-      btPrefab = bigTilePrefabs[Mathf.RoundToInt(rands[0]*(bigTilePrefabs.Count-1))];
+      btPrefab = btOptions[Mathf.FloorToInt(rands[0]*(btOptions.Count))];
     } else {
       btPrefab = forcedBigTile;
     }
