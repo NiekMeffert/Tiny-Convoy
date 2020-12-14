@@ -35,10 +35,10 @@ public class AStarPathfinder : Pathfinder
     navTile[,] memoryTiles;
     Tile firstCarTile = firstCarVars.tile.GetComponent<Tile>();
     Vector2Int offset = new Vector2Int(tile.GetComponent<Tile>().pos.x-firstCarTile.pos.x, tile.GetComponent<Tile>().pos.y-firstCarTile.pos.y);
-    if (Mathf.Abs(offset.x)>freeMemory+cpu.memory || Mathf.Abs(offset.y)>freeMemory+cpu.memory) {
+    if (Mathf.Abs(offset.x)>cpu.sight || Mathf.Abs(offset.y)>cpu.sight) {
       return (cost, path, selectableTiles2, new navTile(), new navTile());
     }
-    GameObject[,] mTiles = gameController.getSquare(new Vector3Int(firstCarTile.pos.x, firstCarTile.pos.y, freeMemory+cpu.memory));
+    GameObject[,] mTiles = gameController.getSquare(new Vector3Int(firstCarTile.pos.x, firstCarTile.pos.y, cpu.sight));
     memoryTiles = new navTile[mTiles.GetLength(0), mTiles.GetLength(1)];
     for (int x = 0; x<memoryTiles.GetLength(0); x++){
       for (int y = 0; y<memoryTiles.GetLength(1); y++){
@@ -50,10 +50,10 @@ public class AStarPathfinder : Pathfinder
         computeAdjacencyLists(x,y,memoryTiles);
       }
     }
-    currentTile2 = memoryTiles[freeMemory+cpu.memory,freeMemory+cpu.memory];
+    currentTile2 = memoryTiles[cpu.sight,cpu.sight];
     currentTile2.current = true;
     selectableTiles2 = FindSelectableTiles(currentTile2, selectableTiles2);
-    navTile targetNavTile = memoryTiles[freeMemory+cpu.memory+offset.x,freeMemory+cpu.memory+offset.y];
+    navTile targetNavTile = memoryTiles[cpu.sight+offset.x,cpu.sight+offset.y];
     targetNavTile.target = true;
     navTile next = targetNavTile;
     while (next !=null)

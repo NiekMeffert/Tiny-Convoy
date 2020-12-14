@@ -8,13 +8,13 @@ public class CPU : Upgrade {
   public int memory;
   public int inputs;
   public int outputs;
-  public float sight;
+  public int sight;
   public float battery;
   public int baseProcessing;
   public int baseMemory;
   public int baseInputs;
   public int baseOutputs;
-  public float baseSight;
+  public int baseSight;
   public float baseBattery;
   public float hSpeed;
   public float turnSpeed;
@@ -50,7 +50,7 @@ public class CPU : Upgrade {
     baseInputs = 1+Mathf.RoundToInt(rands[2]*randFactor);
     baseOutputs = 1+Mathf.RoundToInt(rands[3]*randFactor);
     baseBattery = 1f+Mathf.Round(rands[4]*randFactor);
-    baseSight = 1f+Mathf.Round(rands[5]*randFactor);
+    baseSight = 1+Mathf.RoundToInt(rands[5]*randFactor);
     gameController.CPUs = GameObject.FindGameObjectsWithTag("CPU");
   }
 
@@ -180,7 +180,7 @@ public class CPU : Upgrade {
           if (cpuVars.baseMemory>memory) memory+=Mathf.RoundToInt(dist*(cpuVars.baseMemory-memory));
           if (cpuVars.baseInputs>inputs) inputs+=Mathf.RoundToInt(dist*(cpuVars.baseInputs-inputs));
           if (cpuVars.baseOutputs>outputs) outputs+=Mathf.RoundToInt(dist*(cpuVars.baseOutputs-outputs));
-          if (cpuVars.baseSight>sight) sight+=dist*(cpuVars.baseSight-sight);
+          if (cpuVars.baseSight>sight) sight+=Mathf.RoundToInt(dist*(cpuVars.baseSight-sight));
         }
       }
     }

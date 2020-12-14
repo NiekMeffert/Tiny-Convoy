@@ -67,7 +67,7 @@ public class GameController : MonoBehaviour{
       if (Physics.Raycast(ray, out hit)&&uiBlocker==false){
         mouseOver = hit.collider.gameObject;
         float maxDist = Mathf.Max(Mathf.Abs(mouseOver.transform.position.x-totem.transform.position.x), Mathf.Abs(mouseOver.transform.position.z-totem.transform.position.z));
-        int seeDist = totem.GetComponent<CPU>().memory + totem.GetComponent<Pathfinder>().freeMemory;
+        int seeDist = totem.GetComponent<CPU>().sight;
         if (maxDist<=seeDist){
           if (mouseOver.GetComponent<Tile>()!=null){
             if (canFit(totem,mouseOver,true)==0){
