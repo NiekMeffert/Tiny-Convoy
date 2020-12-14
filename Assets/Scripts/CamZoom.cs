@@ -14,9 +14,11 @@ public class CamZoom : MonoBehaviour
     private float currentZoom = 1f;
     private float currentRotation = 0f;
     public GameObject zoomSlider;
+    GameObject fogOfWindow;
 
     void Start(){
       gameController=GameObject.Find("GameController").GetComponent<GameController>();
+      fogOfWindow=GameObject.Find("FogOfWindow");
       offset = transform.position-camRotator.transform.position;
       baseRotation = camRotator.transform.rotation;
     }
@@ -27,6 +29,10 @@ public class CamZoom : MonoBehaviour
       currentZoom = Mathf.Clamp(currentZoom, minZoom, maxZoom);
       if (Mathf.Abs(Input.mouseScrollDelta.x)>.5) currentRotation -= Input.mouseScrollDelta.x;
       currentRotation += Input.GetAxis("Horizontal") * Time.deltaTime * 50;
+      if (gameController.totem!=null){
+        float fogScale = 200f * gameController.totem.GetComponent<CPU>().sight;
+        fogOfWindow.transform.localScale = new Vector3(fogScale,fogScale,fogScale);
+      }
     }
 
     void LateUpdate(){
