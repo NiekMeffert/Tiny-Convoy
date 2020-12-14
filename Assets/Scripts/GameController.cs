@@ -5,6 +5,7 @@ using UnityEngine;
 public class GameController : MonoBehaviour{
 
   public int mode = 1; //0 paused, 1 normal, 2 upgrade, 3 long-distance scanner, 4 conversation
+  public int nextMode = 1;
   public int level = 0;
   public int randomSeedX;
   public int randomSeedY;
@@ -14,7 +15,7 @@ public class GameController : MonoBehaviour{
   public GameObject carPrefab;
   public GameObject[] upgradePrefabs;
   public GameObject[] plantPrefabs;
-  public GameObject[] bigTilePrefabs;
+  public List<GameObject> bigTilePrefabs = new List<GameObject>();
   public GameObject[] specialBigTilePrefabs;
   public GameObject mainCamera;
   public GameObject lastBigTile;
@@ -45,6 +46,13 @@ public class GameController : MonoBehaviour{
     scanner = GameObject.Find("LRScannerCanvas");
     scanner.SetActive(false);
     forcedBigTiles[0,0] = specialBigTilePrefabs[0];
+    for (int n = bigTilePrefabs.Count-1; n>=0; n--){
+      int prei = 11-bigTilePrefabs[n].GetComponent<BigTile>().rarity;
+      if (prei<1) prei=1;
+      for (int i = prei; i>=0; i--){
+        bigTilePrefabs.Add(bigTilePrefabs[n]);
+      }
+    }
   }
 
   // Update is called once per frame
@@ -91,29 +99,40 @@ public class GameController : MonoBehaviour{
     }
     if (mode==2){
     }
+    if (mode==3){
+      if (Input.GetMouseButtonUp(0)){
+        setMode(1);
+      }
+    }
     updateVisibleTiles();
   }
 
+  void LateUpdate(){
+    if (nextMode!=mode){
+      if (mode==1){}
+      if (mode==2){
+        inventory.SetActive(false);
+      }
+      if (mode==3){
+        scanner.SetActive(false);
+      }
+      if (nextMode==1){
+        mode=1;
+      }
+      if (nextMode==2){
+        mode=2;
+        inventory.SetActive(true);
+        //upgradeWith(totem.objective);
+      }
+      if (nextMode==3){
+        mode=3;
+        scanner.SetActive(true);
+      }
+    }
+  }
+
   public void setMode(int newMode){
-    if (mode==1){}
-    if (mode==2){
-      inventory.SetActive(false);
-    }
-    if (mode==3){
-      scanner.SetActive(false);
-    }
-    if (newMode==1){
-      mode=1;
-    }
-    if (newMode==2){
-      mode=2;
-      inventory.SetActive(true);
-      //upgradeWith(totem.objective);
-    }
-    if (newMode==3){
-      mode=3;
-      scanner.SetActive(true);
-    }
+    nextMode = newMode;
   }
 
   void pickDefaultAction(){
@@ -200,7 +219,7 @@ public class GameController : MonoBehaviour{
     GameObject forcedBigTile = forcedBigTiles[targetFloor.x, targetFloor.y];
     if (forcedBigTile==null){
       float[] rands = getRands(targetFloor);
-      btPrefab = bigTilePrefabs[Mathf.RoundToInt(rands[0]*(bigTilePrefabs.Length-1))];
+      btPrefab = bigTilePrefabs[Mathf.RoundToInt(rands[0]*(bigTilePrefabs.Count-1))];
     } else {
       btPrefab = forcedBigTile;
     }
