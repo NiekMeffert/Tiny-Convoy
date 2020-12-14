@@ -32,6 +32,7 @@ public class GameController : MonoBehaviour{
   SparseMatrix<GameObject> forcedBigTiles = new SparseMatrix<GameObject>();
   public GameObject inventory;
   public GameObject scanner;
+  public bool uiBlocker = false;
 
   // Start is called before the first frame update
   void Start(){
@@ -70,7 +71,7 @@ public class GameController : MonoBehaviour{
       }
       Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
       RaycastHit hit;
-      if (Physics.Raycast(ray, out hit)){
+      if (Physics.Raycast(ray, out hit)&&uiBlocker==false){
         mouseOver = hit.collider.gameObject;
         float maxDist = Mathf.Max(Mathf.Abs(mouseOver.transform.position.x-totem.transform.position.x), Mathf.Abs(mouseOver.transform.position.z-totem.transform.position.z));
         int seeDist = totem.GetComponent<CPU>().memory + totem.GetComponent<Pathfinder>().freeMemory;
@@ -93,7 +94,7 @@ public class GameController : MonoBehaviour{
       } else {
         mouseOver=null;
       }
-      if (Input.GetMouseButtonUp(0)){
+      if (Input.GetMouseButtonUp(0)&&uiBlocker==false){
         pickDefaultAction();
       }
     }
@@ -105,6 +106,7 @@ public class GameController : MonoBehaviour{
       }
     }
     updateVisibleTiles();
+    uiBlocker = false;
   }
 
   void LateUpdate(){
@@ -133,6 +135,7 @@ public class GameController : MonoBehaviour{
 
   public void setMode(int newMode){
     nextMode = newMode;
+    uiBlocker = true;
   }
 
   void pickDefaultAction(){

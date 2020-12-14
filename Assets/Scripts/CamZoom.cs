@@ -22,9 +22,11 @@ public class CamZoom : MonoBehaviour
     }
 
     void Update(){
+      currentZoom += Input.GetAxis("Vertical") * Time.deltaTime * 3;
       currentZoom -= Input.mouseScrollDelta.y * zoomSpeed;
       currentZoom = Mathf.Clamp(currentZoom, minZoom, maxZoom);
       if (Mathf.Abs(Input.mouseScrollDelta.x)>.5) currentRotation -= Input.mouseScrollDelta.x;
+      currentRotation += Input.GetAxis("Horizontal") * Time.deltaTime * 50;
     }
 
     void LateUpdate(){
@@ -40,5 +42,6 @@ public class CamZoom : MonoBehaviour
       float z = zoomSlider.GetComponent<Slider>().value;
       z = (z*(maxZoom-minZoom))+minZoom;
       currentZoom = z;
+      gameController.uiBlocker = true;
     }
 }

@@ -1844,6 +1844,7 @@ GameObject:
   - component: {fileID: 1581019264}
   - component: {fileID: 1581019266}
   - component: {fileID: 1581019265}
+  - component: {fileID: 1581019267}
   m_Layer: 0
   m_Name: Slider
   m_TagString: Untagged
@@ -1972,6 +1973,18 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
+--- !u!225 &1581019267
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1581019262}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &1688403951
 GameObject:
   m_ObjectHideFlags: 0
@@ -2008,7 +2021,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 32.961304, y: -8.927002}
+  m_AnchoredPosition: {x: 32.961426, y: -8.927002}
   m_SizeDelta: {x: 81.8, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1688403953
