@@ -235,7 +235,24 @@ public class CPU : Upgrade {
     }
   }
 
+  public void chargeBot(GameObject friendBattery){
+    GameObject friendCar = friendBattery.GetComponent<Battery>().cpu.GetComponent<CPU>().cars[0];
+    bool closeEnough=false;
+    for (int i=0; i<cars.Length; i++){
+      if (Vector2.Distance(new Vector2(friendCar.transform.position.x, friendCar.transform.position.z), new Vector2(cars[i].transform.position.x, cars[i].transform.position.z))<1.3f) closeEnough=true;
+    }
+    if (closeEnough){
+      chargeTo(friendCar);
+      objective=null;
+    } else {
+      pathfinder.moveNextTo(friendCar.GetComponent<Car>().tile);
+    }
+  }
+
   public void upgrade(GameObject newToy){
+    Upgrade newToyVars = newToy.GetComponent<Upgrade>();
+    GameObject newToyTile = newToyVars.tile;
+    if (newToyVars.cpu!=null) newToyTile = newToyVars.cpu.GetComponent<CPU>().cars[0].GetComponent<Car>().tile;
     bool closeEnough=false;
     for (int i=0; i<cars.Length; i++){
       if (Vector2.Distance(new Vector2(newToy.transform.position.x, newToy.transform.position.z), new Vector2(cars[i].transform.position.x, cars[i].transform.position.z))<1.3f) closeEnough=true;
@@ -245,7 +262,7 @@ public class CPU : Upgrade {
       gameController.setMode(2); //upgrade screen
       objective=null;
     } else {
-      pathfinder.moveNextTo(newToy.GetComponent<Upgrade>().tile);
+      pathfinder.moveNextTo(newToyTile);
     }
   }
 
@@ -261,6 +278,45 @@ public class CPU : Upgrade {
           chargeIn = 0;
           if (batteryVars.charge>batteryVars.maxCharge){
             chargeIn = batteryVars.charge-batteryVars.maxCharge;
+            batteryVars.charge=batteryVars.maxCharge;
+          }
+          batteryVars.updateBatteryLevel();
+        }
+      }
+    }
+  }
+
+  public void chargeTo(GameObject botCar){
+    CPU botVars = botCar.GetComponent<Car>().cpu.GetComponent<CPU>();
+    float spend = Mathf.Min(powerAvailable, maxChargeOut);
+    spend = Mathf.Min(spend, botVars.maxPower-botVars.powerAvailable);
+    spend = Mathf.Min(spend, botVars.maxChargeIn);
+    float exchanged = spend;
+    Debug.Log(spend);
+    for (int i = 0; i<cars.Length; i++){
+      Car carVars = cars[i].GetComponent<Car>();
+      for (int h = 0; h<carVars.upgrades.GetLength(0); h++){
+        Battery batteryVars = carVars.upgrades[h].GetComponent<Battery>();
+        if (carVars.upgrades[h]!=null && spend>0 && batteryVars!=null){
+          batteryVars.charge -= spend;
+          spend = 0;
+          if (batteryVars.charge<=0){
+            spend = -batteryVars.charge;
+            batteryVars.charge=0;
+          }
+          batteryVars.updateBatteryLevel();
+        }
+      }
+    }
+    for (int i = 0; i<botVars.cars.Length; i++){
+      Car carVars = botVars.cars[i].GetComponent<Car>();
+      for (int h = 0; h<carVars.upgrades.GetLength(0); h++){
+        Battery batteryVars = carVars.upgrades[h].GetComponent<Battery>();
+        if (carVars.upgrades[h]!=null && exchanged>0 && batteryVars!=null){
+          batteryVars.charge += exchanged;
+          exchanged = 0;
+          if (batteryVars.charge>batteryVars.maxCharge){
+            exchanged = batteryVars.charge-batteryVars.maxCharge;
             batteryVars.charge=batteryVars.maxCharge;
           }
           batteryVars.updateBatteryLevel();

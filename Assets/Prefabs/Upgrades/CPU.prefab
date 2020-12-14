@@ -78,15 +78,15 @@ MonoBehaviour:
   climb: 0
   flyHeight: 0
   sightDistance: 0
-  longDistanceResolution: 0
+  scanner: 0
   meshDistance: 0
   waterResistance: 0
   objective: {fileID: 0}
   powerNeeded: 0
   powerAvailable: 0
   maxPower: 0
-  maxChargeIn: 0
-  maxChargeOut: 0
+  maxChargeIn: 20
+  maxChargeOut: 20
   waitForRotation: 0
 --- !u!114 &7456990125429083905
 MonoBehaviour:
@@ -105,7 +105,6 @@ MonoBehaviour:
   destination: {fileID: 0}
   firstCarVars: {fileID: 0}
   moving: 0
-  freeMemory: 5
 --- !u!65 &6356307829816968810
 BoxCollider:
   m_ObjectHideFlags: 0

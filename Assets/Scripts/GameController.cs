@@ -28,6 +28,7 @@ public class GameController : MonoBehaviour{
   public GameObject reticule;
   public GameObject reticulePlant;
   public GameObject reticuleUpgrade;
+  public GameObject reticuleCharge;
   GameObject mouseOver;
   public GameObject bigBot;
   SparseMatrix<GameObject> forcedBigTiles = new SparseMatrix<GameObject>();
@@ -45,6 +46,7 @@ public class GameController : MonoBehaviour{
     reticule = GameObject.Find("Reticule");
     reticulePlant = GameObject.Find("Reticule-Plant");
     reticuleUpgrade = GameObject.Find("Reticule-Upgrade");
+    reticuleCharge = GameObject.Find("Reticule-Charge");
     inventory = GameObject.Find("InventoryCanvas");
     inventory.SetActive(false);
     scanner = GameObject.Find("LRScannerCanvas");
@@ -57,6 +59,7 @@ public class GameController : MonoBehaviour{
     reticule.SetActive(false);
     reticulePlant.SetActive(false);
     reticuleUpgrade.SetActive(false);
+    reticuleCharge.SetActive(false);
     //normal game mode
     if (mode==1) {
       totemCounter-=Time.deltaTime;
@@ -83,8 +86,13 @@ public class GameController : MonoBehaviour{
             reticulePlant.transform.position = mouseOver.transform.position;
           }
           if (mouseOver.GetComponent<Upgrade>()!=null){
-            reticuleUpgrade.SetActive(true);
-            reticuleUpgrade.transform.position = mouseOver.transform.position;
+            if (mouseOver.GetComponent<Battery>()!=null && mouseOver.GetComponent<Upgrade>().cpu!=null && mouseOver.GetComponent<Upgrade>().cpu!=totem){
+              reticuleCharge.SetActive(true);
+              reticuleCharge.transform.position = mouseOver.transform.position;
+            } else {
+              reticuleUpgrade.SetActive(true);
+              reticuleUpgrade.transform.position = mouseOver.transform.position;
+            }
           }
         }
       } else {
@@ -150,8 +158,13 @@ public class GameController : MonoBehaviour{
       totem.GetComponent<CPU>().objective = mouseOver;
     }
     if (mouseOver.GetComponent<Upgrade>() != null){
-      totem.GetComponent<CPU>().upgrade(mouseOver);
-      totem.GetComponent<CPU>().objective = mouseOver;
+      if (mouseOver.GetComponent<Battery>()!=null && mouseOver.GetComponent<Upgrade>().cpu!=null && mouseOver.GetComponent<Upgrade>().cpu!=totem){
+        totem.GetComponent<CPU>().chargeBot(mouseOver);
+        totem.GetComponent<CPU>().objective = mouseOver;
+      } else {
+        totem.GetComponent<CPU>().upgrade(mouseOver);
+        totem.GetComponent<CPU>().objective = mouseOver;
+      }
     }
   }
 
