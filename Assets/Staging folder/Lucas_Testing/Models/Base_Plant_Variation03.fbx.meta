@@ -1,26 +1,11 @@
 fileFormatVersion: 2
-guid: 942cc2fa331822b46aa4c7e3fe2d90de
+guid: ea0561a28de26d145b7c7a09751fc9bf
 ModelImporter:
   serializedVersion: 19301
   internalIDToNameTable:
   - first:
-      74: -8316308296631757849
-    second: Base_Plant_Var01|Armature.001|Armature|Dead|Armature|Dead
-  - first:
-      74: -6021437233017698838
-    second: Base_Plant_Var01|Armature.001|Armature|Idle|Armature|Idle
-  - first:
-      74: -2067047730700602761
-    second: Base_Plant_Var01|Armature|Armature|Dead|Armature|Dead
-  - first:
-      74: -8838827893024273898
-    second: Base_Plant_Var01|Armature|Armature|Idle|Armature|Idle
-  - first:
-      74: 1686744602055341839
-    second: Base_Plant_Var01|Dead
-  - first:
-      74: 7173174847772495804
-    second: Base_Plant_Var01|Idle
+      74: -1622080443127404381
+    second: Plant_Variation_03|Idle
   externalObjects: {}
   materials:
     materialImportMode: 1
@@ -50,37 +35,8 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: Base_Plant_Var01|Dead
-      takeName: Base_Plant_Var01|Dead
-      internalID: 0
-      firstFrame: 0
-      lastFrame: 1
-      wrapMode: 0
-      orientationOffsetY: 0
-      level: 0
-      cycleOffset: 0
-      loop: 0
-      hasAdditiveReferencePose: 0
-      loopTime: 0
-      loopBlend: 0
-      loopBlendOrientation: 0
-      loopBlendPositionY: 0
-      loopBlendPositionXZ: 0
-      keepOriginalOrientation: 0
-      keepOriginalPositionY: 1
-      keepOriginalPositionXZ: 0
-      heightFromFeet: 0
-      mirror: 0
-      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
-      curves: []
-      events: []
-      transformMask: []
-      maskType: 3
-      maskSource: {instanceID: 0}
-      additiveReferencePoseFrame: 0
-    - serializedVersion: 16
-      name: Base_Plant_Var01|Idle
-      takeName: Base_Plant_Var01|Idle
+      name: Plant_Variation_03|Idle
+      takeName: Plant_Variation_03|Idle
       internalID: 0
       firstFrame: 0
       lastFrame: 39
@@ -158,7 +114,7 @@ ModelImporter:
     legStretch: 0.05
     feetSpacing: 0
     globalScale: 1
-    rootMotionBoneName: Base_Plant_Var01
+    rootMotionBoneName: Plant_Variation_03
     hasTranslationDoF: 0
     hasExtraRoot: 0
     skeletonHasParents: 1
