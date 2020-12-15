@@ -292,7 +292,7 @@ public class CPU : Upgrade {
     spend = Mathf.Min(spend, botVars.maxPower-botVars.powerAvailable);
     spend = Mathf.Min(spend, botVars.maxChargeIn);
     float exchanged = spend;
-    Debug.Log(spend);
+    //Debug.Log(spend);
     for (int i = 0; i<cars.Length; i++){
       Car carVars = cars[i].GetComponent<Car>();
       for (int h = 0; h<carVars.upgrades.GetLength(0); h++){

@@ -9,7 +9,7 @@ public class InvisibleObstruction : ActualThing
     {
       transform.GetChild(0).gameObject.GetComponent<MeshRenderer>().enabled=false;
       if (height==0){
-        height = 2*Mathf.RoundToInt(transform.localScale.y); 
+        height = 2*Mathf.RoundToInt(transform.localScale.y);
       }
     }
 
@@ -17,5 +17,38 @@ public class InvisibleObstruction : ActualThing
     void Update()
     {
 
+    }
+
+    public override void setFog(int nextFog){
+      if (nextFog==fogLevel) return;
+      GameObject par = transform.parent.gameObject;
+      if (nextFog==0){
+        fogLevel=nextFog;
+        if (par.GetComponent<ThingOnBigTile>()!=null){
+          MeshRenderer[] mRenderers = par.transform.GetComponentsInChildren<MeshRenderer>(true);
+          SkinnedMeshRenderer[] smRenderers = par.transform.GetComponentsInChildren<SkinnedMeshRenderer>(true);
+          foreach (MeshRenderer m in mRenderers){
+            Debug.Log("enabling");
+            if (m.gameObject.GetComponent<ActualThing>()==null) m.enabled=true;
+          }
+          foreach (SkinnedMeshRenderer sm in smRenderers){
+            if (sm.gameObject.GetComponent<ActualThing>()==null) sm.enabled=true;
+          }
+        }
+      } else if (nextFog==2) {
+        fogLevel=nextFog;
+        if (par.GetComponent<ThingOnBigTile>()!=null){
+          MeshRenderer[] mRenderers = par.transform.GetComponentsInChildren<MeshRenderer>(true);
+          SkinnedMeshRenderer[] smRenderers = par.transform.GetComponentsInChildren<SkinnedMeshRenderer>(true);
+          foreach (MeshRenderer m in mRenderers){
+            if (m.gameObject.GetComponent<ActualThing>()==null) m.enabled=false;
+          }
+          foreach (SkinnedMeshRenderer sm in smRenderers){
+            if (sm.gameObject.GetComponent<ActualThing>()==null) sm.enabled=false;
+          }
+        }
+      } else {
+        fogLevel=nextFog;
+      }
     }
 }

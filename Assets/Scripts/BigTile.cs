@@ -13,7 +13,7 @@ public class BigTile : MonoBehaviour
   GameController gameController;
   public int minLevel;
   public int maxLevel;
-
+  public int fogLevel = 2;
     // Start is called before the first frame update
     void Start(){
       gameController=GameObject.Find("GameController").GetComponent<GameController>();

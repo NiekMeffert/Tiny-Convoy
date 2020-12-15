@@ -22,6 +22,9 @@ public class GameController : MonoBehaviour{
   public GameObject lastBigTile;
   public GameObject[] CPUs;
   public GameObject totem;
+  public Vector2Int totemPos;
+  public int fog1;
+  public int fog2;
   float visibilityPainterX = .5f;
   float visibilityPainterY = .5f;
   public Material[] powerLevels;
@@ -67,6 +70,14 @@ public class GameController : MonoBehaviour{
         totem = CPUs[Mathf.FloorToInt(Random.value*CPUs.Length)];
         totemCounter=120;
         bigBotCheck();
+      }
+      if (totem!=null){
+        if (totem.GetComponent<CPU>().cars[0].GetComponent<Car>().tile!=null){
+          Vector2Int currPos = totem.GetComponent<CPU>().cars[0].GetComponent<Car>().tile.GetComponent<Tile>().pos;
+          if (totemPos != currPos){
+            moveFog();
+          }
+        }
       }
       Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
       RaycastHit hit;
@@ -265,6 +276,7 @@ public class GameController : MonoBehaviour{
         newBigTile.GetComponent<BigTile>().tiles[tp.x-newBigTileVars.pos.x, tp.y-newBigTileVars.pos.y] = candidate.gameObject;
         candidate.GetComponent<Tile>().pos = tp;
         candidate.GetComponent<Tile>().bigTile = newBigTile;
+        candidate.GetComponent<Tile>().setFog(2);
       }
     }
     return newBigTile;
@@ -308,5 +320,29 @@ public class GameController : MonoBehaviour{
       botVec += mainCamera.transform.position;
       newBigBot.transform.position = botVec;
     }
+  }
+
+  public void moveFog(){
+    if (totem==null) return;
+    fog1=totem.GetComponent<CPU>().sight;
+    int boxChange = fog2-(fog1+totem.GetComponent<CPU>().memory);
+    fog2 = fog1+totem.GetComponent<CPU>().memory;
+    Vector2Int currentTotemPos = totem.GetComponent<CPU>().cars[0].GetComponent<Car>().tile.GetComponent<Tile>().pos;
+    if (currentTotemPos.x>totemPos.x) totemPos+=Vector2Int.right;
+    if (currentTotemPos.x<totemPos.x) totemPos+=Vector2Int.left;
+    if (currentTotemPos.y>totemPos.y) totemPos+=Vector2Int.up;
+    if (currentTotemPos.y<totemPos.y) totemPos+=Vector2Int.down;
+    //update tiles affected
+    GameObject[,] fogSquare = getSquare(new Vector3Int(totemPos.x,totemPos.y,fog2+boxChange+1));
+    for (int x = 0; x<fogSquare.GetLength(0); x++){
+      for (int y = 0; y<fogSquare.GetLength(1); y++){
+        Tile t = fogSquare[x,y].GetComponent<Tile>();
+        int fog = 0;
+        if (Mathf.Abs(t.pos.x-totemPos.x)>fog1 || Mathf.Abs(t.pos.y-totemPos.y)>fog1) fog = 1;
+        if (Mathf.Abs(t.pos.x-totemPos.x)>fog2 || Mathf.Abs(t.pos.y-totemPos.y)>fog2) fog = 2;
+        t.setFog(fog);
+      }
+    }
+    //Debug.Log(getTile(Vector2Int.zero).GetComponent<Tile>().fogLevel);
   }
 }

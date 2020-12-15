@@ -29,10 +29,9 @@ public class CamZoom : MonoBehaviour
       currentZoom = Mathf.Clamp(currentZoom, minZoom, maxZoom);
       if (Mathf.Abs(Input.mouseScrollDelta.x)>.5) currentRotation -= Input.mouseScrollDelta.x;
       currentRotation += Input.GetAxis("Horizontal") * Time.deltaTime * 50;
-      if (gameController.totem!=null){
-        float fogScale = 200f * gameController.totem.GetComponent<CPU>().sight;
-        fogOfWindow.transform.localScale = new Vector3(fogScale,fogScale,fogScale);
-      }
+      float fogScale = 200f * gameController.fog1;
+      fogOfWindow.transform.localScale = new Vector3(fogScale,fogScale,fogScale);
+      fogOfWindow.transform.position = new Vector3(gameController.totemPos.x,0,gameController.totemPos.y);
     }
 
     void LateUpdate(){

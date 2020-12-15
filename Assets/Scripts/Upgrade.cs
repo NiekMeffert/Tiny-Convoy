@@ -65,4 +65,29 @@ public class Upgrade : ActualThing
       rend.materials = mats;
     }
   }
+
+  public override void setFog(int nextFog){
+    if (nextFog==fogLevel) return;
+    MeshRenderer[] mRenderers = transform.GetComponentsInChildren<MeshRenderer>(true);
+    SkinnedMeshRenderer[] smRenderers = transform.GetComponentsInChildren<SkinnedMeshRenderer>(true);
+    if (nextFog==0){
+      fogLevel=nextFog;
+      foreach (MeshRenderer m in mRenderers){
+        m.enabled=true;
+      }
+      foreach (SkinnedMeshRenderer sm in smRenderers){
+        sm.enabled=true;
+      }
+    } else if (fogLevel==0){
+      fogLevel=nextFog;
+      foreach (MeshRenderer m in mRenderers){
+        m.enabled=false;
+      }
+      foreach (SkinnedMeshRenderer sm in smRenderers){
+        sm.enabled=false;
+      }
+    } else {
+      fogLevel=nextFog;
+    }
+  }
 }

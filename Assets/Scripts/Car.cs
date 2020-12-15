@@ -43,9 +43,26 @@ public class Car : ActualThing
     lateSetup=true;
   }
 
-  /*public override void moveOntoTile(GameObject newTile, int){
-    newTile.GetComponent<Tile>().full = true;
-    if (tile!=null) tile.GetComponent<Tile>().full = false;
+  public override void setFog(int nextFog){
+    if (nextFog==fogLevel) return;
+    fogLevel=nextFog;
+    upgradeTile.GetComponent<Tile>().setFog(nextFog);
+  }
+
+  public override void moveOntoTile(GameObject newTile, int heightSlot){
+    if (newTile==tile) return;
+    Tile newTileVars = newTile.GetComponent<Tile>();
+    for (int h=heightSlot; h<height+heightSlot; h++){
+      newTileVars.heightSlots[h] = gameObject;
+    }
+    if (tile!=null){
+      GameObject[] oldSlots = tile.GetComponent<Tile>().heightSlots;
+      for (int h=0; h<oldSlots.Length; h++){
+        if (oldSlots[h]==gameObject) oldSlots[h]=null;
+      }
+    }
     tile = newTile;
-  }*/
+    upgradeTile.GetComponent<Tile>().pos = newTileVars.pos;
+    setFog(newTileVars.fogLevel);
+  }
 }
