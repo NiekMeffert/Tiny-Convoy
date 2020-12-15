@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 2379986652546534500}
   - component: {fileID: 1706230667351803242}
   - component: {fileID: 9220264105873827093}
+  - component: {fileID: 4208369899557512279}
   m_Layer: 0
   m_Name: Plant
   m_TagString: Plant
@@ -66,6 +67,25 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.8045449, y: 0.99128556, z: 1.002804}
   m_Center: {x: 0, y: 0.5014399, z: -0.02809912}
+--- !u!95 &4208369899557512279
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2498946500452104959}
+  m_Enabled: 1
+  m_Avatar: {fileID: 9000000, guid: 79c2429161593bd4a838448a2916e28a, type: 3}
+  m_Controller: {fileID: 9100000, guid: 6692da94e9bd8824eaa70616ee4cf369, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1001 &5368349461134972003
 PrefabInstance:
   m_ObjectHideFlags: 0
