@@ -39,6 +39,7 @@ public class GameController : MonoBehaviour{
   public GameObject scanner;
   public bool uiBlocker = false;
   RectTransform scannerNoise;
+  public GameObject[] particles;
 
   // Start is called before the first frame update
   void Start(){

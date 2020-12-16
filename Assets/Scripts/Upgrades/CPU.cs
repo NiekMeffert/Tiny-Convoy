@@ -269,6 +269,12 @@ public class CPU : Upgrade {
   public void chargeFrom(GameObject source){
     float intake = Mathf.Max(maxPower-powerAvailable, maxChargeIn*Time.deltaTime);
     float chargeIn = source.GetComponent<Powered>().discharge(intake);
+    if (intake>.1) {
+      GameObject chargeEffect = Instantiate(gameController.particles[0]);
+      Vector3 horizontal = new Vector3(source.transform.position.x, transform.position.y, source.transform.position.z);
+      chargeEffect.transform.position = horizontal;
+      chargeEffect.transform.rotation = Quaternion.LookRotation(transform.position-horizontal,Vector3.up);
+    }
     for (int i = 0; i<cars.Length; i++){
       Car carVars = cars[i].GetComponent<Car>();
       for (int h = 0; h<carVars.upgrades.GetLength(0); h++){
@@ -292,7 +298,12 @@ public class CPU : Upgrade {
     spend = Mathf.Min(spend, botVars.maxPower-botVars.powerAvailable);
     spend = Mathf.Min(spend, botVars.maxChargeIn);
     float exchanged = spend;
-    //Debug.Log(spend);
+    if (spend>.1) {
+      GameObject chargeEffect = Instantiate(gameController.particles[0]);
+      chargeEffect.transform.position = transform.position;
+      Vector3 horizontal = new Vector3(botCar.transform.position.x, transform.position.y, botCar.transform.position.z);
+      chargeEffect.transform.rotation = Quaternion.LookRotation(horizontal-transform.position,Vector3.up);
+    }
     for (int i = 0; i<cars.Length; i++){
       Car carVars = cars[i].GetComponent<Car>();
       for (int h = 0; h<carVars.upgrades.GetLength(0); h++){

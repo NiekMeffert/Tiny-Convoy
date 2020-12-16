@@ -79,6 +79,9 @@ MonoBehaviour:
   lastBigTile: {fileID: 0}
   CPUs: []
   totem: {fileID: 0}
+  totemPos: {x: 0, y: 0}
+  fog1: 0
+  fog2: 0
   powerLevels:
   - {fileID: 2100000, guid: b6a231bfb1c6df44cb84487b4e202bac, type: 2}
   - {fileID: 2100000, guid: abb347d7e2c32bc46a1b433e47f078a5, type: 2}
@@ -88,8 +91,10 @@ MonoBehaviour:
   reticule: {fileID: 0}
   reticulePlant: {fileID: 0}
   reticuleUpgrade: {fileID: 0}
+  reticuleCharge: {fileID: 0}
   bigBot: {fileID: 3461860374175526099, guid: 109b4a651f99b0745b40ca08033bc58a, type: 3}
   inventory: {fileID: 0}
   scanner: {fileID: 0}
   uiBlocker: 0
-  scannerNoise: []
+  particles:
+  - {fileID: 1687974853036285661, guid: 31d9ab04a5d9c42669d6fae5fbd839ac, type: 3}
