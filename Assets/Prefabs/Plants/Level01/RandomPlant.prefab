@@ -50,9 +50,13 @@ MonoBehaviour:
   momentum: {x: 0, y: 0}
   height: 0
   standable: 0
+  fogLevel: 0
   options:
   - {fileID: 2498946500452104959, guid: a35488ae58bd44b4b892dbc8a09c42a5, type: 3}
-  nothingChance: 0
+  - {fileID: 2498946500452104959, guid: 40273ee33c11444a49dea6d17c49f1e4, type: 3}
+  - {fileID: 2498946500452104959, guid: b4813d09826ff4ba9a15856ce4d47eee, type: 3}
+  - {fileID: 2498946500452104959, guid: 6e3f2f0f6dc374a4ba69cb7d24d8cc0a, type: 3}
+  nothingChance: 0.1
   wiggleRoom: {x: 5, y: 5}
 --- !u!1 &7182459785606539970
 GameObject:
