@@ -11,6 +11,10 @@ public class ActualThing : MonoBehaviour
   public int height;
   public bool standable;
   public int fogLevel;
+  public float health;
+  public float maxHealth;
+  public float armorTink;
+  public float armorMultiplier;
 
   // Start is called before the first frame update
   void Start()
@@ -76,6 +80,15 @@ public class ActualThing : MonoBehaviour
       fogLevel=nextFog;
     }
   }
+
+  public virtual void takeDamage(float damage){
+  }
+
+  public virtual void die(){
+    Destroy(gameObject);
+  }
+
+  public virtual void fall(){}
 
   public virtual string analyze(){
     return "Nothing much.";

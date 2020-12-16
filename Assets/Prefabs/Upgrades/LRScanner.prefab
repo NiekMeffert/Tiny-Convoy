@@ -143,9 +143,12 @@ MonoBehaviour:
   momentum: {x: 0, y: 0}
   height: 1
   standable: 1
-  cpu: {fileID: 0}
+  fogLevel: 0
   health: 3
   maxHealth: 3
+  armorTink: 0
+  armorMultiplier: 1
+  cpu: {fileID: 0}
   on: 0
   drain: 1
   resolution: 3

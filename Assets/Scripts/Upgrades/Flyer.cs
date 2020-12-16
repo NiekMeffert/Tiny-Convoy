@@ -4,12 +4,13 @@ using UnityEngine;
 
 public class Flyer : Mover
 {
-
   public float vSpeed;
+  float baseVSpeed;
 
   // Start is called before the first frame update
   void Start()
   {
+    baseVSpeed = vSpeed;
     setUpActualThing();
   }
 
@@ -17,5 +18,11 @@ public class Flyer : Mover
   void Update()
   {
 
+  }
+
+  public override void takeDamage(float damage){
+    health = Mathf.Clamp(health-damage,0,maxHealth);
+    vSpeed = (health/maxHealth)*baseVSpeed;
+    if (health==0) turnOff();
   }
 }

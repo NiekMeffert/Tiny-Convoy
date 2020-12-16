@@ -8,10 +8,14 @@ public class Mover : Upgrade
   public float hSpeed;
   public float turnSpeed;
   public bool waitForRotation;
+  float baseHSpeed;
+  float baseTurnSpeed;
 
   // Start is called before the first frame update
   void Start()
   {
+    baseHSpeed = hSpeed;
+    baseTurnSpeed = turnSpeed;
     setUpActualThing();
   }
 
@@ -31,4 +35,11 @@ public class Mover : Upgrade
   public virtual void moveForward(){}
 
   public virtual void moveBackward(){}
+
+  public override void takeDamage(float damage){
+    health = Mathf.Clamp(health-damage,0,maxHealth);
+    hSpeed = Mathf.RoundToInt(health/maxHealth)*baseHSpeed;
+    turnSpeed = Mathf.RoundToInt(health/maxHealth)*baseTurnSpeed;
+    if (health==0) turnOff();
+  }
 }

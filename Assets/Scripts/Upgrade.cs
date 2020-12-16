@@ -5,8 +5,6 @@ using UnityEngine;
 public class Upgrade : ActualThing
 {
   public GameObject cpu;
-  public float health;
-  public float maxHealth;
   public bool on;
   public float drain;
 
@@ -89,5 +87,10 @@ public class Upgrade : ActualThing
     } else {
       fogLevel=nextFog;
     }
+  }
+
+  public override void takeDamage(float damage){
+    health = Mathf.Clamp(health-damage,0,maxHealth);
+    if (health==0) turnOff();
   }
 }

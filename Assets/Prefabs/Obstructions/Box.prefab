@@ -144,6 +144,11 @@ MonoBehaviour:
   momentum: {x: 0, y: 0}
   height: 2
   standable: 1
+  fogLevel: 0
+  health: 10
+  maxHealth: 10
+  armorTink: 0
+  armorMultiplier: 0
 --- !u!65 &4342171908712345800
 BoxCollider:
   m_ObjectHideFlags: 0

@@ -53,6 +53,10 @@ MonoBehaviour:
   height: 2
   standable: 0
   fogLevel: 0
+  health: 10
+  maxHealth: 10
+  armorTink: 0
+  armorMultiplier: 0
   power: 30
   maxPower: 30
 --- !u!65 &9220264105873827093

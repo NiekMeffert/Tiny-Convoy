@@ -24,6 +24,7 @@ public class Battery : Upgrade{
     if (chargeRatio>.3) newLevel=2;
     if (chargeRatio>.6) newLevel=3;
     if (chargeRatio>.9) newLevel=4;
+    if (maxCharge==0) newLevel = 0;
     if (newLevel!=batteryLevel){
       batteryLevel=newLevel;
       foreach (Renderer rend in gameObject.GetComponentsInChildren<Renderer>()){
@@ -36,6 +37,14 @@ public class Battery : Upgrade{
         }
         rend.materials = mats;
       }
+    }
+  }
+
+  public override void takeDamage(float damage){
+    health = Mathf.Clamp(health-damage,0,maxHealth);
+    if (health==0){
+      charge=0;
+      maxCharge=0;
     }
   }
 }

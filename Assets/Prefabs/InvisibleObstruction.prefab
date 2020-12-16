@@ -144,3 +144,7 @@ MonoBehaviour:
   height: 0
   standable: 0
   fogLevel: 0
+  health: 0
+  maxHealth: -1
+  armorTink: 0
+  armorMultiplier: 0

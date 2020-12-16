@@ -10,8 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 2470867219255861336}
   - component: {fileID: 584223528436506314}
+  - component: {fileID: 3354196801491126839}
   m_Layer: 0
-  m_Name: Grabber
+  m_Name: Gripper
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -47,6 +48,32 @@ MonoBehaviour:
   radius: 5
   interactionTransfrom: {fileID: 2470867219255861336}
   item: {fileID: 11400000, guid: 8d4d8dce3b88cbe43be5c4884f48e9fc, type: 2}
+--- !u!114 &3354196801491126839
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7099735029424087113}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c3cb2a6cecc0544ee9e6d857308b6c7f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tile: {fileID: 0}
+  gameController: {fileID: 0}
+  mass: 0.1
+  momentum: {x: 0, y: 0}
+  height: 1
+  standable: 0
+  fogLevel: 0
+  health: 10
+  maxHealth: 10
+  armorTink: 0
+  armorMultiplier: 1
+  cpu: {fileID: 0}
+  on: 0
+  drain: 0
 --- !u!1001 &2807168818857316813
 PrefabInstance:
   m_ObjectHideFlags: 0

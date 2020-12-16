@@ -218,7 +218,11 @@ public class CPU : Upgrade {
       harvest(objective);
     }
     if (objective!=null && objective.GetComponent<Upgrade>()!=null){
-      upgrade(objective);
+      if (objective.GetComponent<Battery>()!=null){
+        chargeBot(objective);
+      } else {
+        upgrade(objective);
+      }
     }
   }
 
@@ -267,7 +271,7 @@ public class CPU : Upgrade {
   }
 
   public void chargeFrom(GameObject source){
-    float intake = Mathf.Max(maxPower-powerAvailable, maxChargeIn*Time.deltaTime);
+    float intake = Mathf.Max(maxPower-powerAvailable, maxChargeIn);
     float chargeIn = source.GetComponent<Powered>().discharge(intake);
     if (intake>.1) {
       GameObject chargeEffect = Instantiate(gameController.particles[0]);
@@ -334,5 +338,9 @@ public class CPU : Upgrade {
         }
       }
     }
+  }
+
+  public override void takeDamage(float damage){
+    if (health==0) turnOff();
   }
 }

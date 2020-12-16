@@ -50,6 +50,11 @@ MonoBehaviour:
   momentum: {x: 0, y: 0}
   height: 10
   standable: 1
+  fogLevel: 0
+  health: 0
+  maxHealth: -1
+  armorTink: 0
+  armorMultiplier: 0
 --- !u!1001 &166411356250370689
 PrefabInstance:
   m_ObjectHideFlags: 0

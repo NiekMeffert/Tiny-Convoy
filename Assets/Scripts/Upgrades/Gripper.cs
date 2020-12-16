@@ -1,14 +1,11 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class LongRangeScanner : Upgrade{
-  public int resolution;
-  int baseResolution;
+public class Gripper : Upgrade {
 
   // Start is called before the first frame update
   void Start(){
-    baseResolution = resolution;
     setUpActualThing();
   }
 
@@ -19,7 +16,6 @@ public class LongRangeScanner : Upgrade{
 
   public override void takeDamage(float damage){
     health = Mathf.Clamp(health-damage,0,maxHealth);
-    resolution = Mathf.RoundToInt(health/maxHealth)*baseResolution;
     if (health==0) turnOff();
   }
 }

@@ -17,9 +17,9 @@ public class Plant : Powered
   }
 
   public override float discharge(float requested){
-    float juice = Mathf.Max(power, requested);
+    float juice = Mathf.Min(power, requested);
     power -= juice;
-    Destroy(gameObject);
+    if (power<=0) die();
     return juice;
   }
 
@@ -50,5 +50,10 @@ public class Plant : Powered
     } else {
       fogLevel=nextFog;
     }
+  }
+
+  public override void takeDamage(float damage){
+    health = Mathf.Clamp(health-damage,0,maxHealth);
+    if (health==0) die();
   }
 }
