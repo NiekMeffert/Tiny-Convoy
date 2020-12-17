@@ -1,14 +1,23 @@
 fileFormatVersion: 2
-guid: ac92e5c3c52a74fec9ab284d6414379d
+guid: 5f3f8e92a29764a33bc9014a110458b4
 ModelImporter:
   serializedVersion: 19301
   internalIDToNameTable:
   - first:
+      74: 4723146814002874508
+    second: Armature|Attack
+  - first:
       74: 6059336001588132254
     second: Armature|Die
   - first:
+      74: -6731091948948611790
+    second: Armature|DIe
+  - first:
       74: -8945691123924629249
     second: Armature|Idle
+  - first:
+      74: -2349689633686304717
+    second: Armature|Agitated
   externalObjects: {}
   materials:
     materialImportMode: 1
@@ -28,7 +37,7 @@ ModelImporter:
     animationRetargetingWarnings: 
     animationDoRetargetingWarnings: 0
     importAnimatedCustomProperties: 0
-    importConstraints: 1
+    importConstraints: 0
     animationCompression: 1
     animationRotationError: 0.5
     animationPositionError: 0.5

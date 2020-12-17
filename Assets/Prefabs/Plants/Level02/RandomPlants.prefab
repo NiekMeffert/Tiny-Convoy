@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 2139465742248094714}
   - component: {fileID: -6411268289987582075}
   m_Layer: 0
-  m_Name: RandomPlant
+  m_Name: FieldOfTouches
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -59,6 +59,8 @@ MonoBehaviour:
   - {fileID: 2498946500452104959, guid: b4813d09826ff4ba9a15856ce4d47eee, type: 3}
   - {fileID: 2498946500452104959, guid: 6e3f2f0f6dc374a4ba69cb7d24d8cc0a, type: 3}
   - {fileID: 2498946500452104959, guid: 061c3bd068f64412db824d0e8096cac0, type: 3}
+  - {fileID: 2498946500452104959, guid: 05af405128b3e4191af06fdf63c6dbf9, type: 3}
+  - {fileID: 2498946500452104959, guid: 1477a77baad5e4958bb883bf4e01454c, type: 3}
   nothingChance: 0.25
   wiggleRoom: {x: 5, y: 5}
 --- !u!1 &7182459785606539970

@@ -73,6 +73,7 @@ MonoBehaviour:
   - {fileID: 5364779908445073467, guid: f02777bb063154c30870bb8cfaaf7cfc, type: 3}
   - {fileID: 5364779908445073467, guid: 14f9a6c99caba4ef48e586741309397f, type: 3}
   - {fileID: 5364779908445073467, guid: b07bdf594b408470880716095d0c4096, type: 3}
+  - {fileID: 5364779908445073467, guid: 7ef82f90b5a5943429a696e682006d52, type: 3}
   specialBigTilePrefabs:
   - {fileID: 5364779908445073467, guid: 4201f765c92c84cce8c33c12b3f4dd08, type: 3}
   mainCamera: {fileID: 0}

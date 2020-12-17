@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: ac92e5c3c52a74fec9ab284d6414379d
+guid: 3cf9214ff5891414a81ce49fda7f722e
 ModelImporter:
   serializedVersion: 19301
   internalIDToNameTable:
@@ -7,8 +7,17 @@ ModelImporter:
       74: 6059336001588132254
     second: Armature|Die
   - first:
+      74: -6731091948948611790
+    second: Armature|DIe
+  - first:
       74: -8945691123924629249
     second: Armature|Idle
+  - first:
+      74: -3100369314251171874
+    second: Idle
+  - first:
+      74: -544722147251516415
+    second: DIe
   externalObjects: {}
   materials:
     materialImportMode: 1
@@ -28,7 +37,7 @@ ModelImporter:
     animationRetargetingWarnings: 
     animationDoRetargetingWarnings: 0
     importAnimatedCustomProperties: 0
-    importConstraints: 1
+    importConstraints: 0
     animationCompression: 1
     animationRotationError: 0.5
     animationPositionError: 0.5
