@@ -5,7 +5,7 @@ using UnityEngine;
 public class Car : ActualThing
 {
   public GameObject cpu;
-  public GameObject[] upgrades;
+  public List<GameObject> upgrades;
   public GameObject upgradeTile;
   public int carNumber;
   bool lateSetup = false;

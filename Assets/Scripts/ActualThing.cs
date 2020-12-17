@@ -43,7 +43,21 @@ public class ActualThing : MonoBehaviour
   public virtual void moveOntoTile(GameObject newTile, int heightSlot){
     if (newTile==tile) return;
     Tile newTileVars = newTile.GetComponent<Tile>();
-    for (int h=heightSlot; h<height+heightSlot; h++){
+    int newHeightSlot = heightSlot;
+    if (newTileVars.heightSlots[heightSlot]!=null){
+      GameObject[] heightSlotsClone = (GameObject[]) newTileVars.heightSlots.Clone();
+      bool recording=false;
+      int heightBump = newTileVars.heightSlots[heightSlot].GetComponent<ActualThing>().height;
+      for (int h=0; h<newTileVars.heightSlots.GetLength(0); h++){
+        if (newTileVars.heightSlots[h] == newTileVars.heightSlots[heightSlot]){
+          recording=true;
+          newHeightSlot = h;
+        }
+        if (recording==true) heightSlotsClone[h+heightBump] = newTileVars.heightSlots[h];
+      }
+      newTileVars.heightSlots = heightSlotsClone;
+    }
+    for (int h=newHeightSlot; h<height+newHeightSlot; h++){
       newTileVars.heightSlots[h] = gameObject;
     }
     if (tile!=null){

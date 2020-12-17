@@ -91,7 +91,7 @@ public class CPU : Upgrade {
     //get charge & charge requirements
     for (int i = cars.Length-1; i>=0; i--){
       Car carVars = cars[i].GetComponent<Car>();
-      for (int h = carVars.upgrades.GetLength(0)-1; h>=0; h--){
+      for (int h = carVars.upgrades.Count-1; h>=0; h--){
         if (carVars.upgrades[h]!=null){
           Upgrade upVars = carVars.upgrades[h].GetComponent<Upgrade>();
           if (upVars.health<0) upVars.turnOff();
@@ -110,7 +110,7 @@ public class CPU : Upgrade {
     if (powerAvailable<powerNeeded) {
       for (int i = cars.Length-1; i>=0; i--){
         Car carVars = cars[i].GetComponent<Car>();
-        for (int h = carVars.upgrades.GetLength(0)-1; h>=0; h--){
+        for (int h = carVars.upgrades.Count-1; h>=0; h--){
           if (carVars.upgrades[h]!=null && powerAvailable<powerNeeded){
             Upgrade upVars = carVars.upgrades[h].GetComponent<Upgrade>();
             if (upVars.on==true && carVars.upgrades[h].GetComponent<CPU>()==null) {
@@ -124,7 +124,7 @@ public class CPU : Upgrade {
     //discharge batteries sequentially (backwards)
     for (int i = cars.Length-1; i>=0; i--){
       Car carVars = cars[i].GetComponent<Car>();
-      for (int h = carVars.upgrades.GetLength(0)-1; h>=0; h--){
+      for (int h = carVars.upgrades.Count-1; h>=0; h--){
         Battery batteryVars = carVars.upgrades[h].GetComponent<Battery>();
         if (carVars.upgrades[h]!=null && powerNeeded>0 && batteryVars!=null){
           batteryVars.charge -= powerNeeded*Time.deltaTime;
@@ -141,7 +141,7 @@ public class CPU : Upgrade {
     for (int i = cars.Length-1; i>=0; i--){
       Car carVars = cars[i].GetComponent<Car>();
       carVars.mass=0;
-      for (int h = carVars.upgrades.GetLength(0)-1; h>=0; h--){
+      for (int h = carVars.upgrades.Count-1; h>=0; h--){
         Upgrade upVars = carVars.upgrades[h].GetComponent<Upgrade>();
         if (upVars!=null){
           carVars.mass += upVars.mass;
@@ -189,7 +189,7 @@ public class CPU : Upgrade {
   public void startMovers(){
     for (int i = cars.Length-1; i>=0; i--){
       Car carVars = cars[i].GetComponent<Car>();
-      for (int h = carVars.upgrades.GetLength(0)-1; h>=0; h--){
+      for (int h = carVars.upgrades.Count-1; h>=0; h--){
         Upgrade upVars = carVars.upgrades[h].GetComponent<Upgrade>();
         if (upVars!=null){
           Mover moverVars = carVars.upgrades[h].GetComponent<Mover>();
@@ -204,7 +204,7 @@ public class CPU : Upgrade {
   public void stopMovers(){
     for (int i = cars.Length-1; i>=0; i--){
       Car carVars = cars[i].GetComponent<Car>();
-      for (int h = carVars.upgrades.GetLength(0)-1; h>=0; h--){
+      for (int h = carVars.upgrades.Count-1; h>=0; h--){
         Upgrade upVars = carVars.upgrades[h].GetComponent<Upgrade>();
         if (upVars!=null){
           Mover moverVars = carVars.upgrades[h].GetComponent<Mover>();
@@ -281,7 +281,7 @@ public class CPU : Upgrade {
     }
     for (int i = 0; i<cars.Length; i++){
       Car carVars = cars[i].GetComponent<Car>();
-      for (int h = 0; h<carVars.upgrades.GetLength(0); h++){
+      for (int h = 0; h<carVars.upgrades.Count; h++){
         Battery batteryVars = carVars.upgrades[h].GetComponent<Battery>();
         if (carVars.upgrades[h]!=null && chargeIn>0 && batteryVars!=null){
           batteryVars.charge += chargeIn;
@@ -310,7 +310,7 @@ public class CPU : Upgrade {
     }
     for (int i = 0; i<cars.Length; i++){
       Car carVars = cars[i].GetComponent<Car>();
-      for (int h = 0; h<carVars.upgrades.GetLength(0); h++){
+      for (int h = 0; h<carVars.upgrades.Count; h++){
         Battery batteryVars = carVars.upgrades[h].GetComponent<Battery>();
         if (carVars.upgrades[h]!=null && spend>0 && batteryVars!=null){
           batteryVars.charge -= spend;
@@ -325,7 +325,7 @@ public class CPU : Upgrade {
     }
     for (int i = 0; i<botVars.cars.Length; i++){
       Car carVars = botVars.cars[i].GetComponent<Car>();
-      for (int h = 0; h<carVars.upgrades.GetLength(0); h++){
+      for (int h = 0; h<carVars.upgrades.Count; h++){
         Battery batteryVars = carVars.upgrades[h].GetComponent<Battery>();
         if (carVars.upgrades[h]!=null && exchanged>0 && batteryVars!=null){
           batteryVars.charge += exchanged;
@@ -342,5 +342,21 @@ public class CPU : Upgrade {
 
   public override void takeDamage(float damage){
     if (health==0) turnOff();
+  }
+
+  public void setUpUpgrades(){
+    foreach (GameObject c in cars){
+      Car carVars = c.GetComponent<Car>();
+      UpgradeTile upTile = carVars.upgradeTile.GetComponent<UpgradeTile>();
+      carVars.height = 0;
+      carVars.upgrades.Clear();
+      for (int h = upTile.heightSlots.GetLength(0)-1; h>=0; h--){
+        if (upTile.heightSlots[h]!=null && carVars.upgrades[0]!=upTile.heightSlots[h]){
+          carVars.upgrades.Insert(0,upTile.heightSlots[h]);
+          carVars.upgrades[0].GetComponent<Upgrade>().cpu = gameObject;
+          carVars.height += carVars.upgrades[0].GetComponent<Upgrade>().height;
+        }
+      }
+    }
   }
 }
