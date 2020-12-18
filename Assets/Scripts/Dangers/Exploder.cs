@@ -9,10 +9,11 @@ public class Exploder : Danger
   public float baseDamage;
   public float blastFromHeight;
   public GameObject blast;
-  //0 idle, 1 warn, 2 attack, 4 defused, 5 dead
+    public Animator animator;
+    //0 idle, 1 warn, 2 attack, 4 defused, 5 dead
 
-  // Start is called before the first frame update
-  void Start(){
+    // Start is called before the first frame update
+    void Start(){
     setUpDanger();
   }
 
@@ -26,14 +27,17 @@ public class Exploder : Danger
     if (counter<0){
       counter += 1f;
       if (mode==0){
-        //idle
-        foreach (GameObject cpu in gameController.CPUs){
+
+                animator.SetBool("IsIdle", true);
+
+                foreach (GameObject cpu in gameController.CPUs){
           if (Vector3.Distance(gameObject.transform.position, cpu.transform.position) < safeDistance) {
             //Go to warn mode
             mode=1;
             counter=agitateTime;
-            //TODO: Play Agitated animation
-          }
+
+            animator.SetBool("IsAgitated", true);
+                    }
         }
       } else if (mode==1){
         //Warn mode
@@ -77,8 +81,10 @@ public class Exploder : Danger
         }
         GameObject particle = Instantiate(blast);
         blast.transform.position = damSource;
-        //TODO: Play Die animation
-        Destroy(gameObject); //TODO: Destroy only after Die animation finishes
+
+                animator.SetBool("IsDead", true);
+
+                Destroy(gameObject); //TODO: Destroy only after Die animation finishes
       }
     }
   }
