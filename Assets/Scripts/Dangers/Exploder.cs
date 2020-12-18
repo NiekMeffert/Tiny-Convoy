@@ -40,7 +40,7 @@ public class Exploder : Danger
           if (Vector3.Distance(gameObject.transform.position, cpu.transform.position) < safeDistance) {
             //Go to attack mode
             mode=2;
-          }
+                    }
         }
         if (mode!=2){
           //go back to idle
