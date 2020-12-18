@@ -75,8 +75,8 @@ MonoBehaviour:
   maxHealth: 5
   armorTink: 0
   armorMultiplier: 0
-  power: 20
-  maxPower: 20
+  power: 10
+  maxPower: 10
 --- !u!65 &9220264105873827093
 BoxCollider:
   m_ObjectHideFlags: 0

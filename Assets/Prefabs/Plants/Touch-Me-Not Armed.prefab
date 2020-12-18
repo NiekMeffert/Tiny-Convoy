@@ -89,7 +89,7 @@ MonoBehaviour:
   gameController: {fileID: 0}
   agitateTime: 1.2
   safeDistance: 2
-  baseDamage: 15
+  baseDamage: 3
   blastFromHeight: 1
   blast: {fileID: 381564559004786268, guid: 68f1c586fe6ba4188b2684532577f7f0, type: 3}
 --- !u!1001 &8066970778917008997
