@@ -24,7 +24,7 @@ public class Exploder : Danger
   public override void endanger(){
     counter-=Time.deltaTime;
     if (counter<0){
-      counter += 1f;
+      counter += 2f;
       if (mode==0){
         foreach (GameObject cpu in gameController.CPUs){
           if (Vector3.Distance(gameObject.transform.position, cpu.transform.position) < safeDistance) {
@@ -36,17 +36,20 @@ public class Exploder : Danger
         }
       } else if (mode==1){
         //Warn mode
-        //By default, go back to idle mode
-        mode=0;
-        animator.SetBool("IsAgitated", false);
-        animator.SetBool("IsIdle", true);
         foreach (GameObject cpu in gameController.CPUs){
           if (Vector3.Distance(gameObject.transform.position, cpu.transform.position) < safeDistance) {
             //Go to attack mode
             mode=2;
           }
         }
-      } else if (mode==2){
+        if (mode!=2){
+          //go back to idle
+          mode=0;
+          animator.SetBool("IsAgitated", false);
+          animator.SetBool("IsIdle", true);
+        }
+      }
+      if (mode==2){
         //explode mode
         Vector3 damSource = gameObject.transform.position+new Vector3(0,blastFromHeight,0);
         Tile tileVars = gameObject.GetComponent<ActualThing>().tile.GetComponent<Tile>();

@@ -22,6 +22,7 @@ public class Upgrade : ActualThing
 
   public override void setUpActualThing(){
     gameController=GameObject.Find("GameController").GetComponent<GameController>();
+    animator = gameObject.GetComponent<Animator>();
     GameObject myTile = gameController.getTile(new Vector2Int(Mathf.RoundToInt(transform.position.x), Mathf.RoundToInt(transform.position.z)));
     if (cpu==null){
       int fit = gameController.canFit(gameObject, myTile, true);

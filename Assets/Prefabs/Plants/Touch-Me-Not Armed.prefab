@@ -58,6 +58,7 @@ MonoBehaviour:
   maxHealth: 15
   armorTink: 0
   armorMultiplier: 1
+  animator: {fileID: 0}
   power: 200
   maxPower: 200
 --- !u!65 &9220264105873827093
@@ -89,12 +90,12 @@ MonoBehaviour:
   mode: 0
   gameController: {fileID: 0}
   dangerName: 
-  agitateTime: 1.2
+  animator: {fileID: 0}
+  agitateTime: 2
   safeDistance: 2
   baseDamage: 3
   blastFromHeight: 1
   blast: {fileID: 381564559004786268, guid: 68f1c586fe6ba4188b2684532577f7f0, type: 3}
-  animator: {fileID: 0}
 --- !u!95 &8889098543838591653
 Animator:
   serializedVersion: 3
