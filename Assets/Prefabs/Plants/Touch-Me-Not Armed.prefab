@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 2379986652546534500}
   - component: {fileID: 1706230667351803242}
   - component: {fileID: 9220264105873827093}
+  - component: {fileID: -6928537482664922054}
   m_Layer: 0
   m_Name: Touch-Me-Not Armed
   m_TagString: Plant
@@ -71,6 +72,26 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.8045449, y: 0.99128556, z: 1.002804}
   m_Center: {x: 0, y: 0.5014399, z: -0.02809912}
+--- !u!114 &-6928537482664922054
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2498946500452104959}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3ea61b9b9fc094dba8bf2a4dda7ad814, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  counter: 0
+  mode: 0
+  gameController: {fileID: 0}
+  agitateTime: 1.2
+  safeDistance: 2
+  baseDamage: 15
+  blastFromHeight: 1
+  blast: {fileID: 381564559004786268, guid: 68f1c586fe6ba4188b2684532577f7f0, type: 3}
 --- !u!1001 &8066970778917008997
 PrefabInstance:
   m_ObjectHideFlags: 0
