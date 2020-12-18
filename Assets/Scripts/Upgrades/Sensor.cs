@@ -17,7 +17,7 @@ public class Sensor : Upgrade{
 
   }
 
-  public override void takeDamage(float damage){
+  public override void takeDamage(float damage, string dangerName){
     health = Mathf.Clamp(health-damage,0,maxHealth);
     sightDistance = Mathf.RoundToInt(health/maxHealth)*baseSightDistance;
     if (health==0) turnOff();

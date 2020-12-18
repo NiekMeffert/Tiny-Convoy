@@ -27,6 +27,7 @@ public class Mover : Upgrade
 
   public override void setUpActualThing(){
     gameController=GameObject.Find("GameController").GetComponent<GameController>();
+    animator = gameObject.GetComponent<Animator>();
     GameObject myTile = gameController.getTile(new Vector2Int(Mathf.RoundToInt(transform.position.x), Mathf.RoundToInt(transform.position.z)));
     moveOntoTile(myTile, Mathf.RoundToInt(transform.position.y*2f));
     turnOff();
@@ -36,7 +37,7 @@ public class Mover : Upgrade
 
   public virtual void moveBackward(){}
 
-  public override void takeDamage(float damage){
+  public override void takeDamage(float damage, string dangerName){
     health = Mathf.Clamp(health-damage,0,maxHealth);
     hSpeed = Mathf.RoundToInt(health/maxHealth)*baseHSpeed;
     turnSpeed = Mathf.RoundToInt(health/maxHealth)*baseTurnSpeed;

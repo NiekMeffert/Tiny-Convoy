@@ -7,6 +7,8 @@ public class Danger : MonoBehaviour
   public float counter;
   public int mode = 0; //0 idle, 1 warn, 2 attack, 4 defused, 5 dead
   public GameController gameController;
+  public string dangerName;
+  public Animator animator;
 
   // Start is called before the first frame update
   void Start(){
@@ -16,6 +18,7 @@ public class Danger : MonoBehaviour
   public virtual void setUpDanger(){
     counter = Random.value;
     gameController=GameObject.Find("GameController").GetComponent<GameController>();
+    animator = gameObject.GetComponent<Animator>();
   }
 
   // Update is called once per frame

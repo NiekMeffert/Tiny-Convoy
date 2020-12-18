@@ -15,6 +15,7 @@ public class ActualThing : MonoBehaviour
   public float maxHealth;
   public float armorTink;
   public float armorMultiplier;
+  public Animator animator;
 
   // Start is called before the first frame update
   void Start()
@@ -30,6 +31,7 @@ public class ActualThing : MonoBehaviour
 
   public virtual void setUpActualThing(){
     gameController=GameObject.Find("GameController").GetComponent<GameController>();
+    animator = gameObject.GetComponent<Animator>();
     GameObject myTile = gameController.getTile(new Vector2Int(Mathf.RoundToInt(transform.position.x), Mathf.RoundToInt(transform.position.z)));
     int fit = gameController.canFit(gameObject, myTile, true);
     if (fit==-1){
@@ -95,7 +97,7 @@ public class ActualThing : MonoBehaviour
     }
   }
 
-  public virtual void takeDamage(float damage){
+  public virtual void takeDamage(float damage, string dangerName){
   }
 
   public virtual void die(){

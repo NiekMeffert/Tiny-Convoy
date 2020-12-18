@@ -27,6 +27,7 @@ public class CPU : Upgrade {
   public float waterResistance;
   Pathfinder pathfinder;
   public GameObject objective;
+  AI ai;
   public float powerNeeded;
   public float powerAvailable;
   public float maxPower;
@@ -38,6 +39,7 @@ public class CPU : Upgrade {
   void Start(){
     setUpActualThing();
     pathfinder = gameObject.GetComponent<Pathfinder>();
+    ai = gameObject.GetComponent<AI>();
     Random.InitState(tile.GetComponent<Tile>().pos.x+gameController.randomSeedX+tile.GetComponent<Tile>().pos.y+gameController.randomSeedY);
     float[] rands = new float[]{Random.value, Random.value, Random.value, Random.value, Random.value, Random.value};
     float randsTotal = 0;
@@ -340,7 +342,8 @@ public class CPU : Upgrade {
     }
   }
 
-  public override void takeDamage(float damage){
+  public override void takeDamage(float damage, string dangerName){
+    health = Mathf.Clamp(health-damage,0,maxHealth);
     if (health==0) turnOff();
   }
 

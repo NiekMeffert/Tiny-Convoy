@@ -9,11 +9,10 @@ public class Exploder : Danger
   public float baseDamage;
   public float blastFromHeight;
   public GameObject blast;
-    public Animator animator;
-    //0 idle, 1 warn, 2 attack, 4 defused, 5 dead
+  //0 idle, 1 warn, 2 attack, 4 defused, 5 dead
 
-    // Start is called before the first frame update
-    void Start(){
+  // Start is called before the first frame update
+  void Start(){
     setUpDanger();
   }
 
@@ -27,28 +26,24 @@ public class Exploder : Danger
     if (counter<0){
       counter += 1f;
       if (mode==0){
-
-                animator.SetBool("IsIdle", true);
-
-                foreach (GameObject cpu in gameController.CPUs){
+        foreach (GameObject cpu in gameController.CPUs){
           if (Vector3.Distance(gameObject.transform.position, cpu.transform.position) < safeDistance) {
             //Go to warn mode
             mode=1;
             counter=agitateTime;
-
             animator.SetBool("IsAgitated", true);
-                    }
+          }
         }
       } else if (mode==1){
         //Warn mode
         //By default, go back to idle mode
         mode=0;
-        //TODO: Play Idle animation
+        animator.SetBool("IsAgitated", false);
+        animator.SetBool("IsIdle", true);
         foreach (GameObject cpu in gameController.CPUs){
           if (Vector3.Distance(gameObject.transform.position, cpu.transform.position) < safeDistance) {
             //Go to attack mode
             mode=2;
-            //TODO: Play Die animation
           }
         }
       } else if (mode==2){
@@ -66,14 +61,14 @@ public class Exploder : Danger
                 Vector3 dealTo = new Vector3(damageSquare[x,y].transform.position.x, i*.5f, damageSquare[x,y].transform.position.z);
                 if (slots[i].GetComponent<Car>()==null){
                   float damage = baseDamage*(Vector3.Distance(damSource,dealTo)*safeDistance);
-                  slots[i].GetComponent<ActualThing>().takeDamage(damage);
+                  slots[i].GetComponent<ActualThing>().takeDamage(damage, dangerName);
                 } else {
                   float damage = baseDamage*(Vector3.Distance(damSource,dealTo)*safeDistance);
                   if (car==null || car!=slots[i]) {
                     car = slots[i];
                     carOffset=-1*i;
                   }
-                  slots[i].GetComponent<Car>().upgradeTile.GetComponent<UpgradeTile>().heightSlots[i-carOffset].GetComponent<ActualThing>().takeDamage(damage);
+                  slots[i].GetComponent<Car>().upgradeTile.GetComponent<UpgradeTile>().heightSlots[i-carOffset].GetComponent<ActualThing>().takeDamage(damage, dangerName);
                 }
               }
             }
@@ -81,10 +76,8 @@ public class Exploder : Danger
         }
         GameObject particle = Instantiate(blast);
         blast.transform.position = damSource;
-
-                animator.SetBool("IsDead", true);
-
-                Destroy(gameObject); //TODO: Destroy only after Die animation finishes
+        animator.SetBool("IsDead", true);
+        Destroy(gameObject,.5f);
       }
     }
   }

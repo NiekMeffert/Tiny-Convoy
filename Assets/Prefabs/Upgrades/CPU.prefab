@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 1775756268011119912}
   - component: {fileID: 7456990125429083905}
   - component: {fileID: 6356307829816968810}
+  - component: {fileID: 8194307956490902562}
   m_Layer: 0
   m_Name: CPU
   m_TagString: CPU
@@ -121,6 +122,21 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.93068796, y: 0.49435583, z: 0.69925964}
   m_Center: {x: 0, y: 0.24717791, z: -0.0073931217}
+--- !u!114 &8194307956490902562
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4560274283034543134}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c627c0d66a5c44e5d9c4e4ef6432a8c2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameController: {fileID: 0}
+  cpu: {fileID: 0}
+  pathfinder: {fileID: 0}
 --- !u!1001 &458337661728279151
 PrefabInstance:
   m_ObjectHideFlags: 0

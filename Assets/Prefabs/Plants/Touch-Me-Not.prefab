@@ -1,24 +1,5 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!95 &4671859707151518054
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 741603668959150977}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: c68eceec5db8e422a8c5653737d707d7, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &2498946500452104959
 GameObject:
   m_ObjectHideFlags: 0
@@ -30,6 +11,7 @@ GameObject:
   - component: {fileID: 2379986652546534500}
   - component: {fileID: 1706230667351803242}
   - component: {fileID: 9220264105873827093}
+  - component: {fileID: 5650614450767816703}
   m_Layer: 0
   m_Name: Touch-Me-Not
   m_TagString: Plant
@@ -75,6 +57,7 @@ MonoBehaviour:
   maxHealth: 5
   armorTink: 0
   armorMultiplier: 0
+  animator: {fileID: 0}
   power: 10
   maxPower: 10
 --- !u!65 &9220264105873827093
@@ -90,6 +73,25 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.8045449, y: 0.99128556, z: 1.002804}
   m_Center: {x: 0, y: 0.5014399, z: -0.02809912}
+--- !u!95 &5650614450767816703
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2498946500452104959}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: c68eceec5db8e422a8c5653737d707d7, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1001 &471713897773203152
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -199,12 +201,6 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: c84ced2c00d9740fe8a48d5ac1e22498, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ac92e5c3c52a74fec9ab284d6414379d, type: 3}
---- !u!1 &741603668959150977 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: ac92e5c3c52a74fec9ab284d6414379d,
-    type: 3}
-  m_PrefabInstance: {fileID: 471713897773203152}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &72449256650152251 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: ac92e5c3c52a74fec9ab284d6414379d,

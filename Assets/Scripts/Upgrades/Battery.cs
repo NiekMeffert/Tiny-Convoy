@@ -40,7 +40,7 @@ public class Battery : Upgrade{
     }
   }
 
-  public override void takeDamage(float damage){
+  public override void takeDamage(float damage, string dangerName){
     health = Mathf.Clamp(health-damage,0,maxHealth);
     if (health==0){
       charge=0;

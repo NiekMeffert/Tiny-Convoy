@@ -88,12 +88,13 @@ MonoBehaviour:
   counter: 0
   mode: 0
   gameController: {fileID: 0}
+  dangerName: 
   agitateTime: 1.2
   safeDistance: 2
   baseDamage: 3
   blastFromHeight: 1
   blast: {fileID: 381564559004786268, guid: 68f1c586fe6ba4188b2684532577f7f0, type: 3}
-  animator: {fileID: 8889098543838591653}
+  animator: {fileID: 0}
 --- !u!95 &8889098543838591653
 Animator:
   serializedVersion: 3
@@ -215,6 +216,11 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 01e2208839b184cef85bee9503ed13e3, type: 2}
+    - target: {fileID: 5866666021909216657, guid: 5f3f8e92a29764a33bc9014a110458b4,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6252362530575370767, guid: 5f3f8e92a29764a33bc9014a110458b4,
         type: 3}
       propertyPath: m_Materials.Array.data[0]
@@ -230,7 +236,8 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: b71e9af4fa63b47dfa1fff2dfeecaeb7, type: 2}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 5866666021909216657, guid: 5f3f8e92a29764a33bc9014a110458b4, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 5f3f8e92a29764a33bc9014a110458b4, type: 3}
 --- !u!4 &7528077198938378638 stripped
 Transform:
