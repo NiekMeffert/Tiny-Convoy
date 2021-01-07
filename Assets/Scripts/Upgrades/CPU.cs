@@ -272,7 +272,8 @@ public class CPU : Upgrade {
     if (newToyVars.cpu!=null) newToyTile = newToyVars.cpu.GetComponent<CPU>().cars[0].GetComponent<Car>().tile;
     if (closeEnough(newToy)){
       //go into upgrade screen...
-      gameController.setMode(2); //upgrade screen
+      gameController.setMode(2); //upgrade screen TEMP
+      //tempUpgrade(newToy);
       objective=null;
     } else {
       pathfinder.moveNextTo(newToyTile);
@@ -360,12 +361,14 @@ public class CPU : Upgrade {
       Car carVars = c.GetComponent<Car>();
       UpgradeTile upTile = carVars.upgradeTile.GetComponent<UpgradeTile>();
       carVars.height = 0;
+      carVars.mass = 0;
       carVars.upgrades.Clear();
       for (int h = upTile.heightSlots.GetLength(0)-1; h>=0; h--){
         if (upTile.heightSlots[h]!=null && carVars.upgrades[0]!=upTile.heightSlots[h]){
           carVars.upgrades.Insert(0,upTile.heightSlots[h]);
           carVars.upgrades[0].GetComponent<Upgrade>().cpu = gameObject;
           carVars.height += carVars.upgrades[0].GetComponent<Upgrade>().height;
+          carVars.mass += upTile.heightSlots[h].GetComponent<ActualThing>().mass;
         }
       }
     }

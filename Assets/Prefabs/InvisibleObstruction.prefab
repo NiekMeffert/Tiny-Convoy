@@ -148,3 +148,5 @@ MonoBehaviour:
   maxHealth: -1
   armorTink: 0
   armorMultiplier: 0
+  animator: {fileID: 0}
+  flying: 1

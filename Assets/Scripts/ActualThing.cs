@@ -16,6 +16,7 @@ public class ActualThing : MonoBehaviour
   public float armorTink;
   public float armorMultiplier;
   public Animator animator;
+  public bool flying=false;
 
   // Start is called before the first frame update
   void Start()
@@ -55,7 +56,7 @@ public class ActualThing : MonoBehaviour
           recording=true;
           newHeightSlot = h;
         }
-        if (recording==true) heightSlotsClone[h+heightBump] = newTileVars.heightSlots[h];
+        if (recording==true && h+heightBump<=heightSlotsClone.Length) heightSlotsClone[h+heightBump] = newTileVars.heightSlots[h];
       }
       newTileVars.heightSlots = heightSlotsClone;
     }
@@ -67,7 +68,9 @@ public class ActualThing : MonoBehaviour
       for (int h=0; h<oldSlots.Length; h++){
         if (oldSlots[h]==gameObject) oldSlots[h]=null;
       }
+      gameController.cleanupQueue.Add(tile);
     }
+    gameController.cleanupQueue.Add(newTile);
     tile = newTile;
     setFog(newTileVars.fogLevel);
   }

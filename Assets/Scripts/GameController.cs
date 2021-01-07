@@ -40,6 +40,7 @@ public class GameController : MonoBehaviour{
   public bool uiBlocker = false;
   RectTransform scannerNoise;
   public GameObject[] particles;
+  public List<GameObject> cleanupQueue = new List<GameObject>();
 
   // Start is called before the first frame update
   void Start(){
@@ -132,6 +133,7 @@ public class GameController : MonoBehaviour{
   }
 
   void LateUpdate(){
+    cleanUpTiles();
     if (nextMode!=mode){
       if (mode==1){}
       if (mode==2){
@@ -345,5 +347,30 @@ public class GameController : MonoBehaviour{
       }
     }
     //Debug.Log(getTile(Vector2Int.zero).GetComponent<Tile>().fogLevel);
+  }
+
+  void cleanUpTiles(){
+    foreach (GameObject tile in cleanupQueue){
+      Tile tileVars = tile.GetComponent<Tile>();
+      GameObject[] slots = tileVars.heightSlots;
+      GameObject[] newSlots = (GameObject[]) slots.Clone();
+      int writeToHeight = 0;
+      GameObject currentThing = null;
+      for (int h=0; h<slots.Length; h++){
+        newSlots[h] = null;
+        if (slots[h]!=null){
+          if (slots[h].GetComponent<ActualThing>().flying==true) writeToHeight=h;
+          newSlots[writeToHeight] = slots[h];
+          writeToHeight++;
+          if (slots[h]!=currentThing){
+            Vector3 pos = slots[h].transform.position;
+            slots[h].transform.position = new Vector3(pos.x, (float)h*.5f, pos.z);
+            currentThing = slots[h];
+          }
+        }
+      }
+      slots = newSlots;
+    }
+    cleanupQueue.Clear();
   }
 }
