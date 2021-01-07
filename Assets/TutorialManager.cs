@@ -56,5 +56,47 @@ public class TutorialManager : MonoBehaviour
                 popUpIndex++;
             }
         }
+        else if (popUpIndex == 5)
+        {
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                popUpIndex++;
+            }
+        }
+        else if (popUpIndex == 6)
+        {
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                popUpIndex++;
+            }
+        }
+        else if (popUpIndex == 7)
+        {
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                popUpIndex++;
+            }
+        }
+        else if (popUpIndex == 8)
+        {
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                popUpIndex++;
+            }
+        }
+        else if (popUpIndex == 9)
+        {
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                popUpIndex++;
+            }
+        }
+        else if (popUpIndex == 10)
+        {
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                popUpIndex++;
+            }
+        }
     }
 }
