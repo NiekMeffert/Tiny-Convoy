@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 8423405144832215158}
   - component: {fileID: 4848733908841465811}
   - component: {fileID: 7254980712769778457}
-  - component: {fileID: 8317949657096924623}
   - component: {fileID: 8317949657096924620}
   m_Layer: 0
   m_Name: Treads_Upgrade01
@@ -84,22 +83,6 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!54 &8317949657096924623
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9200329525405962956}
-  serializedVersion: 2
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_UseGravity: 1
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 0
 --- !u!65 &8317949657096924620
 BoxCollider:
   m_ObjectHideFlags: 0
