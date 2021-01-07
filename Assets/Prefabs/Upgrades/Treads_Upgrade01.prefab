@@ -13,7 +13,6 @@ GameObject:
   - component: {fileID: 7254980712769778457}
   - component: {fileID: 8317949657096924623}
   - component: {fileID: 8317949657096924620}
-  - component: {fileID: 8317949657096924622}
   m_Layer: 0
   m_Name: Treads_Upgrade01
   m_TagString: Untagged
@@ -114,25 +113,3 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.9161806, y: 0.5892701, z: 1.4037496}
   m_Center: {x: 0, y: 0.29007047, z: 0.0209679}
---- !u!114 &8317949657096924622
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9200329525405962956}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 58245497ca0d3f04d8390966a6bf811e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  rb: {fileID: 8317949657096924623}
-  coll: {fileID: 8317949657096924620}
-  player: {fileID: 322126913087276710, guid: b51d71589dd6c4f25a8b46502c160fda, type: 3}
-  BoxContainer: {fileID: 322126913087276710, guid: b51d71589dd6c4f25a8b46502c160fda,
-    type: 3}
-  fpsCam: {fileID: 322126913087276710, guid: b51d71589dd6c4f25a8b46502c160fda, type: 3}
-  pickupRange: 2
-  dropForwardForce: 10
-  dropUpwardForce: 0
-  equipped: 0

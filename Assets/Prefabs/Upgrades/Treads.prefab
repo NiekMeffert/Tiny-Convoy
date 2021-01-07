@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 2842727502219939740}
   - component: {fileID: -6227657931618606335}
   - component: {fileID: 1724169981659359749}
-  - component: {fileID: 2021661134546358813}
   - component: {fileID: 6455098226760275077}
   m_Layer: 0
   m_Name: Treads
@@ -78,27 +77,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.74467504, y: 0.5097974, z: 0.74467504}
   m_Center: {x: -0.000000059604645, y: 0.2548987, z: -0.000000059604645}
---- !u!114 &2021661134546358813
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8998128059911170805}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6008576bf7bf9aa4a9de6e72d9e14577, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  rb: {fileID: 6455098226760275077}
-  coll: {fileID: 1724169981659359749}
-  player: {fileID: 0}
-  BoxContainer: {fileID: 0}
-  fpsCam: {fileID: 0}
-  pickupRange: 1
-  dropForwardForce: 5
-  dropUpwardForce: 0
-  equipped: 1
 --- !u!54 &6455098226760275077
 Rigidbody:
   m_ObjectHideFlags: 0
