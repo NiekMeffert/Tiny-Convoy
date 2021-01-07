@@ -21,5 +21,6 @@ public class LongRangeScanner : Upgrade{
     health = Mathf.Clamp(health-damage,0,maxHealth);
     resolution = Mathf.RoundToInt(health/maxHealth)*baseResolution;
     if (health==0) turnOff();
+    if (cpu!=null) cpu.GetComponent<AI>().learnDanger(damage, dangerName);
   }
 }

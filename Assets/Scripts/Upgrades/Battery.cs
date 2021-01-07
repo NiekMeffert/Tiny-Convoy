@@ -46,5 +46,6 @@ public class Battery : Upgrade{
       charge=0;
       maxCharge=0;
     }
+    if (cpu!=null) cpu.GetComponent<AI>().learnDanger(damage, dangerName);
   }
 }

@@ -9,6 +9,8 @@ public class Danger : MonoBehaviour
   public GameController gameController;
   public string dangerName;
   public Animator animator;
+  public List<CPU> damageQueue;
+  public List<CPU> witnessQueue;
 
   // Start is called before the first frame update
   void Start(){
@@ -30,6 +32,12 @@ public class Danger : MonoBehaviour
     counter-=Time.deltaTime;
     if (counter<0){
       counter += 1f;
+    }
+  }
+
+  public virtual void scareAll(){
+    foreach (GameObject cpu in gameController.CPUs){
+      cpu.GetComponent<AI>().witnessDanger(gameObject.transform.position, Random.value, dangerName);
     }
   }
 }

@@ -27,13 +27,15 @@ public class CPU : Upgrade {
   public float waterResistance;
   Pathfinder pathfinder;
   public GameObject objective;
-  AI ai;
+  public float objectiveWeight;
+  public AI ai;
   public float powerNeeded;
   public float powerAvailable;
   public float maxPower;
   public float maxChargeIn;
   public float maxChargeOut;
   public bool waitForRotation;
+  public float thoughtCounter = 1f;
 
   // Start is called before the first frame update
   void Start(){
@@ -60,6 +62,13 @@ public class CPU : Upgrade {
   void Update(){
     if (gameController.mode!=1){return;}
     updateStats();
+    if (gameObject != gameController.totem){
+      thoughtCounter -= Time.deltaTime*(.1f*processing);
+      if (thoughtCounter<0){
+        thoughtCounter=1f;
+        ai.changeMind();
+      }
+    }
   }
 
   public void upgrade(){}
@@ -228,12 +237,18 @@ public class CPU : Upgrade {
     }
   }
 
-  public void harvest(GameObject plant){
-    bool closeEnough=false;
+  public bool closeEnough(GameObject target){
+    Vector2Int[] surroundings = new Vector2Int[] {new Vector2Int(0,1), new Vector2Int(1,1), new Vector2Int(1,0), new Vector2Int(1,-1), new Vector2Int(0,-1), new Vector2Int(-1,-1), new Vector2Int(-1,0), new Vector2Int(-1,1)};
+    Vector2Int targetPos = target.GetComponent<ActualThing>().tile.GetComponent<Tile>().pos;
     for (int i=0; i<cars.Length; i++){
-      if (Vector2.Distance(new Vector2(plant.transform.position.x, plant.transform.position.z), new Vector2(cars[i].transform.position.x, cars[i].transform.position.z))<1.3f) closeEnough=true;
+      Vector2Int myPos = cars[i].GetComponent<Car>().upgradeTile.GetComponent<Tile>().pos;
+      if (Mathf.Abs(myPos.x-targetPos.x)<2 && Mathf.Abs(myPos.y-targetPos.y)<2) return true;
     }
-    if (closeEnough){
+    return false;
+  }
+
+  public void harvest(GameObject plant){
+    if (closeEnough(plant)){
       chargeFrom(plant);
       objective=null;
     } else {
@@ -243,11 +258,7 @@ public class CPU : Upgrade {
 
   public void chargeBot(GameObject friendBattery){
     GameObject friendCar = friendBattery.GetComponent<Battery>().cpu.GetComponent<CPU>().cars[0];
-    bool closeEnough=false;
-    for (int i=0; i<cars.Length; i++){
-      if (Vector2.Distance(new Vector2(friendCar.transform.position.x, friendCar.transform.position.z), new Vector2(cars[i].transform.position.x, cars[i].transform.position.z))<1.3f) closeEnough=true;
-    }
-    if (closeEnough){
+    if (closeEnough(friendBattery)){
       chargeTo(friendCar);
       objective=null;
     } else {
@@ -259,11 +270,7 @@ public class CPU : Upgrade {
     Upgrade newToyVars = newToy.GetComponent<Upgrade>();
     GameObject newToyTile = newToyVars.tile;
     if (newToyVars.cpu!=null) newToyTile = newToyVars.cpu.GetComponent<CPU>().cars[0].GetComponent<Car>().tile;
-    bool closeEnough=false;
-    for (int i=0; i<cars.Length; i++){
-      if (Vector2.Distance(new Vector2(newToy.transform.position.x, newToy.transform.position.z), new Vector2(cars[i].transform.position.x, cars[i].transform.position.z))<1.3f) closeEnough=true;
-    }
-    if (closeEnough){
+    if (closeEnough(newToy)){
       //go into upgrade screen...
       gameController.setMode(2); //upgrade screen
       objective=null;
@@ -345,6 +352,7 @@ public class CPU : Upgrade {
   public override void takeDamage(float damage, string dangerName){
     health = Mathf.Clamp(health-damage,0,maxHealth);
     if (health==0) turnOff();
+    if (cpu!=null) cpu.GetComponent<AI>().learnDanger(damage, dangerName);
   }
 
   public void setUpUpgrades(){

@@ -27,7 +27,7 @@ public class AStarPathfinder : Pathfinder
     if (destination!=null) moveToTile();
   }
 
-  public override (float, Stack<navTile>, List<navTile>, navTile, navTile) getPath(GameObject tile){
+  public override (float, Stack<navTile>, navTile, navTile) getPath(GameObject tile){
     float cost = 0;
     List<navTile> selectableTiles2 = new List<navTile>();
     //Stack<navTile> path2 = new Stack<navTile>();
@@ -36,15 +36,9 @@ public class AStarPathfinder : Pathfinder
     Tile firstCarTile = firstCarVars.tile.GetComponent<Tile>();
     Vector2Int offset = new Vector2Int(tile.GetComponent<Tile>().pos.x-firstCarTile.pos.x, tile.GetComponent<Tile>().pos.y-firstCarTile.pos.y);
     if (Mathf.Abs(offset.x)>cpu.sight || Mathf.Abs(offset.y)>cpu.sight) {
-      return (cost, path, selectableTiles2, new navTile(), new navTile());
+      return (cost, path, new navTile(), new navTile());
     }
-    GameObject[,] mTiles = gameController.getSquare(new Vector3Int(firstCarTile.pos.x, firstCarTile.pos.y, cpu.sight));
-    memoryTiles = new navTile[mTiles.GetLength(0), mTiles.GetLength(1)];
-    for (int x = 0; x<memoryTiles.GetLength(0); x++){
-      for (int y = 0; y<memoryTiles.GetLength(1); y++){
-        memoryTiles[x,y] = makeNavTile(mTiles[x,y]);
-      }
-    }
+    memoryTiles = ai.getWeightedMap();
     for (int x = 0; x<memoryTiles.GetLength(0); x++){
       for (int y = 0; y<memoryTiles.GetLength(1); y++){
         computeAdjacencyLists(x,y,memoryTiles);
@@ -58,36 +52,22 @@ public class AStarPathfinder : Pathfinder
     navTile next = targetNavTile;
     while (next !=null)
     {
-      cost += next.distance;
+      cost += next.weight;
       path.Push(next);
       next = next.parent;
     }
+    //Return an empty path with cost 0 if no route found:
     if (path.Count==1 && (Mathf.Abs(offset.x)>1 || Mathf.Abs(offset.y)>1)){
       path.Pop();
       cost=0;
     }
-    return (cost, path, selectableTiles2, currentTile2, targetNavTile);
+    return (cost, path, currentTile2, targetNavTile);
   }
 
-  public void setPath(float cost, Stack<navTile> path2, List<navTile> selectableTiles2, navTile currentTile2){
+  public override void setPath(float cost, Stack<navTile> path2, navTile currentTile2, navTile targetNavTile){
     path=path2;
-    selectableTiles=selectableTiles2;
     currentTile=currentTile2;
-  }
-
-  public navTile makeNavTile(GameObject tile){
-    navTile nt = new navTile();
-    nt.tile = tile;
-    nt.tileVars = tile.GetComponent<Tile>();
-    nt.walkable = true;
-    nt.current = false;
-    nt.target = false;
-    nt.selectable = false;
-    nt.adjacencyList = new List<navTile>();
-    nt.visited = false;
-    nt.parent = null;
-    nt.distance = 0;
-    return nt;
+    destination = targetNavTile.tile;
   }
 
   public void computeAdjacencyLists(int ntx, int nty, navTile[,] memoryTiles){
@@ -111,12 +91,12 @@ public class AStarPathfinder : Pathfinder
       navTile t = process.Dequeue();
       selectableTiles2.Add(t);
       t.selectable = true;
-      //if (t.distance < move){
+      //if (t.weight < move){
         foreach (navTile tile in t.adjacencyList){
           if (!tile.visited){
             tile.parent = t;
             tile.visited = true;
-            tile.distance = 1 + t.distance;
+            tile.weight = 1 + t.weight;
             process.Enqueue(tile);
           }
         }

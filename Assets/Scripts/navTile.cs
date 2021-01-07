@@ -13,5 +13,8 @@ public class navTile
   public List<navTile> adjacencyList = new List<navTile>();
   public bool visited = false;
   public navTile parent = null;
-  public int distance = 0;
+  public float weight = 0;
+  public float power;
+  public bool friend;
+  public bool danger;
 }

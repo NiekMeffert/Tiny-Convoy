@@ -42,5 +42,6 @@ public class Mover : Upgrade
     hSpeed = Mathf.RoundToInt(health/maxHealth)*baseHSpeed;
     turnSpeed = Mathf.RoundToInt(health/maxHealth)*baseTurnSpeed;
     if (health==0) turnOff();
+    if (cpu!=null) cpu.GetComponent<AI>().learnDanger(damage, dangerName);
   }
 }

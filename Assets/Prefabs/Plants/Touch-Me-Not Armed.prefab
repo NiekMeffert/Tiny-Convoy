@@ -89,8 +89,10 @@ MonoBehaviour:
   counter: 0
   mode: 0
   gameController: {fileID: 0}
-  dangerName: 
+  dangerName: Touch-Me-Not
   animator: {fileID: 0}
+  damageQueue: []
+  witnessQueue: []
   agitateTime: 2
   safeDistance: 2
   baseDamage: 3

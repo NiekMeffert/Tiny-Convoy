@@ -13,6 +13,7 @@ public class Pathfinder : MonoBehaviour
   public List<navTile> selectableTiles = new List<navTile>();
   public navTile currentTile;
   public bool moving = false;
+  public AI ai;
   //public GameObject marker;
 
   // Start is called before the first frame update
@@ -31,6 +32,7 @@ public class Pathfinder : MonoBehaviour
     gameController = GameObject.Find("GameController").GetComponent<GameController>();
     cpu = gameObject.GetComponent<CPU>();
     firstCarVars = cpu.cars[0].GetComponent<Car>();
+    ai = gameObject.GetComponent<AI>();
   }
 
   public virtual void moveToTile(){
@@ -74,20 +76,7 @@ public class Pathfinder : MonoBehaviour
   }
 
   public virtual void moveNextTo(GameObject tile){
-    Tile tileVars = tile.GetComponent<Tile>();
-    GameObject[,] square = gameController.getSquare(new Vector3Int(tileVars.pos.x, tileVars.pos.y, 1));
-    float min=1000f;
-    GameObject adjacentTile=null;
-    for (int x = 0; x<square.GetLength(0); x++){
-      for (int y = 0; y<square.GetLength(1); y++){
-        float dist = Vector3.Distance(square[x,y].transform.position, gameObject.transform.position);
-        int slot = gameController.canFit(gameObject,square[x,y], true);
-        if (dist<min && slot==0){
-          min=dist;
-          adjacentTile=square[x,y];
-        }
-      }
-    }
+    GameObject adjacentTile = ai.getAdjacentFreeTile(tile);
     if (adjacentTile!=null){
       destination=adjacentTile;
     }
@@ -99,8 +88,10 @@ public class Pathfinder : MonoBehaviour
     moving=false;
   }
 
-  public virtual (float, Stack<navTile>, List<navTile>, navTile, navTile) getPath(GameObject tile){
+  public virtual (float, Stack<navTile>, navTile, navTile) getPath(GameObject tile){
     float cost = 0;
-    return (cost, path, selectableTiles, currentTile, currentTile);
+    return (cost, path, currentTile, currentTile);
   }
+
+  public virtual void setPath(float cost, Stack<navTile> path2, navTile currentTile2, navTile targetNavTile){}
 }

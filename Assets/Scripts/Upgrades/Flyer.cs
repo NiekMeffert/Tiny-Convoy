@@ -24,5 +24,6 @@ public class Flyer : Mover
     health = Mathf.Clamp(health-damage,0,maxHealth);
     vSpeed = (health/maxHealth)*baseVSpeed;
     if (health==0) turnOff();
+    if (cpu!=null) cpu.GetComponent<AI>().learnDanger(damage, dangerName);
   }
 }
