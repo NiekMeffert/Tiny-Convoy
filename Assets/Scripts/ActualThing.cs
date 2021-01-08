@@ -46,23 +46,22 @@ public class ActualThing : MonoBehaviour
   public virtual void moveOntoTile(GameObject newTile, int heightSlot){
     if (newTile==tile) return;
     Tile newTileVars = newTile.GetComponent<Tile>();
-    int newHeightSlot = heightSlot;
-    if (newTileVars.heightSlots[heightSlot]!=null){
-      GameObject[] heightSlotsClone = (GameObject[]) newTileVars.heightSlots.Clone();
-      bool recording=false;
-      int heightBump = newTileVars.heightSlots[heightSlot].GetComponent<ActualThing>().height;
-      for (int h=0; h<newTileVars.heightSlots.GetLength(0); h++){
-        if (newTileVars.heightSlots[h] == newTileVars.heightSlots[heightSlot]){
-          recording=true;
-          newHeightSlot = h;
-        }
-        if (recording==true && h+heightBump<=heightSlotsClone.Length) heightSlotsClone[h+heightBump] = newTileVars.heightSlots[h];
+    GameObject[] heightSlots = newTileVars.heightSlots;
+    GameObject[] heightSlotsClone = (GameObject[]) heightSlots.Clone();
+    GameObject currentOccupant = heightSlots[heightSlot];
+    int offset=0;
+    for (int h = 0; h<heightSlots.Length; h++){
+      heightSlotsClone[h]=null;
+      if (heightSlots[h]==currentOccupant && currentOccupant!=null){
+        offset++;
       }
-      newTileVars.heightSlots = heightSlotsClone;
+      if (h>=heightSlot && h<heightSlot+height){
+        heightSlotsClone[h]=gameObject;
+      } else if (h-offset>0 && h-offset<heightSlots.Length){
+        heightSlotsClone[h]=heightSlots[h-offset];
+      }
     }
-    for (int h=newHeightSlot; h<height+newHeightSlot; h++){
-      newTileVars.heightSlots[h] = gameObject;
-    }
+    newTileVars.heightSlots = heightSlotsClone;
     if (tile!=null){
       GameObject[] oldSlots = tile.GetComponent<Tile>().heightSlots;
       for (int h=0; h<oldSlots.Length; h++){

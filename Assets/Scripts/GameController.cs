@@ -41,6 +41,8 @@ public class GameController : MonoBehaviour{
   RectTransform scannerNoise;
   public GameObject[] particles;
   public List<GameObject> cleanupQueue = new List<GameObject>();
+  //TEMPORARY:
+  public GameObject selectedUpgrade;
 
   // Start is called before the first frame update
   void Start(){
@@ -65,8 +67,12 @@ public class GameController : MonoBehaviour{
     reticulePlant.SetActive(false);
     reticuleUpgrade.SetActive(false);
     reticuleCharge.SetActive(false);
+
     //normal game mode
     if (mode==1) {
+      //TEMPORARY:
+      selectedUpgrade = null;
+
       totemCounter-=Time.deltaTime;
       if (totemCounter<0&&(CPUs.Length>0)){
         totem = CPUs[Mathf.FloorToInt(Random.value*CPUs.Length)];
@@ -116,6 +122,58 @@ public class GameController : MonoBehaviour{
       }
     }
     if (mode==2){
+      //TEMPORARY:
+
+      if (selectedUpgrade!=null){
+        if (selectedUpgrade.GetComponent<CPU>()!=null) selectedUpgrade=null;
+      }
+      Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+      RaycastHit hit;
+      if (Physics.Raycast(ray, out hit)&&uiBlocker==false){
+        mouseOver = hit.collider.gameObject;
+        float maxDist = Mathf.Max(Mathf.Abs(mouseOver.transform.position.x-totem.transform.position.x), Mathf.Abs(mouseOver.transform.position.z-totem.transform.position.z));
+        if (maxDist<=1.2f){
+          if (mouseOver.GetComponent<Tile>()!=null && selectedUpgrade!=null){
+            reticuleUpgrade.SetActive(true);
+            reticuleUpgrade.transform.position = mouseOver.transform.position;
+          }
+          if (mouseOver.GetComponent<Upgrade>()!=null){
+            reticuleUpgrade.SetActive(true);
+            reticuleUpgrade.transform.position = mouseOver.transform.position;
+          }
+        }
+      } else {
+        mouseOver=null;
+      }
+      if (Input.GetMouseButtonUp(0) && uiBlocker==false && mouseOver!=null){
+        if (selectedUpgrade==null){
+          if (mouseOver.GetComponent<Upgrade>()!=null && mouseOver.GetComponent<CPU>()==null) selectedUpgrade=mouseOver;
+        } else if (selectedUpgrade==mouseOver){
+          selectedUpgrade = null;
+        } else {
+          Car carVars = totem.GetComponent<CPU>().cars[0].GetComponent<Car>();
+          GameObject[] slots = carVars.upgradeTile.GetComponent<Tile>().heightSlots;
+          if (mouseOver.GetComponent<Tile>()!=null){
+            selectedUpgrade.transform.parent = null;
+            selectedUpgrade.transform.position = mouseOver.transform.position;
+            selectedUpgrade.GetComponent<Upgrade>().cpu = null;
+            selectedUpgrade.GetComponent<ActualThing>().moveOntoTile(mouseOver,0);
+            selectedUpgrade = null;
+            totem.GetComponent<CPU>().setUpUpgrades();
+          }
+          Upgrade mOverUp = mouseOver.GetComponent<Upgrade>();
+          if (mOverUp!=null){
+            if (selectedUpgrade.GetComponent<Upgrade>().cpu==null){
+              selectedUpgrade.transform.parent = totem.GetComponent<CPU>().cars[0].transform;
+              selectedUpgrade.transform.position = mouseOver.transform.position;
+              selectedUpgrade.GetComponent<ActualThing>().moveOntoTile(mouseOver.GetComponent<ActualThing>().tile,Mathf.RoundToInt(mouseOver.transform.position.y*.5f));
+              selectedUpgrade = null;
+              totem.GetComponent<CPU>().setUpUpgrades();
+            }
+          }
+        }
+      }
+
     }
     if (mode==3){
       if (totem != null){
@@ -349,28 +407,32 @@ public class GameController : MonoBehaviour{
     //Debug.Log(getTile(Vector2Int.zero).GetComponent<Tile>().fogLevel);
   }
 
-  void cleanUpTiles(){
+  public void cleanUpTiles(){
     foreach (GameObject tile in cleanupQueue){
-      Tile tileVars = tile.GetComponent<Tile>();
-      GameObject[] slots = tileVars.heightSlots;
-      GameObject[] newSlots = (GameObject[]) slots.Clone();
-      int writeToHeight = 0;
-      GameObject currentThing = null;
-      for (int h=0; h<slots.Length; h++){
-        newSlots[h] = null;
-        if (slots[h]!=null){
-          if (slots[h].GetComponent<ActualThing>().flying==true) writeToHeight=h;
-          newSlots[writeToHeight] = slots[h];
-          writeToHeight++;
-          if (slots[h]!=currentThing){
-            Vector3 pos = slots[h].transform.position;
-            slots[h].transform.position = new Vector3(pos.x, (float)h*.5f, pos.z);
-            currentThing = slots[h];
-          }
-        }
-      }
-      slots = newSlots;
+      cleanUpThisTile(tile);
     }
     cleanupQueue.Clear();
+  }
+
+  public void cleanUpThisTile(GameObject tile){
+    Tile tileVars = tile.GetComponent<Tile>();
+    GameObject[] slots = tileVars.heightSlots;
+    GameObject[] newSlots = (GameObject[]) slots.Clone();
+    int writeToHeight = 0;
+    GameObject currentThing = null;
+    for (int h=0; h<slots.Length; h++){
+      newSlots[h] = null;
+      if (slots[h]!=null){
+        if (slots[h].GetComponent<ActualThing>().flying==true) writeToHeight=h;
+        newSlots[writeToHeight] = slots[h];
+        if (slots[h]!=currentThing){
+          Vector3 pos = slots[h].transform.position;
+          slots[h].transform.position = new Vector3(pos.x, (float)writeToHeight*.5f, pos.z);
+          currentThing = slots[h];
+        }
+        writeToHeight++;
+      }
+    }
+    slots = newSlots;
   }
 }

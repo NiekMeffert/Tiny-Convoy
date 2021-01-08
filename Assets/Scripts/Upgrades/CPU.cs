@@ -71,8 +71,6 @@ public class CPU : Upgrade {
     }
   }
 
-  public void upgrade(){}
-
   public void pathfindTo(GameObject tile){}
 
   public void talkTo(GameObject CPU){}
@@ -229,7 +227,7 @@ public class CPU : Upgrade {
       harvest(objective);
     }
     if (objective!=null && objective.GetComponent<Upgrade>()!=null){
-      if (objective.GetComponent<Battery>()!=null){
+      if (objective.GetComponent<Battery>()!=null && objective.GetComponent<Upgrade>().cpu!=null){
         chargeBot(objective);
       } else {
         upgrade(objective);
@@ -272,8 +270,8 @@ public class CPU : Upgrade {
     if (newToyVars.cpu!=null) newToyTile = newToyVars.cpu.GetComponent<CPU>().cars[0].GetComponent<Car>().tile;
     if (closeEnough(newToy)){
       //go into upgrade screen...
-      gameController.setMode(2); //upgrade screen TEMP
-      //tempUpgrade(newToy);
+      gameController.setMode(2); //upgrade screen
+      gameController.selectedUpgrade = newToy;
       objective=null;
     } else {
       pathfinder.moveNextTo(newToyTile);
@@ -359,16 +357,25 @@ public class CPU : Upgrade {
   public void setUpUpgrades(){
     foreach (GameObject c in cars){
       Car carVars = c.GetComponent<Car>();
+      gameController.cleanUpThisTile(carVars.upgradeTile);
       UpgradeTile upTile = carVars.upgradeTile.GetComponent<UpgradeTile>();
       carVars.height = 0;
       carVars.mass = 0;
       carVars.upgrades.Clear();
-      for (int h = upTile.heightSlots.GetLength(0)-1; h>=0; h--){
-        if (upTile.heightSlots[h]!=null && carVars.upgrades[0]!=upTile.heightSlots[h]){
-          carVars.upgrades.Insert(0,upTile.heightSlots[h]);
-          carVars.upgrades[0].GetComponent<Upgrade>().cpu = gameObject;
-          carVars.height += carVars.upgrades[0].GetComponent<Upgrade>().height;
-          carVars.mass += upTile.heightSlots[h].GetComponent<ActualThing>().mass;
+      for (int h = upTile.heightSlots.Length-1; h>=0; h--){
+        if (upTile.heightSlots[h]!=null){
+          if (carVars.upgrades.Count==0) {
+            carVars.upgrades.Add(upTile.heightSlots[h]);
+            carVars.upgrades.Insert(0,upTile.heightSlots[h]);
+            carVars.upgrades[0].GetComponent<Upgrade>().cpu = gameObject;
+            carVars.height += carVars.upgrades[0].GetComponent<Upgrade>().height;
+            carVars.mass += upTile.heightSlots[h].GetComponent<ActualThing>().mass;
+          } else if (carVars.upgrades[0]!=upTile.heightSlots[h]){
+            carVars.upgrades.Insert(0,upTile.heightSlots[h]);
+            carVars.upgrades[0].GetComponent<Upgrade>().cpu = gameObject;
+            carVars.height += carVars.upgrades[0].GetComponent<Upgrade>().height;
+            carVars.mass += upTile.heightSlots[h].GetComponent<ActualThing>().mass;
+          }
         }
       }
     }
