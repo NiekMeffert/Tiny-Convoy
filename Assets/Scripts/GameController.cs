@@ -433,6 +433,6 @@ public class GameController : MonoBehaviour{
         writeToHeight++;
       }
     }
-    slots = newSlots;
+    tileVars.heightSlots = newSlots;
   }
 }
