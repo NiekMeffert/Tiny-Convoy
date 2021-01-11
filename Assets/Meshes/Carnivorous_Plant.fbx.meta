@@ -18,7 +18,22 @@ ModelImporter:
   - first:
       74: 3765040289975974354
     second: Carnivourous|Attack
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: BlackCarnivourous
+    second: {fileID: 2100000, guid: 91d30f4217e5c7248817c9192c6be319, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: BlueCarnivorous
+    second: {fileID: 2100000, guid: f4f0667742699f143a01b4a6adb854ef, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: WhiteCarnivorous
+    second: {fileID: 2100000, guid: 93fedbaf4e2d9124eb60db1ec4fc0348, type: 2}
   materials:
     materialImportMode: 1
     materialName: 0
