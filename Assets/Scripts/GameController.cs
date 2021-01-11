@@ -86,30 +86,44 @@ public class GameController : MonoBehaviour{
         if (totemPos != currPos || totemSight!=totem.GetComponent<CPU>().sight) moveFog(currPos);
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
-        if (Physics.Raycast(ray, out hit)&&uiBlocker==false){
+        if (Physics.Raycast(ray, out hit) && uiBlocker==false){
           mouseOver = hit.collider.gameObject;
           float maxDist = Mathf.Max(Mathf.Abs(mouseOver.transform.position.x-totem.transform.position.x), Mathf.Abs(mouseOver.transform.position.z-totem.transform.position.z));
           int seeDist = totem.GetComponent<CPU>().sight;
           if (maxDist<=seeDist){
             Tile mouseTile = mouseOver.GetComponent<Tile>();
+            Plant mousePlant = mouseOver.GetComponent<Plant>();
+            Battery mouseBattery = mouseOver.GetComponent<Battery>();
+            Upgrade mouseUpgrade = mouseOver.GetComponent<Upgrade>();
             if (mouseTile!=null){
               if (Mathf.Abs(firstCar.transform.position.y-mouseTile.canFit(firstCar,true))<.1){
                 reticule.SetActive(true);
                 reticule.transform.position = mouseOver.transform.position;
               }
-            }
-            if (mouseOver.GetComponent<Plant>()!=null){
-              reticulePlant.SetActive(true);
-              reticulePlant.transform.position = mouseOver.transform.position;
-            }
-            if (mouseOver.GetComponent<Upgrade>()!=null){
-              if (mouseOver.GetComponent<Battery>()!=null && mouseOver.GetComponent<Upgrade>().cpu!=null && mouseOver.GetComponent<Upgrade>().cpu!=totem){
+            } else if (mousePlant!=null){
+              if (firstCar.GetComponent<Car>().overlapsVertically(mouseOver)){
+                reticulePlant.SetActive(true);
+                reticulePlant.transform.position = mouseOver.transform.position;
+              } else {
+                mouseOver=null;
+              }
+
+            } else if (mouseBattery!=null && mouseUpgrade.cpu!=null && mouseUpgrade.cpu!=totem){
+              if (firstCar.GetComponent<Car>().overlapsVertically(mouseOver)){
                 reticuleCharge.SetActive(true);
                 reticuleCharge.transform.position = mouseOver.transform.position;
               } else {
+                mouseOver=null;
+              }
+            } else if (mouseUpgrade!=null){
+              if (firstCar.GetComponent<Car>().overlapsVertically(mouseOver)){
                 reticuleUpgrade.SetActive(true);
                 reticuleUpgrade.transform.position = mouseOver.transform.position;
+              } else {
+                mouseOver=null;
               }
+            } else {
+              mouseOver=null;
             }
           }
         } else {

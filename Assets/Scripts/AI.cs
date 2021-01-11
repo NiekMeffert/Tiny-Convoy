@@ -15,6 +15,7 @@ public class AI : MonoBehaviour
   List<navTile> dangerList = new List<navTile>();
   List<navTile> friendList = new List<navTile>();
   float mapAge = 0;
+  Car firstCarVars;
 
   // Start is called before the first frame update
   void Start(){
@@ -29,6 +30,8 @@ public class AI : MonoBehaviour
   }
 
   public void changeMind(){
+    Debug.Log("Reconsidering");
+    firstCarVars = cpu.cars[0].GetComponent<Car>();
     getWeightedMap();
     powerList.Clear();
     friendList.Clear();
@@ -40,9 +43,9 @@ public class AI : MonoBehaviour
         if (memoryTiles[x,y].danger==true) dangerList.Add(memoryTiles[x,y]);
       }
     }
-    List<(float, Stack<navTile>, navTile, navTile)> ideas = new List <(float, Stack<navTile>, navTile, navTile)>();
+    List<(float, Stack<navTile>, navTile, navTile)> ideaPaths = new List <(float, Stack<navTile>, navTile, navTile)>();
     List<float> ideaWeights = new List <float>();
-    List<GameObject> objectives = new List <GameObject>();
+    List<GameObject> ideaObjectives = new List <GameObject>();
     //Get energy
     if (cpu.powerAvailable/cpu.maxPower<.5 && powerList.Count>0){
       //Find closest power source & up to 2 random ones (just in case)
@@ -50,32 +53,37 @@ public class AI : MonoBehaviour
         int chosen = 0;
         if (h==0){
           float sqDist = 100000;
-          for (int i = 1; i<powerList.Count; i++){
+          for (int i=1; i<powerList.Count; i++){
             float newSqDist = (gameObject.transform.position-powerList[i].tile.transform.position).sqrMagnitude;
             if (newSqDist<sqDist){
               chosen=i;
               sqDist=newSqDist;
             }
           }
-        } else if (h<3){
+        } else {
           chosen = Mathf.RoundToInt(Random.value*(powerList.Count-1));
         }
         navTile possibleIdea = powerList[chosen];
-        //powerList.RemoveAt(chosen);
         GameObject nextDoor = getAdjacentFreeTile(possibleIdea.tile);
         if (nextDoor==null) continue;
-        ideas.Insert(0, pathfinder.getPath(nextDoor));
-        if (ideas[0].Item1==0){
-          ideas.RemoveAt(0);
-        } else {
-          ideaWeights.Insert(0, (1f/ideas[0].Item1)+.5f-(cpu.powerAvailable/cpu.maxPower));
-          Tile tileVars = powerList[chosen].tile.GetComponent<Tile>();
-          for (int i=0; i<tileVars.actualThings.Count; i++){
-            if (tileVars.actualThings[i].GetComponent<Powered>()!=null) {
-              objectives.Insert(0, tileVars.actualThings[i]);
-              break;
-            }
+        //Insert objective item
+        Tile tileVars = powerList[chosen].tile.GetComponent<Tile>();
+        ideaObjectives.Insert(0, gameObject);
+        for (int i=0; i<tileVars.actualThings.Count; i++){
+          if (tileVars.actualThings[i].GetComponent<Powered>()!=null) {
+            ideaObjectives[0] = tileVars.actualThings[i];
+            break;
           }
+        }
+        //Insert idea path
+        ideaPaths.Insert(0, pathfinder.getPath(nextDoor));
+        //Insert idea weight
+        ideaWeights.Insert(0, (1f/ideaPaths[0].Item1)+.5f-(cpu.powerAvailable/cpu.maxPower));
+        //...and undo insertions if anything is wrong:
+        if (ideaPaths[0].Item1==0 || ideaObjectives[0]==gameObject){
+          ideaWeights.RemoveAt(0);
+          ideaObjectives.RemoveAt(0);
+          ideaPaths.RemoveAt(0);
         }
       }
     }
@@ -87,20 +95,20 @@ public class AI : MonoBehaviour
     //Player ideas
 
     //Choose one idea
-    if (ideas.Count==0) Debug.Log("No ideas.");
-    if (ideas.Count==0) return;
+    if (ideaPaths.Count==0) return;
     int topIdea=0;
-    for (int i=0; i<ideas.Count; i++){
+    for (int i=0; i<ideaPaths.Count; i++){
       if (ideaWeights[i]>ideaWeights[topIdea]) topIdea=i;
     }
-    cpu.objective = objectives[topIdea];
-    pathfinder.setPath(ideas[topIdea].Item1,ideas[topIdea].Item2,ideas[topIdea].Item3,ideas[topIdea].Item4);
+    if (cpu.objective!=ideaObjectives[topIdea]) Debug.Log("Changed objective");
+    cpu.objective = ideaObjectives[topIdea];
+    pathfinder.setPath(ideaPaths[topIdea].Item1,ideaPaths[topIdea].Item2,ideaPaths[topIdea].Item3,ideaPaths[topIdea].Item4);
   }
 
   public navTile[,] getWeightedMap(){
-    if (Time.time-mapAge<.2) return memoryTiles;
+    //if (Time.time-mapAge<.2) return memoryTiles;
     mapAge=Time.time;
-    Vector2Int pos = cpu.cars[0].GetComponent<Car>().upgradeTile.GetComponent<Tile>().pos;
+    Vector2Int pos = cpu.cars[0].GetComponent<Car>().tile.GetComponent<Tile>().pos;
     GameObject[,] mTiles = gameController.getSquare(new Vector3Int(pos.x, pos.y, cpu.sight));
     memoryTiles = new navTile[mTiles.GetLength(0), mTiles.GetLength(1)];
     for (int x = 0; x<memoryTiles.GetLength(0); x++){
@@ -125,6 +133,11 @@ public class AI : MonoBehaviour
         for (int y = 0; y<mTiles.GetLength(1); y++){
           List<GameObject> ats = mTiles[x,y].GetComponent<Tile>().actualThings;
           foreach (GameObject aThing in ats){
+            Car friend = aThing.GetComponent<Car>();
+            if (friend!=null){
+              if (friend.cpu==cpu) continue;
+              memoryTiles[x,y].friend = true;
+            }
             Danger danger = aThing.GetComponent<Danger>();
             if (danger!=null){
               int i = knownDangers.IndexOf(danger.dangerName);
@@ -140,11 +153,9 @@ public class AI : MonoBehaviour
             }
             Powered powerSource = aThing.GetComponent<Powered>();
             if (powerSource!=null){
-              memoryTiles[x,y].power = Mathf.Max(powerSource.power, memoryTiles[x,y].power);
-            }
-            Car friend = aThing.GetComponent<Car>();
-            if (friend!=null){
-              memoryTiles[x,y].friend = true;
+              if (firstCarVars.overlapsVertically(aThing)==true){
+                memoryTiles[x,y].power = Mathf.Max(powerSource.power, memoryTiles[x,y].power);
+              }
             }
           }
         }

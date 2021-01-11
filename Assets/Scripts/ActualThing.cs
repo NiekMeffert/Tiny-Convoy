@@ -72,6 +72,19 @@ public class ActualThing : MonoBehaviour
     }
   }
 
+  public virtual bool overlapsVertically(GameObject aThing){
+    float[] bt = aThing.GetComponent<ActualThing>().bottomTop;
+    if ((bottomTop[0]>=bt[0] && bottomTop[0]<=bt[1])
+      || (bottomTop[1]>=bt[0] && bottomTop[1]<=bt[1])
+      || (bt[0]>=bottomTop[0] && bt[0]<=bottomTop[1])
+      || (bt[1]>=bottomTop[0] && bt[1]<=bottomTop[1])
+      ){
+      return true;
+    } else {
+      return false;
+    }
+  }
+
   public virtual void takeDamage(float damage, string dangerName){
   }
 
