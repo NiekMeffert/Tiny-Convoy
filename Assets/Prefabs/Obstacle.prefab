@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8930474418716175937}
   - component: {fileID: 6338062857696828076}
+  - component: {fileID: 4461057578680693407}
   m_Layer: 0
   m_Name: Obstacle
   m_TagString: Untagged
@@ -49,12 +50,30 @@ MonoBehaviour:
   mass: 0
   momentum: {x: 0, y: 0}
   height: 10
+  bottomTop:
+  - 0
+  - 0
   standable: 1
   fogLevel: 0
   health: 0
   maxHealth: -1
   armorTink: 0
   armorMultiplier: 0
+  animator: {fileID: 0}
+  flying: 0
+--- !u!65 &4461057578680693407
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2378289897662061969}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 4.857552, z: 1}
+  m_Center: {x: 0, y: 2.4278405, z: 0}
 --- !u!1001 &166411356250370689
 PrefabInstance:
   m_ObjectHideFlags: 0

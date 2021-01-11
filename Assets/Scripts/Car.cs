@@ -10,9 +10,8 @@ public class Car : ActualThing
   public int carNumber;
 
   void Awake(){
-    setUpVars();
-    //upgradeTile = Instantiate(gameController.upgradeTilePrefab);
-    //upgradeTile.transform.parent = gameObject.transform;
+    gameController=GameObject.Find("GameController").GetComponent<GameController>();
+    animator = gameObject.GetComponent<Animator>();
     UpgradeTile upTileVars = upgradeTile.GetComponent<UpgradeTile>();
     upTileVars.car = gameObject;
     upTileVars.pos = new Vector2Int(Mathf.RoundToInt(transform.position.x), Mathf.RoundToInt(transform.position.z));

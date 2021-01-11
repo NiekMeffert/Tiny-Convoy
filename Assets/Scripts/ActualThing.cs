@@ -35,6 +35,7 @@ public class ActualThing : MonoBehaviour
   public virtual void setUpVars(){
     gameController=GameObject.Find("GameController").GetComponent<GameController>();
     animator = gameObject.GetComponent<Animator>();
+    height = gameObject.GetComponent<BoxCollider>().size.y*transform.lossyScale.y;
     bottomTop[0]=transform.position.y; bottomTop[1]=transform.position.y+height;
   }
 

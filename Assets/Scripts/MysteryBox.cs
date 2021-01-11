@@ -16,7 +16,8 @@ public class MysteryBox : ActualThing
   void Update(){}
 
   public override void setUpPosition(){
-    setUpVars();
+    gameController=GameObject.Find("GameController").GetComponent<GameController>();
+    animator = gameObject.GetComponent<Animator>();
     GameObject tempTile = gameController.getTile(new Vector2Int(Mathf.RoundToInt(transform.position.x), Mathf.RoundToInt(transform.position.z)));
     Tile tileVars = tempTile.GetComponent<Tile>();
     float[] rands = gameController.getRands(tempTile.GetComponent<Tile>().pos);
