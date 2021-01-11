@@ -56,23 +56,20 @@ public class Exploder : Danger
         GameObject[,] damageSquare = gameController.getSquare(new Vector3Int(tileVars.pos.x,tileVars.pos.y,1));
         for (int x=0; x<damageSquare.GetLength(0); x++){
           for (int y=0; y<damageSquare.GetLength(1); y++){
-            GameObject[] slots = damageSquare[x,y].GetComponent<Tile>().heightSlots;
-            int carOffset = 0;
-            GameObject car=null;
-            for (int i=0; i<slots.GetLength(0); i++){
-              if (slots[i]!=null){
-                Vector3 dealTo = new Vector3(damageSquare[x,y].transform.position.x, i*.5f, damageSquare[x,y].transform.position.z);
-                if (slots[i].GetComponent<Car>()==null){
-                  float damage = baseDamage*(Vector3.Distance(damSource,dealTo)*safeDistance);
-                  slots[i].GetComponent<ActualThing>().takeDamage(damage, dangerName);
-                } else {
-                  float damage = baseDamage*(Vector3.Distance(damSource,dealTo)*safeDistance);
-                  if (car==null || car!=slots[i]) {
-                    car = slots[i];
-                    carOffset=-1*i;
-                  }
-                  slots[i].GetComponent<Car>().upgradeTile.GetComponent<UpgradeTile>().heightSlots[i-carOffset].GetComponent<ActualThing>().takeDamage(damage, dangerName);
-                }
+            foreach (GameObject t in damageSquare[x,y].GetComponent<Tile>().actualThings){
+              ActualThing tVars = t.GetComponent<ActualThing>();
+              List<GameObject> finalThings = new List<GameObject>();
+              Car tCar = t.GetComponent<Car>();
+              if (tCar==null){
+                finalThings.Add(t);
+              } else {
+                finalThings.AddRange(tCar.upgradeTile.GetComponent<UpgradeTile>().actualThings);
+              }
+              foreach (GameObject damaged in finalThings){
+                ActualThing damagedVars = damaged.GetComponent<ActualThing>();
+                Vector3 dealTo = new Vector3(damaged.transform.position.x, .5f*(damagedVars.bottomTop[0]+damagedVars.bottomTop[1]), damaged.transform.position.z);
+                float damage = baseDamage*(Vector3.Distance(damSource,dealTo)*safeDistance);
+                damagedVars.takeDamage(damage, dangerName);
               }
             }
           }

@@ -23,15 +23,13 @@ public class Pathfinder : MonoBehaviour
 
   // Update is called once per frame
   void Update(){
-    if (destination==null) return;
-    if (gameController.mode!=1 || firstCarVars.tile==null) return;
+    if (destination==null || gameController.mode!=1 || firstCarVars==null) return;
     moveToTile();
   }
 
   public virtual void setUpPathfinder(){
     gameController = GameObject.Find("GameController").GetComponent<GameController>();
     cpu = gameObject.GetComponent<CPU>();
-    firstCarVars = cpu.cars[0].GetComponent<Car>();
     ai = gameObject.GetComponent<AI>();
   }
 
@@ -53,14 +51,14 @@ public class Pathfinder : MonoBehaviour
     if (cpu.waitForRotation==false || totalTurn<.01f) {
       Vector3 twoDDirClamped = Vector3.ClampMagnitude(twoDDir, cpu.hSpeed*Time.deltaTime);
       cpu.cars[0].transform.position += twoDDirClamped;
-      GameObject maybeNewTile = gameController.getTile(new Vector2Int(Mathf.RoundToInt(cpu.cars[0].transform.position.x), Mathf.RoundToInt(cpu.cars[0].transform.position.z)));
+      Vector2Int roundedPos = new Vector2Int(Mathf.RoundToInt(cpu.cars[0].transform.position.x), Mathf.RoundToInt(cpu.cars[0].transform.position.z));
+      GameObject maybeNewTile = gameController.getTile(roundedPos);
       if (maybeNewTile!=firstCarVars.tile) {
-        //GameObject mkr2 = Instantiate(marker);
-        //mkr2.transform.position = cpu.cars[0].GetComponent<Car>().tile.transform.position;
-        int fitSlot = gameController.canFit(cpu.cars[0], maybeNewTile, true);
-        if (fitSlot==0){
-          firstCarVars.moveOntoTile(maybeNewTile,0);
-
+        Tile tileVars = maybeNewTile.GetComponent<Tile>();
+        float fit = tileVars.canFit(cpu.cars[0], true);
+        if (Mathf.Abs(cpu.cars[0].transform.position.y-fit)<.1){
+          tileVars.moveOntoTile(cpu.cars[0]);
+          firstCarVars.upgradeTile.GetComponent<UpgradeTile>().pos = roundedPos;
         } else {
           cpu.cars[0].transform.position -= twoDDirClamped;
           stop();

@@ -50,13 +50,18 @@ MonoBehaviour:
   gameController: {fileID: 0}
   mass: 1
   momentum: {x: 0, y: 0}
-  height: 1
+  height: 0.25
+  bottomTop:
+  - 0
+  - 0
   standable: 0
   fogLevel: 0
   health: 10
   maxHealth: 10
   armorTink: 0
   armorMultiplier: 0
+  animator: {fileID: 0}
+  flying: 0
   power: 30
   maxPower: 30
 --- !u!65 &9220264105873827093

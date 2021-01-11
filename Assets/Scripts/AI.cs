@@ -69,13 +69,11 @@ public class AI : MonoBehaviour
           ideas.RemoveAt(0);
         } else {
           ideaWeights.Insert(0, (1f/ideas[0].Item1)+.5f-(cpu.powerAvailable/cpu.maxPower));
-          for (int i=0; i<powerList[chosen].tile.GetComponent<Tile>().heightSlots.Length; i++){
-            GameObject o = powerList[chosen].tile.GetComponent<Tile>().heightSlots[i];
-            if (o!=null){
-              if (o.GetComponent<Powered>()!=null) {
-                objectives.Insert(0, o);
-                break;
-              }
+          Tile tileVars = powerList[chosen].tile.GetComponent<Tile>();
+          for (int i=0; i<tileVars.actualThings.Count; i++){
+            if (tileVars.actualThings[i].GetComponent<Powered>()!=null) {
+              objectives.Insert(0, tileVars.actualThings[i]);
+              break;
             }
           }
         }
@@ -125,12 +123,9 @@ public class AI : MonoBehaviour
     if (gameObject != gameController.totem){
       for (int x = 0; x<mTiles.GetLength(0); x++){
         for (int y = 0; y<mTiles.GetLength(1); y++){
-          GameObject lastSlot = null;
-          GameObject[] slots = mTiles[x,y].GetComponent<Tile>().heightSlots;
-          foreach (GameObject slot in slots){
-            if (slot==null || lastSlot==slot) continue;
-            lastSlot=slot;
-            Danger danger = slot.GetComponent<Danger>();
+          List<GameObject> ats = mTiles[x,y].GetComponent<Tile>().actualThings;
+          foreach (GameObject aThing in ats){
+            Danger danger = aThing.GetComponent<Danger>();
             if (danger!=null){
               int i = knownDangers.IndexOf(danger.dangerName);
               if (i>-1) {
@@ -143,11 +138,11 @@ public class AI : MonoBehaviour
                 }
               }
             }
-            Powered powerSource = slot.GetComponent<Powered>();
+            Powered powerSource = aThing.GetComponent<Powered>();
             if (powerSource!=null){
               memoryTiles[x,y].power = Mathf.Max(powerSource.power, memoryTiles[x,y].power);
             }
-            Car friend = slot.GetComponent<Car>();
+            Car friend = aThing.GetComponent<Car>();
             if (friend!=null){
               memoryTiles[x,y].friend = true;
             }
@@ -183,8 +178,8 @@ public class AI : MonoBehaviour
     for (int x = 0; x<square.GetLength(0); x++){
       for (int y = 0; y<square.GetLength(1); y++){
         float dist = Vector3.Distance(square[x,y].transform.position, gameObject.transform.position);
-        int slot = gameController.canFit(gameObject,square[x,y], true);
-        if (dist<min && slot==0){
+        float fit = square[x,y].GetComponent<Tile>().canFit(cpu.cars[0],true);
+        if (dist<min && Mathf.Abs(cpu.cars[0].transform.position.y-fit)<.1){
           min=dist;
           adjacentTile=square[x,y];
         }

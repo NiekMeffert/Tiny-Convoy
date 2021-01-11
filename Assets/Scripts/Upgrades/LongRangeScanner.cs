@@ -9,7 +9,7 @@ public class LongRangeScanner : Upgrade{
   // Start is called before the first frame update
   void Start(){
     baseResolution = resolution;
-    setUpActualThing();
+    setUpVars();
   }
 
   // Update is called once per frame

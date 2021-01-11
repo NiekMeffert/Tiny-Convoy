@@ -9,7 +9,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2470867219255861336}
-  - component: {fileID: 584223528436506314}
   - component: {fileID: 3354196801491126839}
   m_Layer: 0
   m_Name: Gripper
@@ -33,21 +32,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &584223528436506314
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7099735029424087113}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2c7872c08e44fb84aa6ceb48685dd70c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  radius: 5
-  interactionTransfrom: {fileID: 2470867219255861336}
-  item: {fileID: 11400000, guid: 8d4d8dce3b88cbe43be5c4884f48e9fc, type: 2}
 --- !u!114 &3354196801491126839
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -65,6 +49,9 @@ MonoBehaviour:
   mass: 0.1
   momentum: {x: 0, y: 0}
   height: 1
+  bottomTop:
+  - 0
+  - 0
   standable: 0
   fogLevel: 0
   health: 10

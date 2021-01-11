@@ -6,13 +6,12 @@ public class Gripper : Upgrade {
 
   // Start is called before the first frame update
   void Start(){
-    setUpActualThing();
+    setUpVars();
+    setUpPosition();
   }
 
   // Update is called once per frame
-  void Update(){
-
-  }
+  void Update(){}
 
   public override void takeDamage(float damage, string dangerName){
     health = Mathf.Clamp(health-damage,0,maxHealth);

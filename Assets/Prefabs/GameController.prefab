@@ -55,6 +55,8 @@ MonoBehaviour:
     type: 3}
   carPrefab: {fileID: 8998128059911170805, guid: 85a224c717b734043b41c32696d5fd03,
     type: 3}
+  upgradeTilePrefab: {fileID: 1854262811461741652, guid: 5a02141a6d3184ef1891730b16b7515d,
+    type: 3}
   upgradePrefabs:
   - {fileID: 4560274283034543134, guid: c900f015f5d574f3ea2e363c76a8ddba, type: 3}
   - {fileID: 4560274283034543134, guid: fa4b0808637c74c73b0db5b4531fa2cf, type: 3}
@@ -99,3 +101,4 @@ MonoBehaviour:
   uiBlocker: 0
   particles:
   - {fileID: 1687974853036285661, guid: 31d9ab04a5d9c42669d6fae5fbd839ac, type: 3}
+  selectedUpgrade: {fileID: 0}

@@ -11,7 +11,7 @@ public class Flyer : Mover
   void Start()
   {
     baseVSpeed = vSpeed;
-    setUpActualThing();
+    setUpVars();
   }
 
   // Update is called once per frame

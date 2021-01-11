@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class GameController : MonoBehaviour{
 
-  public int mode = 1; //0 paused, 1 normal, 2 upgrade, 3 long-distance scanner, 4 conversation
+  public int mode = 0; //0 paused, 1 normal, 2 upgrade, 3 long-distance scanner, 4 conversation
   public int nextMode = 1;
   public int level = 0;
   public int randomSeedX;
@@ -14,15 +14,17 @@ public class GameController : MonoBehaviour{
   public GameObject tilePrefab;
   public GameObject CPUPrefab;
   public GameObject carPrefab;
+  public GameObject upgradeTilePrefab;
   public GameObject[] upgradePrefabs;
   public GameObject[] plantPrefabs;
   public GameObject[] bigTilePrefabs;
   public GameObject[] specialBigTilePrefabs;
   public GameObject mainCamera;
   public GameObject lastBigTile;
-  public GameObject[] CPUs;
+  public List<GameObject> CPUs = new List<GameObject>();
   public GameObject totem;
   public Vector2Int totemPos;
+  public float totemSight = 2;
   public int fog1;
   public int fog2;
   float visibilityPainterX = .5f;
@@ -40,7 +42,6 @@ public class GameController : MonoBehaviour{
   public bool uiBlocker = false;
   RectTransform scannerNoise;
   public GameObject[] particles;
-  public List<GameObject> cleanupQueue = new List<GameObject>();
   //TEMPORARY:
   public GameObject selectedUpgrade;
 
@@ -74,51 +75,49 @@ public class GameController : MonoBehaviour{
       selectedUpgrade = null;
 
       totemCounter-=Time.deltaTime;
-      if (totemCounter<0&&(CPUs.Length>0)){
-        totem = CPUs[Mathf.FloorToInt(Random.value*CPUs.Length)];
+      if (totemCounter<0 && CPUs.Count>0){
+        totem = CPUs[Mathf.FloorToInt(Random.value*CPUs.Count)];
         totemCounter=120;
         bigBotCheck();
       }
       if (totem!=null){
-        if (totem.GetComponent<CPU>().cars[0].GetComponent<Car>().tile!=null){
-          Vector2Int currPos = totem.GetComponent<CPU>().cars[0].GetComponent<Car>().tile.GetComponent<Tile>().pos;
-          if (totemPos != currPos){
-            moveFog();
-          }
-        }
-      }
-      Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-      RaycastHit hit;
-      if (Physics.Raycast(ray, out hit)&&uiBlocker==false){
-        mouseOver = hit.collider.gameObject;
-        float maxDist = Mathf.Max(Mathf.Abs(mouseOver.transform.position.x-totem.transform.position.x), Mathf.Abs(mouseOver.transform.position.z-totem.transform.position.z));
-        int seeDist = totem.GetComponent<CPU>().sight;
-        if (maxDist<=seeDist){
-          if (mouseOver.GetComponent<Tile>()!=null){
-            if (canFit(totem,mouseOver,true)==0){
-              reticule.SetActive(true);
-              reticule.transform.position = mouseOver.transform.position;
+        GameObject firstCar = totem.GetComponent<CPU>().cars[0];
+        Vector2Int currPos = firstCar.GetComponent<Car>().tile.GetComponent<Tile>().pos;
+        if (totemPos != currPos || totemSight!=totem.GetComponent<CPU>().sight) moveFog(currPos);
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        RaycastHit hit;
+        if (Physics.Raycast(ray, out hit)&&uiBlocker==false){
+          mouseOver = hit.collider.gameObject;
+          float maxDist = Mathf.Max(Mathf.Abs(mouseOver.transform.position.x-totem.transform.position.x), Mathf.Abs(mouseOver.transform.position.z-totem.transform.position.z));
+          int seeDist = totem.GetComponent<CPU>().sight;
+          if (maxDist<=seeDist){
+            Tile mouseTile = mouseOver.GetComponent<Tile>();
+            if (mouseTile!=null){
+              if (Mathf.Abs(firstCar.transform.position.y-mouseTile.canFit(firstCar,true))<.1){
+                reticule.SetActive(true);
+                reticule.transform.position = mouseOver.transform.position;
+              }
+            }
+            if (mouseOver.GetComponent<Plant>()!=null){
+              reticulePlant.SetActive(true);
+              reticulePlant.transform.position = mouseOver.transform.position;
+            }
+            if (mouseOver.GetComponent<Upgrade>()!=null){
+              if (mouseOver.GetComponent<Battery>()!=null && mouseOver.GetComponent<Upgrade>().cpu!=null && mouseOver.GetComponent<Upgrade>().cpu!=totem){
+                reticuleCharge.SetActive(true);
+                reticuleCharge.transform.position = mouseOver.transform.position;
+              } else {
+                reticuleUpgrade.SetActive(true);
+                reticuleUpgrade.transform.position = mouseOver.transform.position;
+              }
             }
           }
-          if (mouseOver.GetComponent<Plant>()!=null){
-            reticulePlant.SetActive(true);
-            reticulePlant.transform.position = mouseOver.transform.position;
-          }
-          if (mouseOver.GetComponent<Upgrade>()!=null){
-            if (mouseOver.GetComponent<Battery>()!=null && mouseOver.GetComponent<Upgrade>().cpu!=null && mouseOver.GetComponent<Upgrade>().cpu!=totem){
-              reticuleCharge.SetActive(true);
-              reticuleCharge.transform.position = mouseOver.transform.position;
-            } else {
-              reticuleUpgrade.SetActive(true);
-              reticuleUpgrade.transform.position = mouseOver.transform.position;
-            }
-          }
+        } else {
+          mouseOver=null;
         }
-      } else {
-        mouseOver=null;
-      }
-      if (Input.GetMouseButtonUp(0)&&uiBlocker==false){
-        pickDefaultAction();
+        if (Input.GetMouseButtonUp(0) && uiBlocker==false){
+          pickDefaultAction();
+        }
       }
     }
     if (mode==2){
@@ -152,21 +151,21 @@ public class GameController : MonoBehaviour{
           selectedUpgrade = null;
         } else {
           Car carVars = totem.GetComponent<CPU>().cars[0].GetComponent<Car>();
-          GameObject[] slots = carVars.upgradeTile.GetComponent<Tile>().heightSlots;
+          Tile tileVars = carVars.upgradeTile.GetComponent<Tile>();
           if (mouseOver.GetComponent<Tile>()!=null){
             selectedUpgrade.transform.parent = null;
             selectedUpgrade.transform.position = mouseOver.transform.position;
             selectedUpgrade.GetComponent<Upgrade>().cpu = null;
-            selectedUpgrade.GetComponent<ActualThing>().moveOntoTile(mouseOver,0);
+            mouseOver.GetComponent<Tile>().moveOntoTile(selectedUpgrade);
             selectedUpgrade = null;
             totem.GetComponent<CPU>().setUpUpgrades();
           }
           Upgrade mOverUp = mouseOver.GetComponent<Upgrade>();
           if (mOverUp!=null){
             if (selectedUpgrade.GetComponent<Upgrade>().cpu==null){
-              selectedUpgrade.transform.parent = totem.GetComponent<CPU>().cars[0].transform;
               selectedUpgrade.transform.position = mouseOver.transform.position;
-              selectedUpgrade.GetComponent<ActualThing>().moveOntoTile(mouseOver.GetComponent<ActualThing>().tile,Mathf.RoundToInt(mouseOver.transform.position.y*.5f));
+              mouseOver.transform.position = new Vector3(mouseOver.transform.position.x, mouseOver.transform.position.y+.1f, mouseOver.transform.position.z);
+              mouseOver.GetComponent<ActualThing>().tile.GetComponent<Tile>().moveOntoTile(selectedUpgrade);
               selectedUpgrade = null;
               totem.GetComponent<CPU>().setUpUpgrades();
             }
@@ -191,7 +190,6 @@ public class GameController : MonoBehaviour{
   }
 
   void LateUpdate(){
-    cleanUpTiles();
     if (nextMode!=mode){
       if (mode==1){}
       if (mode==2){
@@ -343,29 +341,6 @@ public class GameController : MonoBehaviour{
     return newBigTile;
   }
 
-  public int canFit(GameObject load, GameObject tile, bool mustBeStandable){
-    int loadHeight = load.GetComponent<ActualThing>().height;
-    Tile tileVars = tile.GetComponent<Tile>();
-    int fit = -1;
-    for (int i=0; i<tileVars.heightSlots.Length; i++){
-      if (fit > -1) {break;}
-      bool safeHeight=true;
-      for (int h=0; h<loadHeight; h++){
-        if (i+h>=tileVars.heightSlots.Length || tileVars.heightSlots[i+h]!=null) {
-          safeHeight=false;
-        }
-      }
-      if (safeHeight==true) fit = i;
-      if (fit>0 && mustBeStandable==true){
-        GameObject topper = tileVars.heightSlots[fit-1];
-        if (topper!=null){
-          if (topper.GetComponent<ActualThing>().standable==false) fit = -1;
-        }
-      }
-    }
-    return fit;
-  }
-
   public void bigBotCheck(){
     GameObject[] allBots = GameObject.FindGameObjectsWithTag("BigBot");
     int botNumber = 1 + (Mathf.FloorToInt(level*.4f));
@@ -383,16 +358,14 @@ public class GameController : MonoBehaviour{
     }
   }
 
-  public void moveFog(){
-    if (totem==null) return;
+  public void moveFog(Vector2Int newPos){
     fog1=totem.GetComponent<CPU>().sight;
     int boxChange = fog2-(fog1+totem.GetComponent<CPU>().memory);
     fog2 = fog1+totem.GetComponent<CPU>().memory;
-    Vector2Int currentTotemPos = totem.GetComponent<CPU>().cars[0].GetComponent<Car>().tile.GetComponent<Tile>().pos;
-    if (currentTotemPos.x>totemPos.x) totemPos+=Vector2Int.right;
-    if (currentTotemPos.x<totemPos.x) totemPos+=Vector2Int.left;
-    if (currentTotemPos.y>totemPos.y) totemPos+=Vector2Int.up;
-    if (currentTotemPos.y<totemPos.y) totemPos+=Vector2Int.down;
+    if (newPos.x>totemPos.x) totemPos+=Vector2Int.right;
+    if (newPos.x<totemPos.x) totemPos+=Vector2Int.left;
+    if (newPos.y>totemPos.y) totemPos+=Vector2Int.up;
+    if (newPos.y<totemPos.y) totemPos+=Vector2Int.down;
     //update tiles affected
     GameObject[,] fogSquare = getSquare(new Vector3Int(totemPos.x,totemPos.y,fog2+boxChange+1));
     for (int x = 0; x<fogSquare.GetLength(0); x++){
@@ -404,35 +377,6 @@ public class GameController : MonoBehaviour{
         t.setFog(fog);
       }
     }
-    //Debug.Log(getTile(Vector2Int.zero).GetComponent<Tile>().fogLevel);
-  }
-
-  public void cleanUpTiles(){
-    foreach (GameObject tile in cleanupQueue){
-      cleanUpThisTile(tile);
-    }
-    cleanupQueue.Clear();
-  }
-
-  public void cleanUpThisTile(GameObject tile){
-    Tile tileVars = tile.GetComponent<Tile>();
-    GameObject[] slots = tileVars.heightSlots;
-    GameObject[] newSlots = (GameObject[]) slots.Clone();
-    int writeToHeight = 0;
-    GameObject currentThing = null;
-    for (int h=0; h<slots.Length; h++){
-      newSlots[h] = null;
-      if (slots[h]!=null){
-        if (slots[h].GetComponent<ActualThing>().flying==true) writeToHeight=h;
-        newSlots[writeToHeight] = slots[h];
-        if (slots[h]!=currentThing){
-          Vector3 pos = slots[h].transform.position;
-          slots[h].transform.position = new Vector3(pos.x, (float)writeToHeight*.5f, pos.z);
-          currentThing = slots[h];
-        }
-        writeToHeight++;
-      }
-    }
-    tileVars.heightSlots = newSlots;
+    totemSight=fog1;
   }
 }

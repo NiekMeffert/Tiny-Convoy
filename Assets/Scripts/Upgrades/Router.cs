@@ -9,7 +9,8 @@ public class Router : Upgrade {
   // Start is called before the first frame update
   void Start(){
     baseMeshBonus = meshBonus;
-    setUpActualThing();
+    setUpVars();
+    setUpPosition();
   }
 
   // Update is called once per frame

@@ -8,7 +8,8 @@ public class Plant : Powered
   // Start is called before the first frame update
   void Start()
   {
-    setUpActualThing();
+    setUpVars();
+    setUpPosition();
   }
 
   // Update is called once per frame

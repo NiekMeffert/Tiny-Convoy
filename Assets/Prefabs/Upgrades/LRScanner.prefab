@@ -141,13 +141,18 @@ MonoBehaviour:
   gameController: {fileID: 0}
   mass: 1
   momentum: {x: 0, y: 0}
-  height: 1
+  height: 0.5
+  bottomTop:
+  - 0
+  - 0
   standable: 1
   fogLevel: 0
   health: 3
   maxHealth: 3
   armorTink: 0
   armorMultiplier: 1
+  animator: {fileID: 0}
+  flying: 0
   cpu: {fileID: 0}
   on: 0
   drain: 1

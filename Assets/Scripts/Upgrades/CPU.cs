@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class CPU : Upgrade {
-  public GameObject[] cars;
+  public GameObject[] cars = new GameObject[8];
   public int processing;
   public int memory;
   public int inputs;
@@ -36,13 +36,32 @@ public class CPU : Upgrade {
   public float maxChargeOut;
   public bool waitForRotation;
   public float thoughtCounter = 1f;
+  public bool waitingToStart = true;
 
   // Start is called before the first frame update
   void Start(){
-    setUpActualThing();
+    setUpVars();
+    setUpPosition();
     pathfinder = gameObject.GetComponent<Pathfinder>();
     ai = gameObject.GetComponent<AI>();
-    Random.InitState(tile.GetComponent<Tile>().pos.x+gameController.randomSeedX+tile.GetComponent<Tile>().pos.y+gameController.randomSeedY);
+  }
+
+  // Update is called once per frame
+  void Update(){
+    if (waitingToStart==true) setUpCPU();
+    if (gameController.mode!=1) return;
+    updateStats();
+    if (gameObject != gameController.totem){
+      thoughtCounter -= Time.deltaTime*(.1f*processing);
+      if (thoughtCounter<0){
+        thoughtCounter=1f;
+        ai.changeMind();
+      }
+    }
+  }
+
+  public void setUpCPU(){
+    Random.InitState(Mathf.RoundToInt(transform.position.x)+gameController.randomSeedX+Mathf.RoundToInt(transform.position.z)+gameController.randomSeedY);
     float[] rands = new float[]{Random.value, Random.value, Random.value, Random.value, Random.value, Random.value};
     float randsTotal = 0;
     foreach (float rand in rands){
@@ -55,20 +74,15 @@ public class CPU : Upgrade {
     baseOutputs = 1+Mathf.RoundToInt(rands[3]*randFactor);
     baseBattery = 1f+Mathf.Round(rands[4]*randFactor);
     baseSight = 1+Mathf.RoundToInt(rands[5]*randFactor);
-    gameController.CPUs = GameObject.FindGameObjectsWithTag("CPU");
-  }
-
-  // Update is called once per frame
-  void Update(){
-    if (gameController.mode!=1){return;}
-    updateStats();
-    if (gameObject != gameController.totem){
-      thoughtCounter -= Time.deltaTime*(.1f*processing);
-      if (thoughtCounter<0){
-        thoughtCounter=1f;
-        ai.changeMind();
-      }
-    }
+    gameController.CPUs.Add(gameObject);
+    cars[0] = Instantiate(gameController.carPrefab);
+    cars[0].transform.position = new Vector3(transform.position.x, 0, transform.position.z);
+    Car carVars = cars[0].GetComponent<Car>();
+    carVars.cpu = gameObject;
+    carVars.registerElements(tile);
+    carVars.setUpPosition();
+    pathfinder.firstCarVars = carVars;
+    waitingToStart=false;
   }
 
   public void pathfindTo(GameObject tile){}
@@ -357,27 +371,7 @@ public class CPU : Upgrade {
   public void setUpUpgrades(){
     foreach (GameObject c in cars){
       Car carVars = c.GetComponent<Car>();
-      gameController.cleanUpThisTile(carVars.upgradeTile);
-      UpgradeTile upTile = carVars.upgradeTile.GetComponent<UpgradeTile>();
-      carVars.height = 0;
-      carVars.mass = 0;
-      carVars.upgrades.Clear();
-      for (int h = upTile.heightSlots.Length-1; h>=0; h--){
-        if (upTile.heightSlots[h]!=null){
-          if (carVars.upgrades.Count==0) {
-            carVars.upgrades.Add(upTile.heightSlots[h]);
-            carVars.upgrades.Insert(0,upTile.heightSlots[h]);
-            carVars.upgrades[0].GetComponent<Upgrade>().cpu = gameObject;
-            carVars.height += carVars.upgrades[0].GetComponent<Upgrade>().height;
-            carVars.mass += upTile.heightSlots[h].GetComponent<ActualThing>().mass;
-          } else if (carVars.upgrades[0]!=upTile.heightSlots[h]){
-            carVars.upgrades.Insert(0,upTile.heightSlots[h]);
-            carVars.upgrades[0].GetComponent<Upgrade>().cpu = gameObject;
-            carVars.height += carVars.upgrades[0].GetComponent<Upgrade>().height;
-            carVars.mass += upTile.heightSlots[h].GetComponent<ActualThing>().mass;
-          }
-        }
-      }
+      carVars.registerElements(tile);
     }
   }
 }

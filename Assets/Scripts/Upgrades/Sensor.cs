@@ -9,7 +9,8 @@ public class Sensor : Upgrade{
   // Start is called before the first frame update
   void Start(){
     baseSightDistance = sightDistance;
-    setUpActualThing();
+    setUpVars();
+    setUpPosition();
   }
 
   // Update is called once per frame

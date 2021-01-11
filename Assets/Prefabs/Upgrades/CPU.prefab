@@ -51,13 +51,18 @@ MonoBehaviour:
   gameController: {fileID: 0}
   mass: 1
   momentum: {x: 0, y: 0}
-  height: 1
+  height: 0.5
+  bottomTop:
+  - 0
+  - 0
   standable: 1
   fogLevel: 0
   health: 10
   maxHealth: 10
   armorTink: 0
   armorMultiplier: 1
+  animator: {fileID: 0}
+  flying: 0
   cpu: {fileID: 0}
   on: 0
   drain: 1
@@ -86,12 +91,15 @@ MonoBehaviour:
   meshDistance: 0
   waterResistance: 0
   objective: {fileID: 0}
+  objectiveWeight: 0
+  ai: {fileID: 0}
   powerNeeded: 0
   powerAvailable: 0
   maxPower: 0
   maxChargeIn: 20
   maxChargeOut: 20
   waitForRotation: 0
+  thoughtCounter: 1
 --- !u!114 &7456990125429083905
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -109,6 +117,7 @@ MonoBehaviour:
   destination: {fileID: 0}
   firstCarVars: {fileID: 0}
   moving: 0
+  ai: {fileID: 0}
 --- !u!65 &6356307829816968810
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -137,6 +146,8 @@ MonoBehaviour:
   gameController: {fileID: 0}
   cpu: {fileID: 0}
   pathfinder: {fileID: 0}
+  knownDangers: []
+  knownDangerWeights: []
 --- !u!1001 &458337661728279151
 PrefabInstance:
   m_ObjectHideFlags: 0

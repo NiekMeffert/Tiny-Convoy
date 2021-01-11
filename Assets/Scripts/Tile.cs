@@ -5,11 +5,11 @@ using UnityEngine;
 public class Tile : MonoBehaviour
 {
   public Vector2Int pos;
-  public bool full;
-  public GameObject[] heightSlots = new GameObject[16];
+  public List<GameObject> actualThings = new List<GameObject>();
   public int level;
   public GameObject bigTile;
   public int fogLevel;
+  public bool fixHeightsNeeded = false;
 
   // Start is called before the first frame update
   void Start(){
@@ -17,8 +17,68 @@ public class Tile : MonoBehaviour
   }
 
   // Update is called once per frame
-  void Update(){
+  void Update(){}
 
+  void LateUpdate(){
+    if (fixHeightsNeeded==true) fixHeights();
+  }
+
+  public float canFit(GameObject load, bool mustBeStandable){
+    ActualThing loadVars = load.GetComponent<ActualThing>();
+    float fit = 0;
+    if (actualThings.Count>0){
+      for (int h=0; h<actualThings.Count; h++){
+        ActualThing hVars = actualThings[h].GetComponent<ActualThing>();
+        if (hVars.bottomTop[0]>=loadVars.bottomTop[1]){
+          break;
+        } else {
+          fit = hVars.bottomTop[1];
+          if (mustBeStandable==true && hVars.standable==false) fit = -1f;
+        }
+      }
+    }
+    return fit;
+  }
+
+  public virtual void moveOntoTile(GameObject load){
+    if (load.GetComponent<ActualThing>().tile==gameObject) return;
+    ActualThing loadVars = load.GetComponent<ActualThing>();
+    if (actualThings.Count>0){
+      foreach (GameObject h in actualThings){
+        if (h.transform.position.y==load.transform.position.y) {
+          float tinyRandom = Random.value*.1f;
+          h.transform.position += new Vector3(0,tinyRandom,0);
+        }
+      }
+    }
+    actualThings.Add(load);
+    fixHeightsNeeded=true;
+    if (loadVars.tile!=null) loadVars.tile.GetComponent<Tile>().removeFromTile(load);
+    loadVars.tile = gameObject;
+    Car carVars = load.GetComponent<Car>();
+    if (carVars!=null) carVars.upgradeTile.GetComponent<Tile>().pos = pos;
+    loadVars.setFog(fogLevel);
+  }
+
+  public virtual void removeFromTile(GameObject load){
+    actualThings.Remove(load);
+    fixHeightsNeeded=true;
+  }
+
+  public virtual void fixHeights(){
+    if (actualThings.Count>1){
+      actualThings.Sort((n1, n2) => n1.transform.position.y.CompareTo(n2.transform.position.y));
+      float prevTop=0;
+      for (int h=0; h<actualThings.Count; h++){
+        ActualThing hVars = actualThings[h].GetComponent<ActualThing>();
+        if ((hVars.bottomTop[0]!=prevTop && hVars.flying==false) || (hVars.bottomTop[0]<=prevTop && hVars.flying==true)){
+          hVars.bottomTop[0] = prevTop; hVars.bottomTop[1] = prevTop+hVars.height;
+          actualThings[h].transform.position = new Vector3(actualThings[h].transform.position.x, hVars.bottomTop[0], actualThings[h].transform.position.z);
+        }
+        prevTop = hVars.bottomTop[1];
+      }
+    }
+    fixHeightsNeeded=false;
   }
 
   public virtual void setFog(int nextFog){
@@ -44,8 +104,8 @@ public class Tile : MonoBehaviour
     } else {
       fogLevel=nextFog;
     }
-    foreach (GameObject m in heightSlots){
-      if (m!=null) m.GetComponent<ActualThing>().setFog(nextFog);
+    foreach (GameObject m in actualThings){
+      m.GetComponent<ActualThing>().setFog(nextFog);
     }
   }
 }

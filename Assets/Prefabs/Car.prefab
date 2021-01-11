@@ -44,26 +44,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pos: {x: 0, y: 0}
-  full: 0
-  heightSlots:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  actualThings: []
   level: 0
   bigTile: {fileID: 0}
+  fogLevel: 0
+  fixHeightsNeeded: 0
   car: {fileID: 8998128059911170805}
 --- !u!1 &8998128059911170805
 GameObject:
@@ -114,7 +99,17 @@ MonoBehaviour:
   mass: 0
   momentum: {x: 0, y: 0}
   height: 0
+  bottomTop:
+  - 0
+  - 0
   standable: 1
+  fogLevel: 0
+  health: 0
+  maxHealth: 0
+  armorTink: 0
+  armorMultiplier: 0
+  animator: {fileID: 0}
+  flying: 0
   cpu: {fileID: 0}
   upgrades: []
   upgradeTile: {fileID: 309975477927867900}

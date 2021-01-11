@@ -28,7 +28,6 @@ public class InvisibleObstruction : ActualThing
           MeshRenderer[] mRenderers = par.transform.GetComponentsInChildren<MeshRenderer>(true);
           SkinnedMeshRenderer[] smRenderers = par.transform.GetComponentsInChildren<SkinnedMeshRenderer>(true);
           foreach (MeshRenderer m in mRenderers){
-            Debug.Log("enabling");
             if (m.gameObject.GetComponent<ActualThing>()==null) m.enabled=true;
           }
           foreach (SkinnedMeshRenderer sm in smRenderers){
