@@ -11,7 +11,6 @@ public class Pathfinder : MonoBehaviour
   public Car firstCarVars;
   public Stack<navTile> path = new Stack<navTile>();
   public List<navTile> selectableTiles = new List<navTile>();
-  public navTile currentTile;
   public bool moving = false;
   public AI ai;
   //public GameObject marker;
@@ -86,10 +85,10 @@ public class Pathfinder : MonoBehaviour
     moving=false;
   }
 
-  public virtual (float, Stack<navTile>, navTile, navTile) getPath(GameObject tile){
-    float cost = 0;
-    return (cost, path, currentTile, currentTile);
+  public virtual itinerary getItinerary(GameObject tile){
+    itinerary i = new itinerary();
+    return i;
   }
 
-  public virtual void setPath(float cost, Stack<navTile> path2, navTile currentTile2, navTile targetNavTile){}
+  public virtual void setItinerary(itinerary newItin){}
 }

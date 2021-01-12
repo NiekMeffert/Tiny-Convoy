@@ -129,7 +129,7 @@ public class GameController : MonoBehaviour{
         } else {
           mouseOver=null;
         }
-        if (Input.GetMouseButtonUp(0) && uiBlocker==false){
+        if (Input.GetMouseButtonUp(0) && uiBlocker==false && mouseOver!=null){
           pickDefaultAction();
         }
       }

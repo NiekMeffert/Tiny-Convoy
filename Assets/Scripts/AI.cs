@@ -5,12 +5,13 @@ using UnityEngine;
 public class AI : MonoBehaviour
 {
   public GameController gameController;
-  public CPU cpu;
+  public GameObject cpu;
+  public CPU cpuVars;
   public Pathfinder pathfinder;
   public List<string> knownDangers = new List<string>();
   public List<float> knownDangerWeights = new List<float>();
   Vector2Int[] surroundings = new Vector2Int[] {new Vector2Int(0,1), new Vector2Int(1,1), new Vector2Int(1,0), new Vector2Int(1,-1), new Vector2Int(0,-1), new Vector2Int(-1,-1), new Vector2Int(-1,0), new Vector2Int(-1,1)};
-  navTile[,] memoryTiles;
+  public navTile[,] memoryTiles;
   List<navTile> powerList = new List<navTile>();
   List<navTile> dangerList = new List<navTile>();
   List<navTile> friendList = new List<navTile>();
@@ -20,7 +21,8 @@ public class AI : MonoBehaviour
   // Start is called before the first frame update
   void Start(){
     gameController=GameObject.Find("GameController").GetComponent<GameController>();
-    cpu = gameObject.GetComponent<CPU>();
+    cpu = gameObject;
+    cpuVars = gameObject.GetComponent<CPU>();
     pathfinder = gameObject.GetComponent<Pathfinder>();
   }
 
@@ -31,8 +33,8 @@ public class AI : MonoBehaviour
 
   public void changeMind(){
     Debug.Log("Reconsidering");
-    firstCarVars = cpu.cars[0].GetComponent<Car>();
-    getWeightedMap();
+    firstCarVars = cpuVars.cars[0].GetComponent<Car>();
+    refreshWeightedMap();
     powerList.Clear();
     friendList.Clear();
     dangerList.Clear();
@@ -43,11 +45,11 @@ public class AI : MonoBehaviour
         if (memoryTiles[x,y].danger==true) dangerList.Add(memoryTiles[x,y]);
       }
     }
-    List<(float, Stack<navTile>, navTile, navTile)> ideaPaths = new List <(float, Stack<navTile>, navTile, navTile)>();
-    List<float> ideaWeights = new List <float>();
-    List<GameObject> ideaObjectives = new List <GameObject>();
+    List<itinerary> possibleItins = new List <itinerary>();
+    List<float> possibleWeights = new List <float>();
+    List<GameObject> possibleObjectives = new List <GameObject>();
     //Get energy
-    if (cpu.powerAvailable/cpu.maxPower<.5 && powerList.Count>0){
+    if (cpuVars.powerAvailable/cpuVars.maxPower<.5 && powerList.Count>0){
       //Find closest power source & up to 2 random ones (just in case)
       for (int h = 0; h<Mathf.Min(powerList.Count,3); h++){
         int chosen = 0;
@@ -67,49 +69,78 @@ public class AI : MonoBehaviour
         GameObject nextDoor = getAdjacentFreeTile(possibleIdea.tile);
         if (nextDoor==null) continue;
         //Insert objective item
-        Tile tileVars = powerList[chosen].tile.GetComponent<Tile>();
-        ideaObjectives.Insert(0, gameObject);
-        for (int i=0; i<tileVars.actualThings.Count; i++){
-          if (tileVars.actualThings[i].GetComponent<Powered>()!=null) {
-            ideaObjectives[0] = tileVars.actualThings[i];
-            break;
-          }
-        }
+        possibleObjectives.Insert(0, possibleIdea.powerObj);
         //Insert idea path
-        ideaPaths.Insert(0, pathfinder.getPath(nextDoor));
+        possibleItins.Insert(0, pathfinder.getItinerary(nextDoor));
         //Insert idea weight
-        ideaWeights.Insert(0, (1f/ideaPaths[0].Item1)+.5f-(cpu.powerAvailable/cpu.maxPower));
+        possibleWeights.Insert(0, (1f/possibleItins[0].cost)+.5f-(cpuVars.powerAvailable/cpuVars.maxPower));
         //...and undo insertions if anything is wrong:
-        if (ideaPaths[0].Item1==0 || ideaObjectives[0]==gameObject){
-          ideaWeights.RemoveAt(0);
-          ideaObjectives.RemoveAt(0);
-          ideaPaths.RemoveAt(0);
+        if (possibleItins[0].cost==0){
+          possibleWeights.RemoveAt(0);
+          possibleObjectives.RemoveAt(0);
+          possibleItins.RemoveAt(0);
         }
       }
     }
     //Stay near others
+    navTile nearestFriend = null;
+    float weight = 100000f;
+    if (friendList.Count>0){
+      //Find nearest friend
+      foreach (navTile f in friendList){
+        float newDist = (firstCarVars.tile.transform.position-f.tile.transform.position).magnitude;
+        if (newDist<weight){
+          weight=newDist;
+          nearestFriend=f;
+        }
+      }
+      if (weight < 2f) nearestFriend=null; //If they're close, don't worry
+      weight = (weight-2f)*1.5f;
+    } else {
+      //worry
+      nearestFriend = memoryTiles[Mathf.RoundToInt(Random.value*memoryTiles.GetLength(0)), Mathf.RoundToInt(Random.value*memoryTiles.GetLength(1))];
+      weight = 2f;
+    }
+    if (nearestFriend!=null){
+      GameObject nextDoor = getAdjacentFreeTile(nearestFriend.tile);
+      if (nextDoor!=null){
+        //Insert objective item
+        possibleObjectives.Insert(0, nearestFriend.friendObj);
+        //Insert idea path
+        possibleItins.Insert(0, pathfinder.getItinerary(nextDoor));
+        //Insert idea weight
+        possibleWeights.Insert(0, weight);
+        //...and undo insertions if anything is wrong:
+        if (possibleItins[0].cost==0){
+          possibleWeights.RemoveAt(0);
+          possibleObjectives.RemoveAt(0);
+          possibleItins.RemoveAt(0);
+        }
+      }
+    }
     //Give energy
-    if (cpu.powerAvailable/cpu.maxPower>.5){
+    if (cpuVars.powerAvailable/cpuVars.maxPower>.5){
 
     }
     //Player ideas
 
     //Choose one idea
-    if (ideaPaths.Count==0) return;
+    if (possibleItins.Count==0) return;
     int topIdea=0;
-    for (int i=0; i<ideaPaths.Count; i++){
-      if (ideaWeights[i]>ideaWeights[topIdea]) topIdea=i;
+    for (int i=0; i<possibleItins.Count; i++){
+      if (possibleWeights[i]>possibleWeights[topIdea]) topIdea=i;
     }
-    if (cpu.objective!=ideaObjectives[topIdea]) Debug.Log("Changed objective");
-    cpu.objective = ideaObjectives[topIdea];
-    pathfinder.setPath(ideaPaths[topIdea].Item1,ideaPaths[topIdea].Item2,ideaPaths[topIdea].Item3,ideaPaths[topIdea].Item4);
+    if (cpuVars.objective!=possibleObjectives[topIdea]) Debug.Log("Changed objective");
+    cpuVars.objective = possibleObjectives[topIdea];
+    cpuVars.objectiveWeight = possibleWeights[topIdea];
+    pathfinder.setItinerary(possibleItins[topIdea]);
   }
 
-  public navTile[,] getWeightedMap(){
-    //if (Time.time-mapAge<.2) return memoryTiles;
+  public void refreshWeightedMap(){
+    if (Time.time-mapAge<.1) return;
     mapAge=Time.time;
-    Vector2Int pos = cpu.cars[0].GetComponent<Car>().tile.GetComponent<Tile>().pos;
-    GameObject[,] mTiles = gameController.getSquare(new Vector3Int(pos.x, pos.y, cpu.sight));
+    Vector2Int pos = cpuVars.cars[0].GetComponent<Car>().tile.GetComponent<Tile>().pos;
+    GameObject[,] mTiles = gameController.getSquare(new Vector3Int(pos.x, pos.y, cpuVars.sight));
     memoryTiles = new navTile[mTiles.GetLength(0), mTiles.GetLength(1)];
     for (int x = 0; x<memoryTiles.GetLength(0); x++){
       for (int y = 0; y<memoryTiles.GetLength(1); y++){
@@ -117,7 +148,7 @@ public class AI : MonoBehaviour
         nt.tile = mTiles[x,y];
         nt.tileVars = mTiles[x,y].GetComponent<Tile>();
         nt.walkable = true;
-        nt.current = false;
+        //nt.current = false;
         nt.target = false;
         nt.selectable = false;
         nt.adjacencyList = new List<navTile>();
@@ -129,14 +160,16 @@ public class AI : MonoBehaviour
     }
     //if AI controlled, overlay danger weights & goodies
     if (gameObject != gameController.totem){
-      for (int x = 0; x<mTiles.GetLength(0); x++){
-        for (int y = 0; y<mTiles.GetLength(1); y++){
-          List<GameObject> ats = mTiles[x,y].GetComponent<Tile>().actualThings;
+      for (int x = 0; x<memoryTiles.GetLength(0); x++){
+        for (int y = 0; y<memoryTiles.GetLength(1); y++){
+          List<GameObject> ats = memoryTiles[x,y].tile.GetComponent<Tile>().actualThings;
           foreach (GameObject aThing in ats){
             Car friend = aThing.GetComponent<Car>();
             if (friend!=null){
-              if (friend.cpu==cpu) continue;
-              memoryTiles[x,y].friend = true;
+              if (friend.cpu!=cpu){
+                memoryTiles[x,y].friend = true;
+                memoryTiles[x,y].friendObj = aThing;
+              }
             }
             Danger danger = aThing.GetComponent<Danger>();
             if (danger!=null){
@@ -144,9 +177,10 @@ public class AI : MonoBehaviour
               if (i>-1) {
                 foreach (Vector2Int offset in surroundings){
                   Vector2Int tileLoc = new Vector2Int(x+offset.x, y+offset.y);
-                  if (tileLoc.x>=0 && tileLoc.y>=0 && tileLoc.x<mTiles.GetLength(0) && tileLoc.y<mTiles.GetLength(1)){
+                  if (tileLoc.x>=0 && tileLoc.y>=0 && tileLoc.x<memoryTiles.GetLength(0) && tileLoc.y<memoryTiles.GetLength(1)){
                     memoryTiles[tileLoc.x,tileLoc.y].weight = Mathf.Max(knownDangerWeights[i], memoryTiles[tileLoc.x,tileLoc.y].weight);
                     memoryTiles[tileLoc.x,tileLoc.y].danger = true;
+                    memoryTiles[tileLoc.x,tileLoc.y].dangerObj = aThing;
                   }
                 }
               }
@@ -155,17 +189,17 @@ public class AI : MonoBehaviour
             if (powerSource!=null){
               if (firstCarVars.overlapsVertically(aThing)==true){
                 memoryTiles[x,y].power = Mathf.Max(powerSource.power, memoryTiles[x,y].power);
+                memoryTiles[x,y].powerObj = aThing;
               }
             }
           }
         }
       }
     }
-    return memoryTiles;
   }
 
   public void witnessDanger(Vector3 epicenter, float weight, string danger){
-    if (Mathf.Abs(gameObject.transform.position.x-epicenter.x)>cpu.sight || Mathf.Abs(gameObject.transform.position.z-epicenter.z)>cpu.sight) return;
+    if (Mathf.Abs(gameObject.transform.position.x-epicenter.x)>cpuVars.sight || Mathf.Abs(gameObject.transform.position.z-epicenter.z)>cpuVars.sight) return;
     learnDanger(weight, danger);
   }
 
@@ -189,8 +223,8 @@ public class AI : MonoBehaviour
     for (int x = 0; x<square.GetLength(0); x++){
       for (int y = 0; y<square.GetLength(1); y++){
         float dist = Vector3.Distance(square[x,y].transform.position, gameObject.transform.position);
-        float fit = square[x,y].GetComponent<Tile>().canFit(cpu.cars[0],true);
-        if (dist<min && Mathf.Abs(cpu.cars[0].transform.position.y-fit)<.1){
+        float fit = square[x,y].GetComponent<Tile>().canFit(cpuVars.cars[0],true);
+        if (dist<min && Mathf.Abs(cpuVars.cars[0].transform.position.y-fit)<.1){
           min=dist;
           adjacentTile=square[x,y];
         }
