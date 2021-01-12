@@ -1,0 +1,23 @@
+fileFormatVersion: 2
+guid: ea746aaa1d04ab242a8a926470c21aec
+TrueTypeFontImporter:
+  externalObjects: {}
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: Fabulous Steampunk
+  fontNames:
+  - Fabulous Steampunk
+  fallbackFontReferences:
+  - {fileID: 12800000, guid: 5b1663724b8844c42bd6c4dd22be325c, type: 3}
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  useLegacyBoundsCalculation: 0
+  shouldRoundAdvanceValue: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
