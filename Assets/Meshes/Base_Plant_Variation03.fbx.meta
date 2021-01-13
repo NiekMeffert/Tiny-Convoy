@@ -6,7 +6,22 @@ ModelImporter:
   - first:
       74: -1622080443127404381
     second: Plant_Variation_03|Idle
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Black01
+    second: {fileID: 2100000, guid: 53ab11a3ed246d943ae78669de03809a, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Blue01
+    second: {fileID: 2100000, guid: ddf963d0429b247438716e1dac6db137, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: MetalGrey01
+    second: {fileID: 2100000, guid: be2e199b7777ded449b38c1c98e2f340, type: 2}
   materials:
     materialImportMode: 1
     materialName: 0

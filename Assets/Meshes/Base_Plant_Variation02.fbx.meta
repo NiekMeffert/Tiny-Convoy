@@ -21,7 +21,22 @@ ModelImporter:
   - first:
       74: 6942523118594783803
     second: Plant_02_Idle
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Black01
+    second: {fileID: 2100000, guid: c1972819c023f934da53ab7b28b1b054, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Blue01
+    second: {fileID: 2100000, guid: 2826f9464a9ef874384638baf66b86c7, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: MetalGrey01
+    second: {fileID: 2100000, guid: 84286f2f4450ea54ca12c64a14489a39, type: 2}
   materials:
     materialImportMode: 1
     materialName: 0
