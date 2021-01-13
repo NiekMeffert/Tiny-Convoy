@@ -44,7 +44,7 @@ public class TutorialManager : MonoBehaviour
         }
         else if (popUpIndex == 3)
         {
-            if (Input.GetKeyDown(KeyCode.Space))
+            if (Input.GetMouseButtonDown(0))
             {
                 popUpIndex++;
             }
