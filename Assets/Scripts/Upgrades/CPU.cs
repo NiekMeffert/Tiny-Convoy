@@ -6,8 +6,6 @@ public class CPU : Upgrade {
   public GameObject[] cars = new GameObject[8];
   public int processing;
   public int memory;
-  public int inputs;
-  public int outputs;
   public int sight;
   public float battery;
   public int baseProcessing;
@@ -285,7 +283,6 @@ public class CPU : Upgrade {
     if (closeEnough(newToy)){
       //go into upgrade screen...
       gameController.setMode(2); //upgrade screen
-      gameController.selectedUpgrade = newToy;
       objective=null;
     } else {
       pathfinder.moveNextTo(newToyTile);
@@ -373,5 +370,6 @@ public class CPU : Upgrade {
       Car carVars = c.GetComponent<Car>();
       carVars.registerElements(tile);
     }
+    updateStats();
   }
 }

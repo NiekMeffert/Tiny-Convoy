@@ -65,6 +65,8 @@ MonoBehaviour:
   cpu: {fileID: 0}
   on: 0
   drain: 0.2
+  inputs: 1
+  outputs: 0
   sightDistance: 7
 --- !u!65 &1070950003250976445
 BoxCollider:

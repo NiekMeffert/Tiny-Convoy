@@ -156,4 +156,6 @@ MonoBehaviour:
   cpu: {fileID: 0}
   on: 0
   drain: 1
+  inputs: 1
+  outputs: 0
   resolution: 3

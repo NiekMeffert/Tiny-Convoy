@@ -83,6 +83,7 @@ MonoBehaviour:
   CPUs: []
   totem: {fileID: 0}
   totemPos: {x: 0, y: 0}
+  totemSight: 2
   fog1: 0
   fog2: 0
   powerLevels:
@@ -102,3 +103,5 @@ MonoBehaviour:
   particles:
   - {fileID: 1687974853036285661, guid: 31d9ab04a5d9c42669d6fae5fbd839ac, type: 3}
   selectedUpgrade: {fileID: 0}
+  upgradeSpacerPrefab: {fileID: 8791922788125365343, guid: 2ceb7892596e847f5baa17a942983e3e,
+    type: 3}

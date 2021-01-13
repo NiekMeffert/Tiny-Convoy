@@ -10,6 +10,7 @@ public class LongRangeScanner : Upgrade{
   void Start(){
     baseResolution = resolution;
     setUpVars();
+    setUpPosition();
   }
 
   // Update is called once per frame

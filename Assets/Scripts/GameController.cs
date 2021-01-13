@@ -42,8 +42,10 @@ public class GameController : MonoBehaviour{
   public bool uiBlocker = false;
   RectTransform scannerNoise;
   public GameObject[] particles;
-  //TEMPORARY:
   public GameObject selectedUpgrade;
+  float upgradeTimer;
+  public GameObject upgradeSpacerPrefab;
+  public List<GameObject> upgradeSpacers = new List<GameObject>();
 
   // Start is called before the first frame update
   void Start(){
@@ -68,12 +70,11 @@ public class GameController : MonoBehaviour{
     reticulePlant.SetActive(false);
     reticuleUpgrade.SetActive(false);
     reticuleCharge.SetActive(false);
+    Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+    RaycastHit hit;
 
     //normal game mode
     if (mode==1) {
-      //TEMPORARY:
-      selectedUpgrade = null;
-
       totemCounter-=Time.deltaTime;
       if (totemCounter<0 && CPUs.Count>0){
         totem = CPUs[Mathf.FloorToInt(Random.value*CPUs.Count)];
@@ -84,8 +85,6 @@ public class GameController : MonoBehaviour{
         GameObject firstCar = totem.GetComponent<CPU>().cars[0];
         Vector2Int currPos = firstCar.GetComponent<Car>().tile.GetComponent<Tile>().pos;
         if (totemPos != currPos || totemSight!=totem.GetComponent<CPU>().sight) moveFog(currPos);
-        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        RaycastHit hit;
         if (Physics.Raycast(ray, out hit) && uiBlocker==false){
           mouseOver = hit.collider.gameObject;
           float maxDist = Mathf.Max(Mathf.Abs(mouseOver.transform.position.x-totem.transform.position.x), Mathf.Abs(mouseOver.transform.position.z-totem.transform.position.z));
@@ -135,58 +134,55 @@ public class GameController : MonoBehaviour{
       }
     }
     if (mode==2){
-      //TEMPORARY:
-
-      if (selectedUpgrade!=null){
-        if (selectedUpgrade.GetComponent<CPU>()!=null) selectedUpgrade=null;
-      }
-      Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-      RaycastHit hit;
-      if (Physics.Raycast(ray, out hit)&&uiBlocker==false){
+      if (Physics.Raycast(ray, out hit) && uiBlocker==false){
         mouseOver = hit.collider.gameObject;
-        float maxDist = Mathf.Max(Mathf.Abs(mouseOver.transform.position.x-totem.transform.position.x), Mathf.Abs(mouseOver.transform.position.z-totem.transform.position.z));
-        if (maxDist<=1.2f){
-          if (mouseOver.GetComponent<Tile>()!=null && selectedUpgrade!=null){
-            reticuleUpgrade.SetActive(true);
-            reticuleUpgrade.transform.position = mouseOver.transform.position;
-          }
-          if (mouseOver.GetComponent<Upgrade>()!=null){
-            reticuleUpgrade.SetActive(true);
-            reticuleUpgrade.transform.position = mouseOver.transform.position;
-          }
+        if (mouseOver.GetComponent<ActualThing>()!=null && mouseOver.GetComponent<UpgradeSpacer>()==null){
+          Vector2Int totemTilePos = totem.GetComponent<CPU>().cars[0].GetComponent<Car>().tile.GetComponent<Tile>().pos;
+          Vector2Int tilePos = mouseOver.GetComponent<ActualThing>().tile.GetComponent<Tile>().pos;
+          if (Mathf.Abs(totemTilePos.x-tilePos.x)>1 || Mathf.Abs(totemTilePos.y-tilePos.y)>1) mouseOver=null;
+        } else {
+          mouseOver=null;
         }
       } else {
         mouseOver=null;
       }
-      if (Input.GetMouseButtonUp(0) && uiBlocker==false && mouseOver!=null){
+      if (mouseOver!=null && totem!=null){
         if (selectedUpgrade==null){
-          if (mouseOver.GetComponent<Upgrade>()!=null && mouseOver.GetComponent<CPU>()==null) selectedUpgrade=mouseOver;
-        } else if (selectedUpgrade==mouseOver){
-          selectedUpgrade = null;
-        } else {
-          Car carVars = totem.GetComponent<CPU>().cars[0].GetComponent<Car>();
-          Tile tileVars = carVars.upgradeTile.GetComponent<Tile>();
-          if (mouseOver.GetComponent<Tile>()!=null){
-            selectedUpgrade.transform.parent = null;
-            selectedUpgrade.transform.position = mouseOver.transform.position;
-            selectedUpgrade.GetComponent<Upgrade>().cpu = null;
-            mouseOver.GetComponent<Tile>().moveOntoTile(selectedUpgrade);
-            selectedUpgrade = null;
-            totem.GetComponent<CPU>().setUpUpgrades();
+          reticuleUpgrade.SetActive(true);
+          reticuleUpgrade.transform.position = mouseOver.transform.position;
+          if (Input.GetMouseButtonDown(0) && mouseOver.GetComponent<ActualThing>()!=null){
+            upgradeTimer = Time.time;
+            selectedUpgrade = mouseOver;
           }
-          Upgrade mOverUp = mouseOver.GetComponent<Upgrade>();
-          if (mOverUp!=null){
-            if (selectedUpgrade.GetComponent<Upgrade>().cpu==null){
-              selectedUpgrade.transform.position = mouseOver.transform.position;
-              mouseOver.transform.position = new Vector3(mouseOver.transform.position.x, mouseOver.transform.position.y+.1f, mouseOver.transform.position.z);
-              mouseOver.GetComponent<ActualThing>().tile.GetComponent<Tile>().moveOntoTile(selectedUpgrade);
-              selectedUpgrade = null;
-              totem.GetComponent<CPU>().setUpUpgrades();
+        } else {
+          if (Input.GetMouseButtonUp(0)){
+            Upgrade upVars = selectedUpgrade.GetComponent<Upgrade>();
+            if (upVars!=null){
+              if (Time.time-upgradeTimer<.2f && upVars.cpu!=null && selectedUpgrade.GetComponent<CPU>()==null){
+                if (upVars.on==true){
+                  upVars.turnOff();
+                } else {
+                  upVars.turnOn();
+                }
+              }
             }
+          } else if (mouseOver!=selectedUpgrade){
+            Vector3 oldVect = selectedUpgrade.transform.position;
+            selectedUpgrade.transform.position = mouseOver.transform.position;
+            if (selectedUpgrade.GetComponent<ActualThing>().tile!=mouseOver.GetComponent<ActualThing>().tile){
+              mouseOver.GetComponent<ActualThing>().tile.GetComponent<Tile>().moveOntoTile(selectedUpgrade);
+              if (selectedUpgrade.GetComponent<Upgrade>()!=null) selectedUpgrade.GetComponent<Upgrade>().cpu = null;
+            } else {
+              mouseOver.GetComponent<ActualThing>().tile.GetComponent<Tile>().fixHeightsNeeded=true;
+            }
+            CPU totemVars = totem.GetComponent<CPU>();
+            totemVars.setUpUpgrades();
           }
         }
       }
-
+      if (Input.GetMouseButtonUp(0)){
+        selectedUpgrade=null;
+      }
     }
     if (mode==3){
       if (totem != null){
@@ -208,6 +204,7 @@ public class GameController : MonoBehaviour{
       if (mode==1){}
       if (mode==2){
         inventory.SetActive(false);
+        removeUpgradeSpacers();
       }
       if (mode==3){
         scanner.SetActive(false);
@@ -218,7 +215,7 @@ public class GameController : MonoBehaviour{
       if (nextMode==2){
         mode=2;
         inventory.SetActive(true);
-        //upgradeWith(totem.objective);
+        addUpgradeSpacers();
       }
       if (nextMode==3){
         mode=3;
@@ -250,6 +247,43 @@ public class GameController : MonoBehaviour{
         totem.GetComponent<CPU>().objective = mouseOver;
       }
     }
+  }
+
+  public void addUpgradeSpacers(){
+    GameObject[,] tileSquare = getSquare(new Vector3Int(totemPos.x, totemPos.y, 1));
+    for (int x = 0; x<tileSquare.GetLength(0); x++){
+      for (int y = 0; y<tileSquare.GetLength(1); y++){
+        Tile tileVars = tileSquare[x,y].GetComponent<Tile>();
+        if (tileVars.actualThings.Count>0){
+          int i=0;
+          while (i<tileVars.actualThings.Count){
+            if (tileVars.actualThings[i].GetComponent<UpgradeSpacer>()==null && (i==tileVars.actualThings.Count-1 || tileVars.actualThings[i].GetComponent<Car>()==null)){
+              GameObject spacer = Instantiate(upgradeSpacerPrefab);
+              spacer.transform.position = tileVars.actualThings[i].transform.position;
+              spacer.transform.position += new Vector3(0, tileVars.actualThings[i].GetComponent<ActualThing>().bottomTop[1], 0);
+              tileVars.moveOntoTile(spacer);
+              upgradeSpacers.Add(spacer);
+            }
+            i++;
+          }
+        } else {
+          GameObject spacer = Instantiate(upgradeSpacerPrefab);
+          spacer.transform.position = tileSquare[x,y].transform.position;
+          tileSquare[x,y].GetComponent<Tile>().moveOntoTile(spacer);
+          upgradeSpacers.Add(spacer);
+        }
+      }
+    }
+  }
+
+  public void removeUpgradeSpacers(){
+    foreach (GameObject ups in upgradeSpacers){
+      ups.GetComponent<ActualThing>().tile.GetComponent<Tile>().removeFromTile(ups);
+    }
+    foreach (GameObject ups in upgradeSpacers){
+      Destroy(ups);
+    }
+    upgradeSpacers.Clear();
   }
 
   public void updateVisibleTiles(){

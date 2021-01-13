@@ -7,6 +7,8 @@ public class Upgrade : ActualThing
   public GameObject cpu;
   public bool on;
   public float drain;
+  public int inputs;
+  public int outputs;
 
   // Start is called before the first frame update
   void Start()

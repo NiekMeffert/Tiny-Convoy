@@ -63,6 +63,8 @@ MonoBehaviour:
   cpu: {fileID: 0}
   on: 0
   drain: 0
+  inputs: 0
+  outputs: 1
 --- !u!1001 &2807168818857316813
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -64,6 +64,8 @@ MonoBehaviour:
   cpu: {fileID: 0}
   on: 0
   drain: 0.5
+  inputs: 0
+  outputs: 1
   hSpeed: 2
   turnSpeed: 1
   waitForRotation: 0
