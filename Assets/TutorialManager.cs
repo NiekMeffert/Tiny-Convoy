@@ -23,21 +23,21 @@ public class TutorialManager : MonoBehaviour
         }
         if (popUpIndex == 0)
         {
-            if (Input.GetKeyDown(KeyCode.Space))
+            if (Input.GetMouseButtonDown(0))
             {
                 popUpIndex++;
             }
         }
         else if (popUpIndex == 1)
         {
-            if (Input.GetKeyDown(KeyCode.Space))
+            if (Input.GetKeyDown(KeyCode.A))
             {
                 popUpIndex++;
             }
         }
         else if (popUpIndex == 2)
         {
-            if (Input.GetKeyDown(KeyCode.Space))
+            if (Input.GetMouseButtonDown(0))
             {
                 popUpIndex++;
             }
