@@ -9,7 +9,37 @@ ModelImporter:
   - first:
       74: -8945691123924629249
     second: Armature|Idle
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Black01
+    second: {fileID: 2100000, guid: f5f59acaecf50734399f1118974f2402, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: BlackPlantBase
+    second: {fileID: 2100000, guid: f5f59acaecf50734399f1118974f2402, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Blue01
+    second: {fileID: 2100000, guid: 08bc098a9b5c3e74aba938de5faca7a2, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: BluePlantBase
+    second: {fileID: 2100000, guid: 08bc098a9b5c3e74aba938de5faca7a2, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: MetalGrey01
+    second: {fileID: 2100000, guid: 51d9ad3dd7fa52a49bd4510acb1609e6, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: MetalPlantBase
+    second: {fileID: 2100000, guid: 51d9ad3dd7fa52a49bd4510acb1609e6, type: 2}
   materials:
     materialImportMode: 1
     materialName: 0
