@@ -29,6 +29,7 @@ public class Car : ActualThing
     Tile tileVars = tile.GetComponent<Tile>();
     tileVars.fixHeights();
     Tile upTileVars = upgradeTile.GetComponent<Tile>();
+    transform.position = new Vector3(transform.position.x, -.1f, transform.position.z);
     bool dontLiftCar = false;
     List<GameObject> listCopy = new List<GameObject>(tileVars.actualThings);
     for (int i=0; i<listCopy.Count; i++){

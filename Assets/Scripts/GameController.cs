@@ -175,8 +175,13 @@ public class GameController : MonoBehaviour{
             } else {
               mouseOver.GetComponent<ActualThing>().tile.GetComponent<Tile>().fixHeightsNeeded=true;
             }
-            CPU totemVars = totem.GetComponent<CPU>();
-            totemVars.setUpUpgrades();
+            HashSet<CPU> uniqueCPUs = new HashSet<CPU>();
+            foreach (GameObject upSpacer in upgradeSpacers){
+              foreach (GameObject aThing in upSpacer.GetComponent<UpgradeSpacer>().tile.GetComponent<Tile>().actualThings){
+                if (aThing.GetComponent<Car>()!=null) uniqueCPUs.Add(aThing.GetComponent<Car>().cpu.GetComponent<CPU>());
+              }
+            }
+            foreach (CPU c in uniqueCPUs) c.setUpUpgrades();
           }
         }
       }
