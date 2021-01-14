@@ -6,7 +6,7 @@ public class Tile : MonoBehaviour
 {
   public Vector2Int pos;
   public List<GameObject> actualThings = new List<GameObject>();
-  public int level;
+  //public int level;
   public GameObject bigTile;
   public int fogLevel;
   public bool fixHeightsNeeded = false;

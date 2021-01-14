@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class CPU : Upgrade {
   public GameObject[] cars = new GameObject[8];
+  public float waterResistance;
   public int processing;
   public int memory;
   public int sight;
@@ -22,7 +23,6 @@ public class CPU : Upgrade {
   public float sightDistance;
   public int scanner;
   public float meshDistance;
-  public float waterResistance;
   Pathfinder pathfinder;
   public GameObject objective;
   public float objectiveWeight;
