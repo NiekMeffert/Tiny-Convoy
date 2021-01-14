@@ -6,12 +6,22 @@ public class UpgradeTile : Tile{
   public GameObject car;
 
   // Start is called before the first frame update
-  void Start(){
-
-  }
+  void Start(){}
 
   // Update is called once per frame
-  void Update(){
+  void Update(){}
 
+  public override void removeFromTile(GameObject load){
+    Car carVars = car.GetComponent<Car>();
+    actualThings.Remove(load);
+    fixHeightsNeeded=true;
+    Upgrade upVars = load.GetComponent<Upgrade>();
+    if (upVars!=null){
+      if (upVars.cpu==carVars.cpu){
+        upVars.cpu = null;
+      }
+      carVars.upgrades.Remove(load);
+      load.transform.parent = null;
+    }
   }
 }

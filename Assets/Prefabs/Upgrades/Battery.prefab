@@ -64,6 +64,8 @@ MonoBehaviour:
   cpu: {fileID: 0}
   on: 0
   drain: 0
+  inputs: 0
+  outputs: 0
   charge: 200
   maxCharge: 200
 --- !u!65 &3541296604112056221
@@ -77,8 +79,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.4470334, y: 0.37915197, z: 0.3682077}
-  m_Center: {x: 0, y: 0.18957599, z: 0}
+  m_Size: {x: 0.4470334, y: 0.5127373, z: 0.3682077}
+  m_Center: {x: 0, y: 0.25636864, z: 0}
 --- !u!1001 &5698383886182341616
 PrefabInstance:
   m_ObjectHideFlags: 0

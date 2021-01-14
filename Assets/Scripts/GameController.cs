@@ -136,7 +136,7 @@ public class GameController : MonoBehaviour{
     if (mode==2){
       if (Physics.Raycast(ray, out hit) && uiBlocker==false){
         mouseOver = hit.collider.gameObject;
-        if (mouseOver.GetComponent<ActualThing>()!=null && mouseOver.GetComponent<UpgradeSpacer>()==null){
+        if (mouseOver.GetComponent<ActualThing>()!=null){
           Vector2Int totemTilePos = totem.GetComponent<CPU>().cars[0].GetComponent<Car>().tile.GetComponent<Tile>().pos;
           Vector2Int tilePos = mouseOver.GetComponent<ActualThing>().tile.GetComponent<Tile>().pos;
           if (Mathf.Abs(totemTilePos.x-tilePos.x)>1 || Mathf.Abs(totemTilePos.y-tilePos.y)>1) mouseOver=null;
@@ -150,7 +150,7 @@ public class GameController : MonoBehaviour{
         if (selectedUpgrade==null){
           reticuleUpgrade.SetActive(true);
           reticuleUpgrade.transform.position = mouseOver.transform.position;
-          if (Input.GetMouseButtonDown(0) && mouseOver.GetComponent<ActualThing>()!=null){
+          if (Input.GetMouseButtonDown(0) && mouseOver.GetComponent<ActualThing>()!=null && mouseOver.GetComponent<CPU>()==null && mouseOver.GetComponent<UpgradeSpacer>()==null){
             upgradeTimer = Time.time;
             selectedUpgrade = mouseOver;
           }
@@ -158,7 +158,7 @@ public class GameController : MonoBehaviour{
           if (Input.GetMouseButtonUp(0)){
             Upgrade upVars = selectedUpgrade.GetComponent<Upgrade>();
             if (upVars!=null){
-              if (Time.time-upgradeTimer<.2f && upVars.cpu!=null && selectedUpgrade.GetComponent<CPU>()==null){
+              if (Time.time-upgradeTimer<.2f && selectedUpgrade.GetComponent<CPU>()==null){
                 if (upVars.on==true){
                   upVars.turnOff();
                 } else {

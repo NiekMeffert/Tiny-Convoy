@@ -77,8 +77,8 @@ public class CPU : Upgrade {
     cars[0].transform.position = new Vector3(transform.position.x, 0, transform.position.z);
     Car carVars = cars[0].GetComponent<Car>();
     carVars.cpu = gameObject;
-    carVars.registerElements(tile);
     carVars.setUpPosition();
+    carVars.registerElements();
     pathfinder.firstCarVars = carVars;
     waitingToStart=false;
   }
@@ -368,7 +368,7 @@ public class CPU : Upgrade {
   public void setUpUpgrades(){
     foreach (GameObject c in cars){
       Car carVars = c.GetComponent<Car>();
-      carVars.registerElements(tile);
+      carVars.registerElements();
     }
     updateStats();
   }

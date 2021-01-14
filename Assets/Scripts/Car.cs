@@ -25,37 +25,45 @@ public class Car : ActualThing
   // Update is called once per frame
   void Update(){}
 
-  public void registerElements(GameObject fromTile){
-    height = 0;
-    mass = 0;
-    upgrades.Clear();
-    Tile tileVars = fromTile.GetComponent<Tile>();
+  public void registerElements(){
+    Tile tileVars = tile.GetComponent<Tile>();
+    tileVars.fixHeights();
+    Tile upTileVars = upgradeTile.GetComponent<Tile>();
     bool dontLiftCar = false;
     List<GameObject> listCopy = new List<GameObject>(tileVars.actualThings);
     for (int i=0; i<listCopy.Count; i++){
       GameObject aThing = listCopy[i];
-      if (aThing == gameObject) continue;
       ActualThing thingVars = aThing.GetComponent<ActualThing>();
-      if (dontLiftCar==false && aThing.GetComponent<Upgrade>()==null){
+      if (dontLiftCar==false && aThing.GetComponent<Upgrade>()==null && aThing != gameObject){
         transform.position = new Vector3(transform.position.x, thingVars.bottomTop[1], transform.position.z);
       } else {
         dontLiftCar=true;
       }
       if (thingVars.flying == true) break;
-      if (aThing.transform.position.y>=transform.position.y){
-        height+=thingVars.height;
-        mass+=thingVars.mass;
-        aThing.transform.parent = gameObject.transform;
-        Upgrade upgradeVars = aThing.GetComponent<Upgrade>();
-        if (upgradeVars!=null){
-          upgrades.Add(aThing);
-          upgradeVars.cpu = cpu;
-        }
-        upgradeTile.GetComponent<Tile>().moveOntoTile(aThing);
+      if (aThing.transform.position.y>=transform.position.y  && aThing != gameObject) upTileVars.moveOntoTile(aThing);
+    }
+    upTileVars.fixHeights();
+    tileVars.fixHeights();
+    height = 0;
+    mass = 0;
+    upgrades.Clear();
+    foreach (GameObject aThing in upTileVars.actualThings){
+      ActualThing thingVars = aThing.GetComponent<ActualThing>();
+      height+=thingVars.height;
+      mass+=thingVars.mass;
+      aThing.transform.parent = gameObject.transform;
+      aThing.transform.rotation = gameObject.transform.rotation;
+      Upgrade upgradeVars = aThing.GetComponent<Upgrade>();
+      if (upgradeVars!=null){
+        upgrades.Add(aThing);
+        upgradeVars.cpu = cpu;
       }
     }
     bottomTop[0]=transform.position.y; bottomTop[1]=transform.position.y+height;
+    upTileVars.fixHeights();
+    tileVars.fixHeights();
   }
+
 
   public override void setFog(int nextFog){
     if (nextFog==fogLevel) return;

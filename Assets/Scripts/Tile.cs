@@ -67,15 +67,21 @@ public class Tile : MonoBehaviour
 
   public virtual void fixHeights(){
     if (actualThings.Count>1){
-      actualThings.Sort((n1, n2) => n1.transform.position.y.CompareTo(n2.transform.position.y));
+      actualThings.Sort((a, b) => (a.transform.position.y.CompareTo(b.transform.position.y)));
       float prevTop=0;
       for (int h=0; h<actualThings.Count; h++){
         ActualThing hVars = actualThings[h].GetComponent<ActualThing>();
-        if ((hVars.bottomTop[0]!=prevTop && hVars.flying==false) || (hVars.bottomTop[0]<=prevTop && hVars.flying==true)){
+        if ((hVars.flying==false) || (hVars.bottomTop[0]<=prevTop && hVars.flying==true)){
           hVars.bottomTop[0] = prevTop; hVars.bottomTop[1] = prevTop+hVars.height;
           actualThings[h].transform.position = new Vector3(actualThings[h].transform.position.x, hVars.bottomTop[0], actualThings[h].transform.position.z);
         }
         prevTop = hVars.bottomTop[1];
+      }
+    } else if (actualThings.Count==1){
+      ActualThing hVars = actualThings[0].GetComponent<ActualThing>();
+      if (hVars.bottomTop[0]!=0 && hVars.flying==false){
+        hVars.bottomTop[0] = 0; hVars.bottomTop[1] = hVars.height;
+        actualThings[0].transform.position = new Vector3(actualThings[0].transform.position.x, 0, actualThings[0].transform.position.z);
       }
     }
     fixHeightsNeeded=false;

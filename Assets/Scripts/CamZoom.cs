@@ -35,7 +35,7 @@ public class CamZoom : MonoBehaviour
     }
 
     void LateUpdate(){
-      if (gameController.totem!=null) transform.position = gameController.totem.transform.position;
+      if (gameController.totem!=null && gameController.mode!=2) transform.position = gameController.totem.transform.position;
       camRotator.transform.position = transform.position - offset;
       camRotator.transform.rotation = baseRotation;
       mainCam.transform.position = transform.position - (offset * currentZoom);
