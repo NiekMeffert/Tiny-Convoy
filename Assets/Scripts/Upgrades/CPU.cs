@@ -35,6 +35,8 @@ public class CPU : Upgrade {
   public bool waitForRotation;
   public float thoughtCounter = 1f;
   public bool waitingToStart = true;
+  int inputsUsed;
+  int outputsUsed;
 
   // Start is called before the first frame update
   void Start(){
@@ -109,14 +111,35 @@ public class CPU : Upgrade {
     powerAvailable = 0;
     maxPower = 0;
     waitForRotation = false;
-    //get charge & charge requirements
+    inputsUsed = 0;
+    outputsUsed = 0;
+    //update stats from meshing
+    foreach (GameObject cpu in gameController.CPUs) {
+      if (cpu!=gameObject){
+        CPU cpuVars = cpu.GetComponent<CPU>();
+        float dist = Vector3.Distance(gameObject.transform.position, cpu.transform.position);
+        if (dist<meshDistance){
+          dist = 1f-(dist/meshDistance);
+          if (cpuVars.baseProcessing>processing) processing+=Mathf.RoundToInt(dist*(cpuVars.baseProcessing-processing));
+          if (cpuVars.baseMemory>memory) memory+=Mathf.RoundToInt(dist*(cpuVars.baseMemory-memory));
+          if (cpuVars.baseInputs>inputs) inputs+=Mathf.RoundToInt(dist*(cpuVars.baseInputs-inputs));
+          if (cpuVars.baseOutputs>outputs) outputs+=Mathf.RoundToInt(dist*(cpuVars.baseOutputs-outputs));
+          if (cpuVars.baseSight>sight) sight+=Mathf.RoundToInt(dist*(cpuVars.baseSight-sight));
+        }
+      }
+    }
+    //get charge & charge requirements, inputs/outputs needed
     for (int i = cars.Length-1; i>=0; i--){
       Car carVars = cars[i].GetComponent<Car>();
       for (int h = carVars.upgrades.Count-1; h>=0; h--){
         if (carVars.upgrades[h]!=null){
           Upgrade upVars = carVars.upgrades[h].GetComponent<Upgrade>();
           if (upVars.health<0) upVars.turnOff();
-          if (upVars.on==true) powerNeeded+=upVars.drain;
+          if (upVars.on==true) {
+            powerNeeded+=upVars.drain;
+            inputsUsed += upVars.inputs;
+            outputsUsed += upVars.outputs;
+          }
           Battery batteryVars = carVars.upgrades[h].GetComponent<Battery>();
           if (batteryVars != null){
             if (batteryVars.health<0) batteryVars.charge=0;
@@ -127,16 +150,22 @@ public class CPU : Upgrade {
         }
       }
     }
-    //shut stuff off until there's enough power
+    //shut stuff off until there's enough power, inputs or outputs
     if (powerAvailable<powerNeeded) {
       for (int i = cars.Length-1; i>=0; i--){
         Car carVars = cars[i].GetComponent<Car>();
         for (int h = carVars.upgrades.Count-1; h>=0; h--){
-          if (carVars.upgrades[h]!=null && powerAvailable<powerNeeded){
+          if (carVars.upgrades[h]!=null){
             Upgrade upVars = carVars.upgrades[h].GetComponent<Upgrade>();
-            if (upVars.on==true && carVars.upgrades[h].GetComponent<CPU>()==null) {
+            if (upVars.on==true && carVars.upgrades[h].GetComponent<CPU>()==null &&
+              ((powerAvailable<powerNeeded && upVars.drain>0) ||
+              (inputs<inputsUsed && upVars.inputs>0) ||
+              (outputs<outputsUsed && upVars.outputs>0)
+            )) {
               upVars.turnOff();
               powerNeeded-=upVars.drain;
+              inputsUsed -= upVars.inputs;
+              outputsUsed -= upVars.outputs;
             }
           }
         }
@@ -187,21 +216,6 @@ public class CPU : Upgrade {
               meshDistance+=routerVars.meshBonus;
             }
           }
-        }
-      }
-    }
-    //update stats from meshing
-    foreach (GameObject cpu in gameController.CPUs) {
-      if (cpu!=gameObject){
-        CPU cpuVars = cpu.GetComponent<CPU>();
-        float dist = Vector3.Distance(gameObject.transform.position, cpu.transform.position);
-        if (dist<meshDistance){
-          dist = 1f-(dist/meshDistance);
-          if (cpuVars.baseProcessing>processing) processing+=Mathf.RoundToInt(dist*(cpuVars.baseProcessing-processing));
-          if (cpuVars.baseMemory>memory) memory+=Mathf.RoundToInt(dist*(cpuVars.baseMemory-memory));
-          if (cpuVars.baseInputs>inputs) inputs+=Mathf.RoundToInt(dist*(cpuVars.baseInputs-inputs));
-          if (cpuVars.baseOutputs>outputs) outputs+=Mathf.RoundToInt(dist*(cpuVars.baseOutputs-outputs));
-          if (cpuVars.baseSight>sight) sight+=Mathf.RoundToInt(dist*(cpuVars.baseSight-sight));
         }
       }
     }
