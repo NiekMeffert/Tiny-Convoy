@@ -66,6 +66,7 @@ public class Exploder : Danger
                 finalThings.AddRange(tCar.upgradeTile.GetComponent<UpgradeTile>().actualThings);
               }
               foreach (GameObject damaged in finalThings){
+                if (damaged==gameObject) continue;
                 ActualThing damagedVars = damaged.GetComponent<ActualThing>();
                 Vector3 dealTo = new Vector3(damaged.transform.position.x, .5f*(damagedVars.bottomTop[0]+damagedVars.bottomTop[1]), damaged.transform.position.z);
                 float damage = baseDamage*(Vector3.Distance(damSource,dealTo)*safeDistance);
@@ -78,7 +79,7 @@ public class Exploder : Danger
         GameObject particle = Instantiate(blast);
         blast.transform.position = damSource;
         animator.SetBool("IsDead", true);
-        Destroy(gameObject,.5f);
+        gameObject.GetComponent<ActualThing>().die(.5f);
       }
     }
   }

@@ -88,9 +88,9 @@ public class ActualThing : MonoBehaviour
   public virtual void takeDamage(float damage, string dangerName){
   }
 
-  public virtual void die(){
+  public virtual void die(float afterTime){
     tile.GetComponent<Tile>().removeFromTile(gameObject);
-    Destroy(gameObject);
+    Destroy(gameObject, afterTime);
   }
 
   public virtual void fall(){}

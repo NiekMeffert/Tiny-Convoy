@@ -20,7 +20,7 @@ public class Plant : Powered
   public override float discharge(float requested){
     float juice = Mathf.Min(power, requested);
     power -= juice;
-    if (power<=0) die();
+    if (power<=0) die(0);
     return juice;
   }
 
@@ -55,6 +55,6 @@ public class Plant : Powered
 
   public override void takeDamage(float damage, string dangerName){
     health = Mathf.Clamp(health-damage,0,maxHealth);
-    if (health==0) die();
+    if (health==0) die(0);
   }
 }
