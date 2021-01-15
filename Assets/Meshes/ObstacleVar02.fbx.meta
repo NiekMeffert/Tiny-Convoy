@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: e6e24afe438debf43ba211a1509281f2
+guid: 74fd8d139ad6e6148a0bce5eb3f9cc8e
 ModelImporter:
   serializedVersion: 19301
   internalIDToNameTable: []
@@ -7,18 +7,18 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: Black01
-    second: {fileID: 2100000, guid: 36f1a0863ee98364b8324e2afb36b3ce, type: 2}
+      name: Black
+    second: {fileID: 2100000, guid: a7269a7df26d588419e4de815ca7130e, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: Blue01
-    second: {fileID: 2100000, guid: bbb943d097241a042b768dc03ef49df2, type: 2}
+      name: Cables
+    second: {fileID: 2100000, guid: 70a83abb83ad06648908c051449ace4d, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: Yellow01
-    second: {fileID: 2100000, guid: cbc1468375fc72244bc013907fc1edb0, type: 2}
+      name: White
+    second: {fileID: 2100000, guid: 8a0f8911d3a5cd34f8e9e68bee94c9ae, type: 2}
   materials:
     materialImportMode: 1
     materialName: 0
