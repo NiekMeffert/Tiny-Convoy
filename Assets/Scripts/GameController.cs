@@ -48,6 +48,7 @@ public class GameController : MonoBehaviour{
   public List<GameObject> upgradeSpacers = new List<GameObject>();
   public Upgrade partStat;
   public GameObject upgradeStats;
+  public GameObject upgradeStatsUIHolder;
 
   // Start is called before the first frame update
   void Start(){
@@ -65,6 +66,7 @@ public class GameController : MonoBehaviour{
     scannerNoise = GameObject.Find("NoiseParent").transform.GetChild(0).GetComponent<RectTransform>();
     scanner.SetActive(false);
     upgradeStats = GameObject.Find("UpgradesStats");
+    upgradeStatsUIHolder = GameObject.Find("UIHolder");
   }
 
   // Update is called once per frame
@@ -121,7 +123,7 @@ public class GameController : MonoBehaviour{
               }
             } else if (mouseUpgrade!=null){
               upgradeStats.SetActive(true);
-              upgradeStats.transform.position = mouseOver.transform.position;
+              upgradeStatsUIHolder.transform.position = mouseOver.transform.position;
               if (firstCar.GetComponent<Car>().overlapsVertically(mouseOver)){
                 reticuleUpgrade.SetActive(true);
                 reticuleUpgrade.transform.position = mouseOver.transform.position;
