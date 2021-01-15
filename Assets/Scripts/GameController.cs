@@ -66,7 +66,6 @@ public class GameController : MonoBehaviour{
     scannerNoise = GameObject.Find("NoiseParent").transform.GetChild(0).GetComponent<RectTransform>();
     scanner.SetActive(false);
     upgradeStats = GameObject.Find("UpgradesStats");
-    upgradeStatsUIHolder = GameObject.Find("UIHolder");
   }
 
   // Update is called once per frame
@@ -123,7 +122,7 @@ public class GameController : MonoBehaviour{
               }
             } else if (mouseUpgrade!=null){
               upgradeStats.SetActive(true);
-              upgradeStatsUIHolder.transform.position = mouseOver.transform.position;
+              upgradeStats.transform.position = mouseOver.transform.position;
               if (firstCar.GetComponent<Car>().overlapsVertically(mouseOver)){
                 reticuleUpgrade.SetActive(true);
                 reticuleUpgrade.transform.position = mouseOver.transform.position;
