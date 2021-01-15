@@ -46,6 +46,7 @@ public class GameController : MonoBehaviour{
   float upgradeTimer;
   public GameObject upgradeSpacerPrefab;
   public List<GameObject> upgradeSpacers = new List<GameObject>();
+  public Upgrade partStat;
 
   // Start is called before the first frame update
   void Start(){
@@ -70,6 +71,7 @@ public class GameController : MonoBehaviour{
     reticulePlant.SetActive(false);
     reticuleUpgrade.SetActive(false);
     reticuleCharge.SetActive(false);
+    partStat = null;
     Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
     RaycastHit hit;
 
@@ -136,6 +138,8 @@ public class GameController : MonoBehaviour{
     if (mode==2){
       if (Physics.Raycast(ray, out hit) && uiBlocker==false){
         mouseOver = hit.collider.gameObject;
+        Upgrade mouseUpgrade = mouseOver.GetComponent<Upgrade>();
+        if (mouseUpgrade!=null) partStat = mouseUpgrade;
         if (mouseOver.GetComponent<ActualThing>()!=null){
           Vector2Int totemTilePos = totem.GetComponent<CPU>().cars[0].GetComponent<Car>().tile.GetComponent<Tile>().pos;
           Vector2Int tilePos = mouseOver.GetComponent<ActualThing>().tile.GetComponent<Tile>().pos;
