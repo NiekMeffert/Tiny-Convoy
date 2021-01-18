@@ -91,7 +91,9 @@ public class GameController : MonoBehaviour{
         bigBotCheck();
       }
       if (CPUs.Count==0 && gameHasStarted==true){
-                GameOverUI.SetActive(true);
+              
+                   GameOverUI.SetActive(true);
+                
             }
       if (totem!=null){
         GameObject firstCar = totem.GetComponent<CPU>().cars[0];
