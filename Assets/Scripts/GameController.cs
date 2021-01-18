@@ -49,6 +49,7 @@ public class GameController : MonoBehaviour{
   public Upgrade partStat;
   public GameObject upgradeStats;
   public GameObject upgradeStatsUIHolder;
+  bool gameHasStarted = false;
 
   // Start is called before the first frame update
   void Start(){
@@ -83,9 +84,13 @@ public class GameController : MonoBehaviour{
     if (mode==1) {
       totemCounter-=Time.deltaTime;
       if (totemCounter<0 && CPUs.Count>0){
+        gameHasStarted=true;
         totem = CPUs[Mathf.FloorToInt(Random.value*CPUs.Count)];
         totemCounter=120;
         bigBotCheck();
+      }
+      if (CPUs.Count==0 && gameHasStarted==true){
+        //Endgame here
       }
       if (totem!=null){
         GameObject firstCar = totem.GetComponent<CPU>().cars[0];

@@ -163,12 +163,13 @@ public class CPU : Upgrade {
               (outputs<outputsUsed && upVars.outputs>0)
             )) {
               upVars.turnOff();
-              powerNeeded-=upVars.drain;
+              powerNeeded -= upVars.drain;
               inputsUsed -= upVars.inputs;
               outputsUsed -= upVars.outputs;
             }
           }
         }
+        if (powerAvailable<powerNeeded) turnOff();
       }
     }
     //discharge batteries sequentially (backwards)
@@ -382,8 +383,7 @@ public class CPU : Upgrade {
 
   public override void takeDamage(float damage, string dangerName){
     health = Mathf.Clamp(health-damage,0,maxHealth);
-    if (health==0) turnOff();
-    if (cpu!=null) cpu.GetComponent<AI>().learnDanger(damage, dangerName);
+    ai.learnDanger(damage, dangerName);
   }
 
   public void setUpUpgrades(){
@@ -391,5 +391,24 @@ public class CPU : Upgrade {
       c.GetComponent<Car>().registerElements();
     }
     updateStats();
+  }
+
+  public override void turnOff(){
+    on=false;
+    foreach (Renderer rend in gameObject.GetComponentsInChildren<Renderer>()){
+      Material[] mats = rend.materials;
+      for (int i=0; i<mats.Length; i++){
+        if (mats[i].name.StartsWith("Light")) {
+          Object.Destroy(mats[i]);
+          mats[i]=gameController.powerLevels[0];
+        }
+      }
+      rend.materials = mats;
+    }
+    gameController.CPUs.Remove(gameObject);
+    if (gameObject==gameController.totem && gameController.CPUs.Count>0){
+      gameController.totem = gameController.CPUs[Mathf.FloorToInt(Random.value*gameController.CPUs.Count)];
+      gameController.totemCounter=120;
+    }
   }
 }

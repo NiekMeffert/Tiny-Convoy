@@ -30,8 +30,8 @@ public class Mover : Upgrade
 
   public override void takeDamage(float damage, string dangerName){
     health = Mathf.Clamp(health-damage,0,maxHealth);
-    hSpeed = Mathf.RoundToInt(health/maxHealth)*baseHSpeed;
-    turnSpeed = Mathf.RoundToInt(health/maxHealth)*baseTurnSpeed;
+    hSpeed = (health/maxHealth)*baseHSpeed;
+    turnSpeed = (health/maxHealth)*baseTurnSpeed;
     if (health==0) turnOff();
     if (cpu!=null) cpu.GetComponent<AI>().learnDanger(damage, dangerName);
   }
