@@ -45,7 +45,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pos: {x: 0, y: 0}
   actualThings: []
-  level: 0
   bigTile: {fileID: 0}
   fogLevel: 0
   fixHeightsNeeded: 0

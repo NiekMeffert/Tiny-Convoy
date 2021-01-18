@@ -29,19 +29,21 @@ public class Car : ActualThing
     Tile tileVars = tile.GetComponent<Tile>();
     tileVars.fixHeights();
     Tile upTileVars = upgradeTile.GetComponent<Tile>();
+    upTileVars.fixHeights();
     transform.position = new Vector3(transform.position.x, -.1f, transform.position.z);
+    bottomTop[0]=transform.position.y; bottomTop[1]=transform.position.y+height;
     bool dontLiftCar = false;
     List<GameObject> listCopy = new List<GameObject>(tileVars.actualThings);
     for (int i=0; i<listCopy.Count; i++){
       GameObject aThing = listCopy[i];
       ActualThing thingVars = aThing.GetComponent<ActualThing>();
-      if (dontLiftCar==false && aThing.GetComponent<Upgrade>()==null && aThing != gameObject){
+      if (dontLiftCar==false && aThing.GetComponent<Upgrade>()==null && aThing!=gameObject){
         transform.position = new Vector3(transform.position.x, thingVars.bottomTop[1], transform.position.z);
       } else {
         dontLiftCar=true;
       }
-      if (thingVars.flying == true) break;
-      if (aThing.transform.position.y>=transform.position.y  && aThing != gameObject) upTileVars.moveOntoTile(aThing);
+      if (thingVars.flying==true) break;
+      if (aThing.transform.position.y>=transform.position.y  && aThing!=gameObject) upTileVars.moveOntoTile(aThing);
     }
     upTileVars.fixHeights();
     tileVars.fixHeights();

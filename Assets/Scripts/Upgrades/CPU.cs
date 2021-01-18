@@ -201,13 +201,20 @@ public class CPU : Upgrade {
             LongRangeScanner scannerVars = carVars.upgrades[h].GetComponent<LongRangeScanner>();
             if (scannerVars!=null){scanner+=scannerVars.resolution;}
             Mover moverVars = carVars.upgrades[h].GetComponent<Mover>();
-            if (moverVars!=null){
-              hSpeed+=moverVars.hSpeed;
-              turnSpeed+=moverVars.turnSpeed;
-              if (moverVars.waitForRotation) waitForRotation=true;
-            }
             Flyer flyerVars = carVars.upgrades[h].GetComponent<Flyer>();
+            if (moverVars!=null && flyerVars==null){
+              if (h==0){
+                hSpeed+=moverVars.hSpeed;
+                turnSpeed+=moverVars.turnSpeed;
+                if (moverVars.waitForRotation==true) waitForRotation=true;
+              } else {
+                moverVars.turnOff();
+              }
+            }
             if (flyerVars!=null){
+              hSpeed+=flyerVars.hSpeed;
+              turnSpeed+=flyerVars.turnSpeed;
+              if (flyerVars.waitForRotation==true) waitForRotation=true;
               vSpeed+=flyerVars.vSpeed;
               vSpeed+=flyerVars.vSpeed;
             }
@@ -381,8 +388,7 @@ public class CPU : Upgrade {
 
   public void setUpUpgrades(){
     foreach (GameObject c in cars){
-      Car carVars = c.GetComponent<Car>();
-      carVars.registerElements();
+      c.GetComponent<Car>().registerElements();
     }
     updateStats();
   }

@@ -32,7 +32,7 @@ public class AI : MonoBehaviour
   }
 
   public void changeMind(){
-    Debug.Log("Reconsidering");
+    //Debug.Log("Reconsidering");
     firstCarVars = cpuVars.cars[0].GetComponent<Car>();
     refreshWeightedMap();
     powerList.Clear();
@@ -130,7 +130,7 @@ public class AI : MonoBehaviour
     for (int i=0; i<possibleItins.Count; i++){
       if (possibleWeights[i]>possibleWeights[topIdea]) topIdea=i;
     }
-    if (cpuVars.objective!=possibleObjectives[topIdea]) Debug.Log("Changed objective");
+    //if (cpuVars.objective!=possibleObjectives[topIdea]) Debug.Log("Changed objective");
     cpuVars.objective = possibleObjectives[topIdea];
     cpuVars.objectiveWeight = possibleWeights[topIdea];
     pathfinder.setItinerary(possibleItins[topIdea]);
