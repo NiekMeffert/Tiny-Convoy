@@ -19,6 +19,7 @@ public class GameController : MonoBehaviour{
   public GameObject[] plantPrefabs;
   public GameObject[] bigTilePrefabs;
   public GameObject[] specialBigTilePrefabs;
+  public GameObject bigBotPrefab;
   public GameObject mainCamera;
   public GameObject lastBigTile;
   public List<GameObject> CPUs = new List<GameObject>();
@@ -35,7 +36,7 @@ public class GameController : MonoBehaviour{
   public GameObject reticuleUpgrade;
   public GameObject reticuleCharge;
   GameObject mouseOver;
-  public GameObject bigBot;
+  public List<GameObject> bigBots;
   SparseMatrix<GameObject> forcedBigTiles = new SparseMatrix<GameObject>();
   public GameObject inventory;
   public GameObject scanner;
@@ -413,10 +414,9 @@ public class GameController : MonoBehaviour{
   }
 
   public void bigBotCheck(){
-    GameObject[] allBots = GameObject.FindGameObjectsWithTag("BigBot");
     int botNumber = 1 + (Mathf.FloorToInt(level*.4f));
-    if (allBots.Length<botNumber){
-      GameObject newBigBot = Instantiate(bigBot);
+    if (bigBots.Count<botNumber){
+      GameObject newBigBot = Instantiate(bigBotPrefab);
       BigBot botVars = newBigBot.GetComponent<BigBot>();
       float edge1 = Random.value * botVars.maxDistance;
       if (Random.value>.5f) edge1 *= -1f;
@@ -426,6 +426,7 @@ public class GameController : MonoBehaviour{
       if (Random.value>.5) botVec = new Vector3(edge2,0,edge1);
       botVec += mainCamera.transform.position;
       newBigBot.transform.position = botVec;
+      bigBots.Add(newBigBot);
     }
   }
 

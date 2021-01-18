@@ -78,6 +78,8 @@ MonoBehaviour:
   - {fileID: 5364779908445073467, guid: 7ef82f90b5a5943429a696e682006d52, type: 3}
   specialBigTilePrefabs:
   - {fileID: 5364779908445073467, guid: 4201f765c92c84cce8c33c12b3f4dd08, type: 3}
+  bigBotPrefab: {fileID: 3461860374175526099, guid: 109b4a651f99b0745b40ca08033bc58a,
+    type: 3}
   mainCamera: {fileID: 0}
   lastBigTile: {fileID: 0}
   CPUs: []
@@ -96,7 +98,7 @@ MonoBehaviour:
   reticulePlant: {fileID: 0}
   reticuleUpgrade: {fileID: 0}
   reticuleCharge: {fileID: 0}
-  bigBot: {fileID: 3461860374175526099, guid: 109b4a651f99b0745b40ca08033bc58a, type: 3}
+  bigBots: []
   inventory: {fileID: 0}
   scanner: {fileID: 0}
   uiBlocker: 0
@@ -105,3 +107,7 @@ MonoBehaviour:
   selectedUpgrade: {fileID: 0}
   upgradeSpacerPrefab: {fileID: 8791922788125365343, guid: 2ceb7892596e847f5baa17a942983e3e,
     type: 3}
+  upgradeSpacers: []
+  partStat: {fileID: 0}
+  upgradeStats: {fileID: 0}
+  upgradeStatsUIHolder: {fileID: 0}

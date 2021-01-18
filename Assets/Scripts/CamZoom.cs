@@ -41,6 +41,19 @@ public class CamZoom : MonoBehaviour
       mainCam.transform.position = transform.position - (offset * currentZoom);
       camRotator.transform.RotateAround(transform.position,Vector3.up,currentRotation);
       zoomSlider.GetComponent<Slider>().value = (currentZoom-minZoom)/(maxZoom-minZoom);
+      //BogBot shake:
+      float botDist = 1000f;
+      foreach (GameObject bot in gameController.bigBots){
+        if (bot.GetComponent<BigBot>().currentDistance<botDist) botDist = bot.GetComponent<BigBot>().currentDistance;
+      }
+      if (botDist<50f){
+        float bounceAmplitude = (50f-botDist)/50f;
+        Vector3 eulerRot = camRotator.transform.rotation.eulerAngles;
+        eulerRot.x = 45f+(bounceAmplitude*Mathf.Pow(Mathf.PI-(Time.time*.5f % Mathf.PI),2f)*Mathf.Sin(Time.time*20f));
+        Quaternion eulerRotQuat = Quaternion.identity;
+        eulerRotQuat.eulerAngles = eulerRot;
+        camRotator.transform.rotation = eulerRotQuat;
+      }
     }
 
     public void zoomTo(){
