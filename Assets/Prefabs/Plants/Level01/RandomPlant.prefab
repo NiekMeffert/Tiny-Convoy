@@ -49,8 +49,17 @@ MonoBehaviour:
   mass: 0
   momentum: {x: 0, y: 0}
   height: 0
+  bottomTop:
+  - 0
+  - 0
   standable: 0
   fogLevel: 0
+  health: 0
+  maxHealth: 0
+  armorTink: 0
+  armorMultiplier: 0
+  animator: {fileID: 0}
+  flying: 0
   options:
   - {fileID: 2498946500452104959, guid: a35488ae58bd44b4b892dbc8a09c42a5, type: 3}
   - {fileID: 2498946500452104959, guid: 40273ee33c11444a49dea6d17c49f1e4, type: 3}

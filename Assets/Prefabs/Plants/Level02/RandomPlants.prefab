@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 2139465742248094714}
   - component: {fileID: -6411268289987582075}
   m_Layer: 0
-  m_Name: FieldOfTouches
+  m_Name: RandomPlants
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -49,14 +49,19 @@ MonoBehaviour:
   mass: 0
   momentum: {x: 0, y: 0}
   height: 0
+  bottomTop:
+  - 0
+  - 0
   standable: 0
   fogLevel: 0
   health: 0
   maxHealth: 0
   armorTink: 0
   armorMultiplier: 0
+  animator: {fileID: 0}
+  flying: 0
   options:
-  - {fileID: 2498946500452104959, guid: b4813d09826ff4ba9a15856ce4d47eee, type: 3}
+  - {fileID: 2613327274200122663, guid: 6b222f74448456545b15ddff67b643e3, type: 3}
   - {fileID: 2498946500452104959, guid: 6e3f2f0f6dc374a4ba69cb7d24d8cc0a, type: 3}
   - {fileID: 2498946500452104959, guid: 061c3bd068f64412db824d0e8096cac0, type: 3}
   - {fileID: 2498946500452104959, guid: 05af405128b3e4191af06fdf63c6dbf9, type: 3}
