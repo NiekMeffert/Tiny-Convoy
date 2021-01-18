@@ -50,9 +50,10 @@ public class GameController : MonoBehaviour{
   public GameObject upgradeStats;
   public GameObject upgradeStatsUIHolder;
   bool gameHasStarted = false;
+    public GameObject GameOverUI;
 
   // Start is called before the first frame update
-  void Start(){
+    void Start(){
     mainCamera = GameObject.Find("Main Camera");
     randomSeedX = (int) (Random.value * 1000000000f);
     randomSeedY = (int) (Random.value * 1000000000f);
@@ -90,8 +91,8 @@ public class GameController : MonoBehaviour{
         bigBotCheck();
       }
       if (CPUs.Count==0 && gameHasStarted==true){
-        //Endgame here
-      }
+                GameOverUI.SetActive(true);
+            }
       if (totem!=null){
         GameObject firstCar = totem.GetComponent<CPU>().cars[0];
         Vector2Int currPos = firstCar.GetComponent<Car>().tile.GetComponent<Tile>().pos;
