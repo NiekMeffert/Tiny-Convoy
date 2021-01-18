@@ -9,6 +9,7 @@ TagManager:
   - CPU
   - Plant
   - BigBot
+  - Upgrade
   layers:
   - Default
   - TransparentFX
