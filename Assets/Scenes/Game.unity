@@ -7113,9 +7113,20 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7950635501605379246, guid: 4d99ac08a05ec4547b8f7ca79e9c50f1,
         type: 3}
+      propertyPath: bigTilePrefabs.Array.size
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 7950635501605379246, guid: 4d99ac08a05ec4547b8f7ca79e9c50f1,
+        type: 3}
       propertyPath: GameOverUI
       value: 
       objectReference: {fileID: 536587386}
+    - target: {fileID: 7950635501605379246, guid: 4d99ac08a05ec4547b8f7ca79e9c50f1,
+        type: 3}
+      propertyPath: bigTilePrefabs.Array.data[10]
+      value: 
+      objectReference: {fileID: 1284661548402276085, guid: 1b557dacc150f9945b367f7edb7f2e45,
+        type: 3}
     - target: {fileID: 7950635501605379247, guid: 4d99ac08a05ec4547b8f7ca79e9c50f1,
         type: 3}
       propertyPath: m_LocalPosition.x
