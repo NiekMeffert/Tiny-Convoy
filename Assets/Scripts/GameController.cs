@@ -16,7 +16,6 @@ public class GameController : MonoBehaviour{
   public GameObject CPUPrefab;
   public GameObject carPrefab;
   public GameObject upgradeTilePrefab;
-  public GameObject[] upgradePrefabs;
   public GameObject[] plantPrefabs;
   public GameObject[] bigTilePrefabs;
   public GameObject[] specialBigTilePrefabs;
