@@ -43,7 +43,7 @@ public class Car : ActualThing
         dontLiftCar=true;
       }
       if (thingVars.flying==true) break;
-      if (aThing.transform.position.y>=transform.position.y  && aThing!=gameObject) upTileVars.moveOntoTile(aThing);
+      if (aThing.transform.position.y>=transform.position.y && aThing!=gameObject) upTileVars.moveOntoTile(aThing);
     }
     upTileVars.fixHeights();
     tileVars.fixHeights();
@@ -60,6 +60,7 @@ public class Car : ActualThing
       if (upgradeVars!=null){
         upgrades.Add(aThing);
         upgradeVars.cpu = cpu;
+        upgradeVars.turnOn();
       }
     }
     bottomTop[0]=transform.position.y; bottomTop[1]=transform.position.y+height;

@@ -46,7 +46,7 @@ public class CamZoom : MonoBehaviour
       foreach (GameObject bot in gameController.bigBots){
         if (bot.GetComponent<BigBot>().currentDistance<botDist) botDist = bot.GetComponent<BigBot>().currentDistance;
       }
-      if (botDist<50f){
+      if (botDist<50f && gameController.mode==1){
         float bounceAmplitude = (50f-botDist)/50f;
         Vector3 eulerRot = camRotator.transform.rotation.eulerAngles;
         eulerRot.x = 45f+(bounceAmplitude*Mathf.Pow(Mathf.PI-(Time.time*.5f % Mathf.PI),2f)*Mathf.Sin(Time.time*20f));

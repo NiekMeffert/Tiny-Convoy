@@ -17,6 +17,7 @@ public class UpgradeTile : Tile{
     fixHeightsNeeded=true;
     Upgrade upVars = load.GetComponent<Upgrade>();
     if (upVars!=null){
+      upVars.turnOff();
       upVars.cpu = null;
       carVars.upgrades.Remove(load);
       load.transform.parent = null;

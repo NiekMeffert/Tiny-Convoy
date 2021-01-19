@@ -82,8 +82,13 @@ public class GameController : MonoBehaviour{
     Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
     RaycastHit hit;
 
+    //paused
+    if (mode==0) {
+      Time.timeScale = 0;
+    }
     //normal game mode
     if (mode==1) {
+      Time.timeScale = 1;
       totemCounter-=Time.deltaTime;
       if (totemCounter<0 && CPUs.Count>0){
         gameHasStarted=true;
@@ -92,10 +97,8 @@ public class GameController : MonoBehaviour{
         bigBotCheck();
       }
       if (CPUs.Count==0 && gameHasStarted==true){
-              
-                   GameOverUI.SetActive(true);
-                
-            }
+        GameOverUI.SetActive(true);
+      }
       if (totem!=null){
         GameObject firstCar = totem.GetComponent<CPU>().cars[0];
         Vector2Int currPos = firstCar.GetComponent<Car>().tile.GetComponent<Tile>().pos;
@@ -151,6 +154,7 @@ public class GameController : MonoBehaviour{
       }
     }
     if (mode==2){
+      Time.timeScale = 0;
       if (Physics.Raycast(ray, out hit) && uiBlocker==false){
         mouseOver = hit.collider.gameObject;
         Upgrade mouseUpgrade = mouseOver.GetComponent<Upgrade>();
@@ -169,6 +173,10 @@ public class GameController : MonoBehaviour{
         if (selectedUpgrade==null){
           reticuleUpgrade.SetActive(true);
           reticuleUpgrade.transform.position = mouseOver.transform.position;
+          if (mouseOver.GetComponent<Upgrade>()!=null){
+            upgradeStats.SetActive(true);
+            upgradeStats.transform.position = mouseOver.transform.position;
+          }
           if (Input.GetMouseButtonDown(0) && mouseOver.GetComponent<ActualThing>()!=null && mouseOver.GetComponent<CPU>()==null && mouseOver.GetComponent<UpgradeSpacer>()==null){
             upgradeTimer = Time.time;
             selectedUpgrade = mouseOver;
@@ -177,7 +185,7 @@ public class GameController : MonoBehaviour{
           if (Input.GetMouseButtonUp(0)){
             Upgrade upVars = selectedUpgrade.GetComponent<Upgrade>();
             if (upVars!=null){
-              if (Time.time-upgradeTimer<.2f && selectedUpgrade.GetComponent<CPU>()==null){
+              if (Time.time-upgradeTimer<.2f && selectedUpgrade.GetComponent<CPU>()==null && upVars.cpu!=null){
                 if (upVars.on==true){
                   upVars.turnOff();
                 } else {
@@ -188,12 +196,8 @@ public class GameController : MonoBehaviour{
           } else if (mouseOver!=selectedUpgrade){
             Vector3 oldVect = selectedUpgrade.transform.position;
             selectedUpgrade.transform.position = mouseOver.transform.position;
-            if (selectedUpgrade.GetComponent<ActualThing>().tile!=mouseOver.GetComponent<ActualThing>().tile){
-              mouseOver.GetComponent<ActualThing>().tile.GetComponent<Tile>().moveOntoTile(selectedUpgrade);
-              if (selectedUpgrade.GetComponent<Upgrade>()!=null) selectedUpgrade.GetComponent<Upgrade>().cpu = null;
-            } else {
-              mouseOver.GetComponent<ActualThing>().tile.GetComponent<Tile>().fixHeightsNeeded=true;
-            }
+            mouseOver.GetComponent<ActualThing>().tile.GetComponent<Tile>().moveOntoTile(selectedUpgrade);
+            mouseOver.GetComponent<ActualThing>().tile.GetComponent<Tile>().fixHeightsNeeded=true;
             HashSet<CPU> uniqueCPUs = new HashSet<CPU>();
             foreach (GameObject upSpacer in upgradeSpacers){
               foreach (GameObject aThing in upSpacer.GetComponent<UpgradeSpacer>().tile.GetComponent<Tile>().actualThings){
@@ -209,6 +213,7 @@ public class GameController : MonoBehaviour{
       }
     }
     if (mode==3){
+      Time.timeScale = 0;
       if (totem != null){
         float opacity = .01f+Random.value;
         opacity *= 10f-totem.GetComponent<CPU>().scanner;
