@@ -197,6 +197,7 @@ public class GameController : MonoBehaviour{
           } else if (mouseOver!=selectedUpgrade){
             //Vector3 oldVect = selectedUpgrade.transform.position;
             selectedUpgrade.transform.position = mouseOver.transform.position;
+            mouseOver.transform.position += new Vector3(0,.1f,0);
             Tile mouseOverTile = mouseOver.GetComponent<ActualThing>().tile.GetComponent<Tile>();
             mouseOverTile.moveOntoTile(selectedUpgrade);
             mouseOverTile.fixHeights();
