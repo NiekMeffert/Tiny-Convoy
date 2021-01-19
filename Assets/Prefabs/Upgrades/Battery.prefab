@@ -61,6 +61,7 @@ MonoBehaviour:
   armorMultiplier: 1
   animator: {fileID: 0}
   flying: 0
+  dieAsPrefab: {fileID: 0}
   cpu: {fileID: 0}
   on: 0
   drain: 0
@@ -79,8 +80,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.4470334, y: 0.5127373, z: 0.3682077}
-  m_Center: {x: 0, y: 0.25636864, z: 0}
+  m_Size: {x: 1.0419793, y: 0.5127373, z: 1.0139418}
+  m_Center: {x: 0.021766186, y: 0.25636864, z: -0.010883272}
 --- !u!1001 &5698383886182341616
 PrefabInstance:
   m_ObjectHideFlags: 0

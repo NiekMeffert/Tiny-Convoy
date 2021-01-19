@@ -62,6 +62,7 @@ MonoBehaviour:
   armorMultiplier: 1
   animator: {fileID: 0}
   flying: 0
+  dieAsPrefab: {fileID: 0}
   cpu: {fileID: 0}
   on: 0
   drain: 0.2
@@ -79,8 +80,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.77920216, y: 1.0016705, z: 0.7568636}
-  m_Center: {x: 0, y: 0.50062424, z: 0.015655458}
+  m_Size: {x: 0.9218657, y: 1.0016705, z: 0.99859905}
+  m_Center: {x: -0.0039628744, y: 0.50062424, z: 0.013674036}
 --- !u!137 &2978100760861850606
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 0

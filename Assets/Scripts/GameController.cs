@@ -175,9 +175,9 @@ public class GameController : MonoBehaviour{
       }
       if (mouseOver!=null && totem!=null){
         if (selectedUpgrade==null){
-          reticuleUpgrade.SetActive(true);
-          reticuleUpgrade.transform.position = mouseOver.transform.position;
           if (mouseOver.GetComponent<Upgrade>()!=null){
+            reticuleUpgrade.SetActive(true);
+            reticuleUpgrade.transform.position = mouseOver.transform.position;
             upgradeStats.SetActive(true);
             upgradeStats.transform.position = mouseOver.transform.position;
           }

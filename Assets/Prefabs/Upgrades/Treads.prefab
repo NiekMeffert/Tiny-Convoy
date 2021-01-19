@@ -55,8 +55,8 @@ MonoBehaviour:
   - 0
   standable: 1
   fogLevel: 0
-  health: 10
-  maxHealth: 10
+  health: 5
+  maxHealth: 5
   armorTink: 0
   armorMultiplier: 1
   animator: {fileID: 0}
@@ -67,7 +67,7 @@ MonoBehaviour:
   drain: 0.5
   inputs: 0
   outputs: 1
-  hSpeed: 10
+  hSpeed: 3
   turnSpeed: 1
   waitForRotation: 0
 --- !u!65 &1724169981659359749
@@ -81,8 +81,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.74467504, y: 0.5097974, z: 0.74467504}
-  m_Center: {x: -0.000000059604645, y: 0.2548987, z: -0.000000059604645}
+  m_Size: {x: 0.87063265, y: 0.5097974, z: 0.9606024}
+  m_Center: {x: 0.001799345, y: 0.2548987, z: -0.000000074505806}
 --- !u!1001 &1749776086661070561
 PrefabInstance:
   m_ObjectHideFlags: 0
