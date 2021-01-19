@@ -9,6 +9,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3143678178484847089}
+  - component: {fileID: 7652380246315417208}
+  - component: {fileID: 1277248020865146115}
   m_Layer: 0
   m_Name: Rubble02
   m_TagString: Untagged
@@ -31,6 +33,48 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &7652380246315417208
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5316344033791479805}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 0.06260395, z: 1}
+  m_Center: {x: 0, y: 0.031301975, z: 0}
+--- !u!114 &1277248020865146115
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5316344033791479805}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 89fa18f4118924cfba738dbd669d9e5e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tile: {fileID: 0}
+  gameController: {fileID: 0}
+  mass: 0
+  momentum: {x: 0, y: 0}
+  height: 0
+  bottomTop:
+  - 0
+  - 0
+  standable: 0
+  fogLevel: 0
+  health: 0
+  maxHealth: -1
+  armorTink: 0
+  armorMultiplier: 0
+  animator: {fileID: 0}
+  flying: 0
+  dieAsPrefab: {fileID: 0}
 --- !u!1001 &1124817240160616745
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -96,17 +140,17 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: 786ac13b05d26754b8e63d8fe9bcbaeb,
         type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.5
+      value: 0.262275
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 786ac13b05d26754b8e63d8fe9bcbaeb,
         type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.5
+      value: 0.08523937
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 786ac13b05d26754b8e63d8fe9bcbaeb,
         type: 3}
       propertyPath: m_LocalScale.z
-      value: 0.5
+      value: 0.262275
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 786ac13b05d26754b8e63d8fe9bcbaeb,
         type: 3}
