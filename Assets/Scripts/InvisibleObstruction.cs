@@ -6,6 +6,7 @@ public class InvisibleObstruction : ActualThing
 {
   public InvisibleObstruction[] compatriots;
   public int lastQuorum=2;
+  public GameObject bigThing;
 
   // Start is called before the first frame update
   void Start(){
@@ -51,5 +52,28 @@ public class InvisibleObstruction : ActualThing
         }
       }
     }
+  }
+
+  public override void die(float afterTime){
+    if (bigThing!=null){
+      foreach (InvisibleObstruction inv in compatriots) {
+        if (inv!=gameObject.GetComponent<InvisibleObstruction>()) inv.bigThing=null;
+      }
+      foreach (InvisibleObstruction inv in compatriots) {
+        if (inv!=gameObject.GetComponent<InvisibleObstruction>()) inv.die(0);
+      }
+      foreach (Transform child in bigThing.transform){
+        if (child.GetComponent<ActualThing>()==null) Destroy(child);
+      }
+    }
+    Tile tileVars = tile.GetComponent<Tile>();
+    tileVars.removeFromTile(gameObject);
+    if (dieAsPrefab!=null){
+      GameObject rubble = Instantiate(dieAsPrefab);
+      rubble.transform.position = transform.position;
+      rubble.transform.Rotate(new Vector3(0, Mathf.Round(4f*Random.value)*90f, 0), Space.World);
+      tileVars.moveOntoTile(rubble);
+    }
+    Destroy(gameObject, 0);
   }
 }

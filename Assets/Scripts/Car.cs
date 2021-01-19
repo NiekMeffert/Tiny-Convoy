@@ -74,4 +74,15 @@ public class Car : ActualThing
     fogLevel=nextFog;
     upgradeTile.GetComponent<Tile>().setFog(nextFog);
   }
+
+  public override void die(float afterTime){
+    Tile tileVars = tile.GetComponent<Tile>();
+    UpgradeTile upTileVars = upgradeTile.GetComponent<UpgradeTile>();
+    List<GameObject> listCopy = new List<GameObject>(upTileVars.actualThings);
+    foreach (GameObject aThing in listCopy){
+      tileVars.moveOntoTile(aThing);
+    }
+    tileVars.removeFromTile(gameObject);
+    Destroy(gameObject);
+  }
 }

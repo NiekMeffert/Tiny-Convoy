@@ -90,7 +90,14 @@ public class ActualThing : MonoBehaviour
   }
 
   public virtual void die(float afterTime){
-    tile.GetComponent<Tile>().removeFromTile(gameObject);
+    Tile tileVars = tile.GetComponent<Tile>();
+    tileVars.removeFromTile(gameObject);
+    if (dieAsPrefab!=null){
+      GameObject rubble = Instantiate(dieAsPrefab);
+      rubble.transform.position = transform.position;
+      rubble.transform.Rotate(new Vector3(0, Mathf.Round(4f*Random.value)*90f, 0), Space.World);
+      tileVars.moveOntoTile(rubble);
+    }
     Destroy(gameObject, afterTime);
   }
 

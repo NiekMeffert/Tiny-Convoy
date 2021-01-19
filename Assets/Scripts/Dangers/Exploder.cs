@@ -56,7 +56,8 @@ public class Exploder : Danger
         GameObject[,] damageSquare = gameController.getSquare(new Vector3Int(tileVars.pos.x,tileVars.pos.y,1));
         for (int x=0; x<damageSquare.GetLength(0); x++){
           for (int y=0; y<damageSquare.GetLength(1); y++){
-            foreach (GameObject t in damageSquare[x,y].GetComponent<Tile>().actualThings){
+            List<GameObject> listCopy = new List<GameObject>(damageSquare[x,y].GetComponent<Tile>().actualThings);
+            foreach (GameObject t in listCopy){
               ActualThing tVars = t.GetComponent<ActualThing>();
               List<GameObject> finalThings = new List<GameObject>();
               Car tCar = t.GetComponent<Car>();

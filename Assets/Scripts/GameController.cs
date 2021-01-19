@@ -434,7 +434,7 @@ public class GameController : MonoBehaviour{
       if (Random.value>.5f) edge2 *= -1f;
       Vector3 botVec = new Vector3(edge1,0,edge2);
       if (Random.value>.5) botVec = new Vector3(edge2,0,edge1);
-      botVec += mainCamera.transform.position;
+      botVec += new Vector3(mainCamera.transform.position.x,0,mainCamera.transform.position.z);
       newBigBot.transform.position = botVec;
       bigBots.Add(newBigBot);
     }

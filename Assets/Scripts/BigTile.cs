@@ -50,6 +50,7 @@ public class BigTile : MonoBehaviour
       if (actT!=null) {
         actT.setUpVars();
         actT.setUpPosition();
+        if (child.gameObject.GetComponent<InvisibleObstruction>()!=null) child.gameObject.GetComponent<InvisibleObstruction>().bigThing = obs;
       }
     }
   }

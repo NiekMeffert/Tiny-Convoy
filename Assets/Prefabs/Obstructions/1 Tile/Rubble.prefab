@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2169635879118614028}
   - component: {fileID: 3646251578032969812}
+  - component: {fileID: 5488247585268870950}
   m_Layer: 0
   m_Name: Rubble
   m_TagString: Untagged
@@ -46,6 +47,35 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 0.061633587, z: 1}
   m_Center: {x: 0, y: 0.030816793, z: 0}
+--- !u!114 &5488247585268870950
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 510022529877617149}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 89fa18f4118924cfba738dbd669d9e5e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tile: {fileID: 0}
+  gameController: {fileID: 0}
+  mass: 0
+  momentum: {x: 0, y: 0}
+  height: 0
+  bottomTop:
+  - 0
+  - 0
+  standable: 1
+  fogLevel: 0
+  health: 0
+  maxHealth: -1
+  armorTink: 0
+  armorMultiplier: 0
+  animator: {fileID: 0}
+  flying: 0
+  dieAsPrefab: {fileID: 0}
 --- !u!1001 &228294311699385715
 PrefabInstance:
   m_ObjectHideFlags: 0

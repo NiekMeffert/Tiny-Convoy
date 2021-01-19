@@ -62,6 +62,8 @@ MonoBehaviour:
   armorMultiplier: 0
   animator: {fileID: 0}
   flying: 0
+  dieAsPrefab: {fileID: 510022529877617149, guid: b1cda6df8c839f4459748a6eec9bcaf7,
+    type: 3}
   power: 100
   maxPower: 100
 --- !u!65 &9220264105873827093

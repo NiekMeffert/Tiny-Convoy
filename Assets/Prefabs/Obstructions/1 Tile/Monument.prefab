@@ -61,6 +61,8 @@ MonoBehaviour:
   armorMultiplier: 0
   animator: {fileID: 0}
   flying: 0
+  dieAsPrefab: {fileID: 510022529877617149, guid: b1cda6df8c839f4459748a6eec9bcaf7,
+    type: 3}
 --- !u!65 &4342171908712345800
 BoxCollider:
   m_ObjectHideFlags: 0
