@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class BigBot : MonoBehaviour
 {
-  public float maxDistance = 100f;
+  public float maxDistance = 60f;
   public float currentDistance;
   Vector3 nextHeading;
   Vector4 safeBox;
