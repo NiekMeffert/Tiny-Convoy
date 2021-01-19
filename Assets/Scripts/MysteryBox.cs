@@ -38,6 +38,16 @@ public class MysteryBox : ActualThing
         newThing.transform.Rotate(new Vector3(0, Mathf.Round(4f*rands[4])*90f, 0), Space.World);
         newThing.transform.parent = transform.parent;
         newThing.GetComponent<ActualThing>().setUpPosition();
+        if (newThing.GetComponent<Upgrade>()!=null){
+          foreach (Renderer rend in newThing.GetComponentsInChildren<Renderer>()){
+            Color randColor = new Color(rands[5],rands[6],rands[7],1);
+            for (int i=0; i<rend.materials.Length; i++){
+              if (rend.materials[i].name.StartsWith("RobotBas")) {
+                rend.materials[i].color = randColor;
+              }
+            }
+          }
+        }
       }
     }
     Destroy(gameObject);

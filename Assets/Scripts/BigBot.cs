@@ -32,7 +32,7 @@ public class BigBot : MonoBehaviour
     transform.rotation = Quaternion.RotateTowards(transform.rotation, headingQuat, Mathf.Min(ang,2f*Time.deltaTime));
     currentDistance = Vector3.Distance(gameController.mainCamera.transform.position, transform.position);
     if (currentDistance>maxDistance) newHeading();
-    for (int i = 0; i<5; i++){
+    for (int i = 0; i<7; i++){
       Vector3 footPos;
       if (foot==true) {
         footPos = rightFoot.transform.position;
