@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
 
 public class GameController : MonoBehaviour{
 
@@ -79,6 +80,10 @@ public class GameController : MonoBehaviour{
     reticuleCharge.SetActive(false);
     upgradeStats.SetActive(false);
     partStat = null;
+
+        if (EventSystem.current.IsPointerOverGameObject())
+            return;
+
     Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
     RaycastHit hit;
 
