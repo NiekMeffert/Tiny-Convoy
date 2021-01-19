@@ -155,7 +155,7 @@ public class GameController : MonoBehaviour{
       }
     }
     if (mode==2){
-      Time.timeScale = 0;
+      Time.timeScale = .1f;
       if (Physics.Raycast(ray, out hit) && uiBlocker==false){
         mouseOver = hit.collider.gameObject;
         Upgrade mouseUpgrade = mouseOver.GetComponent<Upgrade>();
