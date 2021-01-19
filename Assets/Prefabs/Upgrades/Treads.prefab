@@ -61,12 +61,13 @@ MonoBehaviour:
   armorMultiplier: 1
   animator: {fileID: 0}
   flying: 0
+  dieAsPrefab: {fileID: 0}
   cpu: {fileID: 0}
   on: 0
   drain: 0.5
   inputs: 0
   outputs: 1
-  hSpeed: 100
+  hSpeed: 10
   turnSpeed: 1
   waitForRotation: 0
 --- !u!65 &1724169981659359749
