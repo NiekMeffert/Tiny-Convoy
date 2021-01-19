@@ -66,7 +66,7 @@ MonoBehaviour:
   drain: 0.5
   inputs: 0
   outputs: 1
-  hSpeed: 2
+  hSpeed: 100
   turnSpeed: 1
   waitForRotation: 0
 --- !u!65 &1724169981659359749
