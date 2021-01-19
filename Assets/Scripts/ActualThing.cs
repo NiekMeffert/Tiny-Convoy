@@ -18,6 +18,7 @@ public class ActualThing : MonoBehaviour
   public float armorMultiplier;
   public Animator animator;
   public bool flying=false;
+  public GameObject dieAsPrefab;
 
   // Start is called before the first frame update
   void Start()
