@@ -9,28 +9,28 @@ public class BigBot : MonoBehaviour
   public GameObject rightFoot;
   public GameObject leftFoot;
   Vector3 nextHeading;
-  Vector4 safeBox;
   Vector3 flipX = new Vector3(-1,1,1);
   Vector3 flipZ = new Vector3(1,1,-1);
   GameController gameController;
   bool foot;
+  GameObject tacticsCam;
 
   // Start is called before the first frame update
   void Start(){
     nextHeading = Vector3.forward;
     gameController = GameObject.Find("GameController").GetComponent<GameController>();
+    tacticsCam = GameObject.Find("TacticsCamera");
     newHeading();
   }
 
   // Update is called once per frame
   void Update(){
     if (gameController.mode!=1) return;
-    //safeBox.Set(gameController.mainCamera.transform.position.x+maxDistance, gameController.mainCamera.transform.position.z+maxDistance, gameController.mainCamera.transform.position.x-maxDistance, gameController.mainCamera.transform.position.z-maxDistance);
     transform.position += Vector3.ClampMagnitude(transform.forward, 1.5f*Time.deltaTime);
     Quaternion headingQuat = Quaternion.LookRotation(nextHeading, Vector3.up);
     float ang = Quaternion.Angle(headingQuat,transform.rotation);
     transform.rotation = Quaternion.RotateTowards(transform.rotation, headingQuat, Mathf.Min(ang,2f*Time.deltaTime));
-    currentDistance = Vector3.Distance(gameController.mainCamera.transform.position, transform.position);
+    currentDistance = Vector3.Distance(tacticsCam.transform.position, transform.position);
     if (currentDistance>maxDistance) newHeading();
     for (int i = 0; i<7; i++){
       Vector3 footPos;
@@ -65,7 +65,7 @@ public class BigBot : MonoBehaviour
   }
 
   void newHeading(){
-    nextHeading = gameController.mainCamera.transform.position - transform.position;
+    nextHeading = tacticsCam.transform.position - transform.position;
     nextHeading.y = 0;
     nextHeading.Normalize();
   }

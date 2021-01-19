@@ -51,7 +51,7 @@ public class GameController : MonoBehaviour{
   public GameObject upgradeStats;
   public GameObject upgradeStatsUIHolder;
   bool gameHasStarted = false;
-    public GameObject GameOverUI;
+  public GameObject GameOverUI;
 
   // Start is called before the first frame update
     void Start(){
@@ -79,12 +79,9 @@ public class GameController : MonoBehaviour{
     reticuleCharge.SetActive(false);
     upgradeStats.SetActive(false);
     partStat = null;
-
-        if (EventSystem.current.IsPointerOverGameObject())
-            return;
-
     Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
     RaycastHit hit;
+    if (EventSystem.current.IsPointerOverGameObject()) return;
 
     //paused
     if (mode==0) {
@@ -182,14 +179,14 @@ public class GameController : MonoBehaviour{
             upgradeStats.transform.position = mouseOver.transform.position;
           }
           if (Input.GetMouseButtonDown(0) && mouseOver.GetComponent<ActualThing>()!=null && mouseOver.GetComponent<CPU>()==null && mouseOver.GetComponent<UpgradeSpacer>()==null){
-            upgradeTimer = Time.time;
+            upgradeTimer = Time.unscaledTime;
             selectedUpgrade = mouseOver;
           }
         } else {
           if (Input.GetMouseButtonUp(0)){
             Upgrade upVars = selectedUpgrade.GetComponent<Upgrade>();
             if (upVars!=null){
-              if (Time.time-upgradeTimer<.2f && selectedUpgrade.GetComponent<CPU>()==null && upVars.cpu!=null){
+              if (Time.unscaledTime-upgradeTimer<.2f && selectedUpgrade.GetComponent<CPU>()==null && upVars.cpu!=null){
                 if (upVars.on==true){
                   upVars.turnOff();
                 } else {
@@ -198,10 +195,11 @@ public class GameController : MonoBehaviour{
               }
             }
           } else if (mouseOver!=selectedUpgrade){
-            Vector3 oldVect = selectedUpgrade.transform.position;
+            //Vector3 oldVect = selectedUpgrade.transform.position;
             selectedUpgrade.transform.position = mouseOver.transform.position;
-            mouseOver.GetComponent<ActualThing>().tile.GetComponent<Tile>().moveOntoTile(selectedUpgrade);
-            mouseOver.GetComponent<ActualThing>().tile.GetComponent<Tile>().fixHeightsNeeded=true;
+            Tile mouseOverTile = mouseOver.GetComponent<ActualThing>().tile.GetComponent<Tile>();
+            mouseOverTile.moveOntoTile(selectedUpgrade);
+            mouseOverTile.fixHeights();
             HashSet<CPU> uniqueCPUs = new HashSet<CPU>();
             foreach (GameObject upSpacer in upgradeSpacers){
               foreach (GameObject aThing in upSpacer.GetComponent<UpgradeSpacer>().tile.GetComponent<Tile>().actualThings){
@@ -228,11 +226,11 @@ public class GameController : MonoBehaviour{
         setMode(1);
       }
     }
-    updateVisibleTiles();
-    uiBlocker = false;
   }
 
   void LateUpdate(){
+    updateVisibleTiles();
+    uiBlocker = false;
     if (nextMode!=mode){
       if (mode==1){}
       if (mode==2){
