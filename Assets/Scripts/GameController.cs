@@ -107,7 +107,7 @@ public class GameController : MonoBehaviour{
         Vector2Int currPos = firstCar.GetComponent<Car>().tile.GetComponent<Tile>().pos;
         if (totemPos != currPos || totemSight!=totem.GetComponent<CPU>().sight) moveFog(currPos);
         totemLevel = Mathf.CeilToInt(Vector2Int.Distance(currPos,Vector2Int.zero)*(1f/newLevelEveryNTiles));
-        //botsAllowed = Mathf.CeilToInt(totemLevel*.2f);
+        botsAllowed = Mathf.CeilToInt(totemLevel*.2f);
         if (Physics.Raycast(ray, out hit) && uiBlocker==false){
           mouseOver = hit.collider.gameObject;
           float maxDist = Mathf.Max(Mathf.Abs(mouseOver.transform.position.x-totem.transform.position.x), Mathf.Abs(mouseOver.transform.position.z-totem.transform.position.z));
