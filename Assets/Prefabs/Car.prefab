@@ -59,7 +59,6 @@ GameObject:
   m_Component:
   - component: {fileID: 2842727502219939740}
   - component: {fileID: 2833044054719858345}
-  - component: {fileID: -8103012075700633599}
   m_Layer: 0
   m_Name: Car
   m_TagString: Player
@@ -116,11 +115,3 @@ MonoBehaviour:
   upgrades: []
   upgradeTile: {fileID: 309975477927867900}
   carNumber: 0
---- !u!81 &-8103012075700633599
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8998128059911170805}
-  m_Enabled: 1

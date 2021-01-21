@@ -116,6 +116,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2945564418967123200}
   - component: {fileID: 2945564418967123201}
+  - component: {fileID: 336457036}
   m_Layer: 0
   m_Name: TacticsCamera
   m_TagString: Untagged
@@ -161,6 +162,14 @@ MonoBehaviour:
   maxZoom: 5
   zoomSpeed: 0.05
   zoomSlider: {fileID: 0}
+--- !u!81 &336457036
+AudioListener:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2945564418967123202}
+  m_Enabled: 1
 --- !u!1 &2945564419191605388
 GameObject:
   m_ObjectHideFlags: 0

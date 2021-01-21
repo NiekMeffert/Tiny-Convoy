@@ -147,7 +147,7 @@ MonoBehaviour:
   pos: {x: 0, y: 0}
   rarity: 0
   minLevel: 2
-  maxLevel: 1000
+  maxLevel: 3
   fogLevel: 2
 --- !u!1001 &322684441393898663
 PrefabInstance:
