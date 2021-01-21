@@ -26,7 +26,7 @@ public class BigBot : MonoBehaviour
   // Update is called once per frame
   void Update(){
     if (gameController.mode!=1) return;
-    transform.position += Vector3.ClampMagnitude(transform.forward, 1.5f*Time.deltaTime);
+    transform.position += Vector3.ClampMagnitude(transform.forward, 1.7f*Time.deltaTime);
     Quaternion headingQuat = Quaternion.LookRotation(nextHeading, Vector3.up);
     float ang = Quaternion.Angle(headingQuat,transform.rotation);
     transform.rotation = Quaternion.RotateTowards(transform.rotation, headingQuat, Mathf.Min(ang,2f*Time.deltaTime));
@@ -41,7 +41,7 @@ public class BigBot : MonoBehaviour
         footPos = leftFoot.transform.position;
         foot=true;
       }
-      Vector2 wrathPoint = (Random.insideUnitCircle*3f) + new Vector2(footPos.x, footPos.z);
+      Vector2 wrathPoint = (Random.insideUnitCircle*2.5f) + new Vector2(footPos.x, footPos.z);
       //GameObject tile = getTileIfAlreadyCreated(wrathPoint);
       Vector2Int target = Vector2Int.RoundToInt(wrathPoint);
       GameObject tile = gameController.getTile(target);

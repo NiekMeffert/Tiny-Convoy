@@ -2351,11 +2351,6 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -6411268289987582075, guid: fe41baa8080164f14ae573418fd11f84,
         type: 3}
-      propertyPath: options.Array.size
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: -6411268289987582075, guid: fe41baa8080164f14ae573418fd11f84,
-        type: 3}
       propertyPath: wiggleRoom.x
       value: 2
       objectReference: {fileID: 0}

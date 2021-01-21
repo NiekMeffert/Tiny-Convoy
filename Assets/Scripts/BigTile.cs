@@ -59,5 +59,13 @@ public class BigTile : MonoBehaviour
         if (child.gameObject.GetComponent<InvisibleObstruction>()!=null) child.gameObject.GetComponent<InvisibleObstruction>().bigThing = obs;
       }
     }
+    MeshRenderer[] mRenderers = transform.GetComponentsInChildren<MeshRenderer>(true);
+    SkinnedMeshRenderer[] smRenderers = transform.GetComponentsInChildren<SkinnedMeshRenderer>(true);
+    foreach (MeshRenderer m in mRenderers){
+      if (m.gameObject.transform.parent.GetComponent<InvisibleObstruction>()==null) m.enabled=false;
+    }
+    foreach (SkinnedMeshRenderer sm in smRenderers){
+      if (sm.gameObject.transform.parent.GetComponent<InvisibleObstruction>()==null) sm.enabled=false;
+    }
   }
 }

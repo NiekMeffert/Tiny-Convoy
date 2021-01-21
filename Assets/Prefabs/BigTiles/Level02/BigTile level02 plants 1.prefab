@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 656386780864332291}
   - component: {fileID: 6816819589847455559}
   m_Layer: 0
-  m_Name: BigTile level02 plants
+  m_Name: BigTile level02 plants 1
   m_TagString: BigTile
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1960,11 +1960,6 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -6411268289987582075, guid: fe41baa8080164f14ae573418fd11f84,
         type: 3}
-      propertyPath: options.Array.size
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: -6411268289987582075, guid: fe41baa8080164f14ae573418fd11f84,
-        type: 3}
       propertyPath: wiggleRoom.x
       value: 2
       objectReference: {fileID: 0}
@@ -2348,11 +2343,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 656386780864332291}
     m_Modifications:
-    - target: {fileID: -6411268289987582075, guid: fe41baa8080164f14ae573418fd11f84,
-        type: 3}
-      propertyPath: options.Array.size
-      value: 3
-      objectReference: {fileID: 0}
     - target: {fileID: -6411268289987582075, guid: fe41baa8080164f14ae573418fd11f84,
         type: 3}
       propertyPath: wiggleRoom.x
@@ -6578,6 +6568,12 @@ PrefabInstance:
       propertyPath: wiggleRoom.y
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: -6411268289987582075, guid: fe41baa8080164f14ae573418fd11f84,
+        type: 3}
+      propertyPath: options.Array.data[2]
+      value: 
+      objectReference: {fileID: 2498946500452104959, guid: a35488ae58bd44b4b892dbc8a09c42a5,
+        type: 3}
     - target: {fileID: 2139465742248094714, guid: fe41baa8080164f14ae573418fd11f84,
         type: 3}
       propertyPath: m_LocalPosition.x

@@ -55,7 +55,6 @@ public class InvisibleObstruction : ActualThing
   }
 
   public override void die(float afterTime){
-    Debug.Log("Dying");
     if (bigThing!=null){
       foreach (InvisibleObstruction inv in compatriots) {
         if (inv!=gameObject.GetComponent<InvisibleObstruction>()) inv.bigThing=null;
