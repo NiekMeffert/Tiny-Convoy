@@ -41,7 +41,7 @@ public class BigBot : MonoBehaviour
         footPos = leftFoot.transform.position;
         foot=true;
       }
-      Vector2 wrathPoint = (Random.insideUnitCircle*4f) + new Vector2(footPos.x, footPos.z);
+      Vector2 wrathPoint = (Random.insideUnitCircle*3f) + new Vector2(footPos.x, footPos.z);
       //GameObject tile = getTileIfAlreadyCreated(wrathPoint);
       Vector2Int target = Vector2Int.RoundToInt(wrathPoint);
       GameObject tile = gameController.getTile(target);

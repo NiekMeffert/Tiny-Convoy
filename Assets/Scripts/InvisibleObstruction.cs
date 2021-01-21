@@ -55,6 +55,7 @@ public class InvisibleObstruction : ActualThing
   }
 
   public override void die(float afterTime){
+    Debug.Log("Dying");
     if (bigThing!=null){
       foreach (InvisibleObstruction inv in compatriots) {
         if (inv!=gameObject.GetComponent<InvisibleObstruction>()) inv.bigThing=null;
@@ -63,7 +64,7 @@ public class InvisibleObstruction : ActualThing
         if (inv!=gameObject.GetComponent<InvisibleObstruction>()) inv.die(0);
       }
       foreach (Transform child in bigThing.transform){
-        if (child.GetComponent<ActualThing>()==null) Destroy(child);
+        if (child.gameObject.GetComponent<ActualThing>()==null) Destroy(child.gameObject);
       }
     }
     Tile tileVars = tile.GetComponent<Tile>();
