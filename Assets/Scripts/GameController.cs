@@ -138,6 +138,7 @@ public class GameController : MonoBehaviour{
                 mouseOver=null;
               }
             } else if (mouseUpgrade!=null){
+              partStat = mouseUpgrade;
               upgradeStats.SetActive(true);
               upgradeStats.transform.position = mouseOver.transform.position;
               if (firstCar.GetComponent<Car>().overlapsVertically(mouseOver)){
