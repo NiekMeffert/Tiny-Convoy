@@ -48,14 +48,16 @@ public class CPU : Upgrade {
 
   // Update is called once per frame
   void Update(){
-    if (waitingToStart==true) setUpCPU();
-    if (gameController.mode!=1) return;
-    updateStats();
-    if (gameObject != gameController.totem){
-      thoughtCounter -= Time.deltaTime*(.1f*processing);
-      if (thoughtCounter<0){
-        thoughtCounter=1f;
-        ai.changeMind();
+    if (waitingToStart==true) {
+      setUpCPU();
+    } else if (gameController.mode==1) {
+      updateStats();
+      if (gameObject != gameController.totem){
+        thoughtCounter -= Time.deltaTime*(.1f*processing);
+        if (thoughtCounter<0){
+          thoughtCounter=1f;
+          ai.changeMind();
+        }
       }
     }
   }

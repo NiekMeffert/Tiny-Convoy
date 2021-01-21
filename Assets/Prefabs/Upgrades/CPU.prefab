@@ -63,16 +63,17 @@ MonoBehaviour:
   armorMultiplier: 1
   animator: {fileID: 0}
   flying: 0
+  dieAsPrefab: {fileID: 0}
   cpu: {fileID: 0}
   on: 0
   drain: 1
-  cars:
-  - {fileID: 0}
-  - {fileID: 0}
-  processing: 0
-  memory: 0
   inputs: 0
   outputs: 0
+  cars:
+  - {fileID: 0}
+  waterResistance: 0
+  processing: 0
+  memory: 0
   sight: 0
   battery: 0
   baseProcessing: 0
@@ -89,7 +90,6 @@ MonoBehaviour:
   sightDistance: 0
   scanner: 0
   meshDistance: 0
-  waterResistance: 0
   objective: {fileID: 0}
   objectiveWeight: 0
   ai: {fileID: 0}
@@ -100,6 +100,7 @@ MonoBehaviour:
   maxChargeOut: 20
   waitForRotation: 0
   thoughtCounter: 1
+  waitingToStart: 1
 --- !u!114 &7456990125429083905
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -145,6 +146,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gameController: {fileID: 0}
   cpu: {fileID: 0}
+  cpuVars: {fileID: 0}
   pathfinder: {fileID: 0}
   knownDangers: []
   knownDangerWeights: []
