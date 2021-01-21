@@ -8,6 +8,7 @@ public class BigTile : MonoBehaviour
   public int rarity;
   public GameObject[,] tiles = new GameObject[10,10];
   List<GameObject> bigObstructions = new List<GameObject>();
+  List<GameObject> cpuBoxes = new List<GameObject>();
   List<GameObject> mysteryBoxes = new List<GameObject>();
   GameController gameController;
   public int minLevel;
@@ -21,12 +22,17 @@ public class BigTile : MonoBehaviour
       if (child.gameObject.GetComponent<ThingOnBigTile>()!=null){
         bigObstructions.Add(child.gameObject);
       }
-      if (child.gameObject.GetComponent<MysteryBox>()!=null){
+      if (child.gameObject.GetComponent<CPUBox>()!=null){
+        cpuBoxes.Add(child.gameObject);
+      } else if (child.gameObject.GetComponent<MysteryBox>()!=null){
         mysteryBoxes.Add(child.gameObject);
       }
     }
     foreach (GameObject a in bigObstructions){
       setUpBigObstruction(a);
+    }
+    foreach (GameObject a in cpuBoxes){
+      a.GetComponent<CPUBox>().setUpPosition();
     }
     foreach (GameObject a in mysteryBoxes){
       a.GetComponent<MysteryBox>().setUpPosition();

@@ -8,7 +8,8 @@ public class GameController : MonoBehaviour{
 
   public int mode = 0; //0 paused, 1 normal, 2 upgrade, 3 long-distance scanner, 4 conversation
   public int nextMode = 1;
-  public int level = 0;
+  public int totemLevel = 0;
+  public float newLevelEveryNTiles = 50f;
   public int randomSeedX;
   public int randomSeedY;
   public float totemCounter = 0;
@@ -104,6 +105,7 @@ public class GameController : MonoBehaviour{
         GameObject firstCar = totem.GetComponent<CPU>().cars[0];
         Vector2Int currPos = firstCar.GetComponent<Car>().tile.GetComponent<Tile>().pos;
         if (totemPos != currPos || totemSight!=totem.GetComponent<CPU>().sight) moveFog(currPos);
+        totemLevel = Mathf.CeilToInt(Vector2Int.Distance(currPos,Vector2Int.zero)*(1f/newLevelEveryNTiles));
         if (Physics.Raycast(ray, out hit) && uiBlocker==false){
           mouseOver = hit.collider.gameObject;
           float maxDist = Mathf.Max(Mathf.Abs(mouseOver.transform.position.x-totem.transform.position.x), Mathf.Abs(mouseOver.transform.position.z-totem.transform.position.z));
@@ -386,7 +388,7 @@ public class GameController : MonoBehaviour{
     GameObject btPrefab = null;
     GameObject forcedBigTile = forcedBigTiles[targetFloor.x, targetFloor.y];
     if (forcedBigTile==null){
-      int level = Mathf.CeilToInt(Vector2Int.Distance(targetFloor,Vector2Int.zero)*.02f);
+      int level = Mathf.CeilToInt(Vector2Int.Distance(targetFloor,Vector2Int.zero)*(1f/newLevelEveryNTiles));
       List<GameObject> btOptions = new List<GameObject>();
       for (int n = bigTilePrefabs.Length-1; n>=0; n--){
         BigTile btVars = bigTilePrefabs[n].GetComponent<BigTile>();
@@ -422,7 +424,7 @@ public class GameController : MonoBehaviour{
   }
 
   public void bigBotCheck(){
-    int botNumber = 1 + (Mathf.FloorToInt(level*.4f));
+    int botNumber = 1 + (Mathf.FloorToInt(totemLevel*.4f));
     if (bigBots.Count<botNumber){
       GameObject newBigBot = Instantiate(bigBotPrefab);
       BigBot botVars = newBigBot.GetComponent<BigBot>();
