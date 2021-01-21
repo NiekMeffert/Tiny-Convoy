@@ -371,6 +371,20 @@ public class GameController : MonoBehaviour{
     return tiles;
   }
 
+  public List<GameObject> getFrame(Vector3Int target){
+    int arraySize = 1+(target.z*2);
+    List<GameObject> tiles = new List<GameObject>();
+    Vector2Int rangeMin=new Vector2Int(target.x-target.z, target.y-target.z);
+    Vector2Int rangeMax=new Vector2Int(target.x+target.z, target.y+target.z);
+    for (int x=0; x<arraySize; x++){
+      for (int y=0; y<arraySize; y++){
+        if (x==0 || x==arraySize-1 || y==0 || y==arraySize-1)
+        tiles.Add(getTile(new Vector2Int(rangeMin.x+x, rangeMin.y+y)));
+      }
+    }
+    return tiles;
+  }
+
   public float[] getRands(Vector2Int vec2){
     Random.InitState(vec2.x+randomSeedX);
     int a = Mathf.RoundToInt(Random.value*1000000);
