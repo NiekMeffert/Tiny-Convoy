@@ -154,8 +154,9 @@ MonoBehaviour:
   pos: {x: 0, y: 0}
   rarity: 4
   minLevel: 2
-  maxLevel: 3
+  maxLevel: 100
   fogLevel: 2
+  lastTouched: 0
 --- !u!1001 &114306624698080270
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1347,6 +1348,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: ObstacleVar01 (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 8628643021331422988, guid: 0089c7c9061319c47a21ae74245a84f6,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8628643021331422988, guid: 0089c7c9061319c47a21ae74245a84f6,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0089c7c9061319c47a21ae74245a84f6, type: 3}
@@ -3073,6 +3084,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: ObstacleVar01
       objectReference: {fileID: 0}
+    - target: {fileID: 8628643021331422988, guid: 0089c7c9061319c47a21ae74245a84f6,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8628643021331422988, guid: 0089c7c9061319c47a21ae74245a84f6,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0089c7c9061319c47a21ae74245a84f6, type: 3}
 --- !u!4 &3257004368197320787 stripped
@@ -3241,7 +3262,7 @@ PrefabInstance:
     - target: {fileID: 103078190201537279, guid: 0089c7c9061319c47a21ae74245a84f6,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 8
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 103078190201537279, guid: 0089c7c9061319c47a21ae74245a84f6,
         type: 3}
@@ -3297,6 +3318,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: ObstacleVar01 (3)
+      objectReference: {fileID: 0}
+    - target: {fileID: 8628643021331422988, guid: 0089c7c9061319c47a21ae74245a84f6,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8628643021331422988, guid: 0089c7c9061319c47a21ae74245a84f6,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0089c7c9061319c47a21ae74245a84f6, type: 3}
@@ -3672,6 +3703,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: ObstacleVar01 (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 8628643021331422988, guid: 0089c7c9061319c47a21ae74245a84f6,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8628643021331422988, guid: 0089c7c9061319c47a21ae74245a84f6,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8628643021331422988, guid: 0089c7c9061319c47a21ae74245a84f6,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0089c7c9061319c47a21ae74245a84f6, type: 3}
@@ -6667,6 +6713,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2352734787792305070, guid: 81b249dd8a91fd44aaf7df6331f9ddff,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2352734787792305070, guid: 81b249dd8a91fd44aaf7df6331f9ddff,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2352734787792305070, guid: 81b249dd8a91fd44aaf7df6331f9ddff,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 3165264721341325588, guid: 81b249dd8a91fd44aaf7df6331f9ddff,
         type: 3}

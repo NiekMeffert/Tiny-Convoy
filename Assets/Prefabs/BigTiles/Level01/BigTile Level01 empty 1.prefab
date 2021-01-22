@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 656386780864332291}
   - component: {fileID: 6816819589847455559}
   m_Layer: 0
-  m_Name: BigTile Level01 empty
+  m_Name: BigTile Level01 empty 1
   m_TagString: BigTile
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -146,8 +146,9 @@ MonoBehaviour:
   pos: {x: 0, y: 0}
   rarity: 1
   minLevel: 0
-  maxLevel: 1
+  maxLevel: 7
   fogLevel: 2
+  lastTouched: 0
 --- !u!1001 &171471341114885080
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -149,9 +149,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pos: {x: 0, y: 0}
   rarity: 1
-  minLevel: 3
-  maxLevel: 5
+  minLevel: 4
+  maxLevel: 100
   fogLevel: 2
+  lastTouched: 0
 --- !u!1001 &214661040275727244
 PrefabInstance:
   m_ObjectHideFlags: 0

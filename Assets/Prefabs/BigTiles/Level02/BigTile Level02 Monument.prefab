@@ -159,8 +159,9 @@ MonoBehaviour:
   pos: {x: 0, y: 0}
   rarity: 4
   minLevel: 2
-  maxLevel: 3
+  maxLevel: 100
   fogLevel: 2
+  lastTouched: 0
 --- !u!1001 &26149114285526518
 PrefabInstance:
   m_ObjectHideFlags: 0

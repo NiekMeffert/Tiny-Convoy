@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 656386780864332291}
   - component: {fileID: 6816819589847455559}
   m_Layer: 0
-  m_Name: L701
+  m_Name: Lvl 4 plant
   m_TagString: BigTile
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -164,9 +164,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pos: {x: 0, y: 0}
   rarity: 0
-  minLevel: 7
-  maxLevel: 1000
+  minLevel: 6
+  maxLevel: 100
   fogLevel: 2
+  lastTouched: 0
 --- !u!1001 &322684441393898663
 PrefabInstance:
   m_ObjectHideFlags: 0
