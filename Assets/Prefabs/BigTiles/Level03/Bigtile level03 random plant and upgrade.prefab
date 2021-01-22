@@ -151,7 +151,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pos: {x: 0, y: 0}
   rarity: 1
-  minLevel: 4
+  minLevel: 3
   maxLevel: 5
   fogLevel: 2
 --- !u!1001 &171471341114885080
