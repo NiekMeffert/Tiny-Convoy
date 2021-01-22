@@ -332,7 +332,7 @@ public class GameController : MonoBehaviour{
     GameObject candidate = allBigTiles[bigTileCheck];
     if (Time.unscaledTime-candidate.GetComponent<BigTile>().lastTouched>120){
       //delete if it hasn't been used for 2 minutes
-      Debug.Log(allBigTiles.Length);
+      //Debug.Log(allBigTiles.Length);
       Destroy(candidate);
     }
     bigTileCheck++;

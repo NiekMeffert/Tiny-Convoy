@@ -53,7 +53,10 @@ public class Tile : MonoBehaviour
     }
     actualThings.Add(load);
     fixHeightsNeeded=true;
-    if (loadVars.tile!=null) loadVars.tile.GetComponent<Tile>().removeFromTile(load);
+    if (loadVars.tile!=null) {
+      loadVars.tile.GetComponent<Tile>().removeFromTile(load);
+      if (load.transform.parent==loadVars.tile.transform) {load.transform.parent=transform; Debug.Log("Removing");}
+    }
     loadVars.tile = gameObject;
     Car carVars = load.GetComponent<Car>();
     if (carVars!=null) carVars.upgradeTile.GetComponent<Tile>().pos = pos;
@@ -61,6 +64,7 @@ public class Tile : MonoBehaviour
   }
 
   public virtual void removeFromTile(GameObject load){
+    if (load.transform.parent==transform) load.transform.parent=null;
     actualThings.Remove(load);
     fixHeightsNeeded=true;
   }
