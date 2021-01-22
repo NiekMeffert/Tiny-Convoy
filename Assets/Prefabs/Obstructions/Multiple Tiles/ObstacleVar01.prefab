@@ -152,15 +152,15 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1762208798437199282}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0.048956696, w: 0.998801}
+  m_LocalPosition: {x: -0.119, y: -0.111, z: 0}
+  m_LocalScale: {x: 1.2525, y: 1, z: 2.1625}
   m_Children:
   - {fileID: 5502789574361839983}
   - {fileID: 7064202762483254203}
   m_Father: {fileID: 103078190201537279}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -5.6120005}
 --- !u!65 &36970671261675478
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -318,7 +318,12 @@ PrefabInstance:
     - target: {fileID: 1785397713343363432, guid: ece43762314bf410cba24074fbd9fae8,
         type: 3}
       propertyPath: m_LocalScale.y
-      value: 5
+      value: 4.8125
+      objectReference: {fileID: 0}
+    - target: {fileID: 7377442610483402251, guid: ece43762314bf410cba24074fbd9fae8,
+        type: 3}
+      propertyPath: standable
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8791922788125365343, guid: ece43762314bf410cba24074fbd9fae8,
         type: 3}
@@ -400,6 +405,11 @@ PrefabInstance:
       propertyPath: m_LocalScale.y
       value: 5
       objectReference: {fileID: 0}
+    - target: {fileID: 7377442610483402251, guid: ece43762314bf410cba24074fbd9fae8,
+        type: 3}
+      propertyPath: standable
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8791922788125365343, guid: ece43762314bf410cba24074fbd9fae8,
         type: 3}
       propertyPath: m_Name
@@ -478,7 +488,12 @@ PrefabInstance:
     - target: {fileID: 1785397713343363432, guid: ece43762314bf410cba24074fbd9fae8,
         type: 3}
       propertyPath: m_LocalScale.y
-      value: 5
+      value: 4.6875
+      objectReference: {fileID: 0}
+    - target: {fileID: 7377442610483402251, guid: ece43762314bf410cba24074fbd9fae8,
+        type: 3}
+      propertyPath: standable
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8791922788125365343, guid: ece43762314bf410cba24074fbd9fae8,
         type: 3}

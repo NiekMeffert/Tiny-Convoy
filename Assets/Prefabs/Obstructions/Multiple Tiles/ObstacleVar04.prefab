@@ -24,15 +24,15 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3920874332655633025}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalRotation: {x: -0.008242336, y: 0.00010416464, z: 0.0126363225, w: 0.9998862}
+  m_LocalPosition: {x: 0.027, y: -0.101, z: 0.002}
+  m_LocalScale: {x: 1.364552, y: 1.364552, z: 1.364552}
   m_Children:
   - {fileID: 4016390026495548897}
   - {fileID: 285526456500908105}
   m_Father: {fileID: 6958421110310187277}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: -0.94500005, y: 0, z: 1.4480001}
 --- !u!65 &3849882613938115937
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -318,7 +318,12 @@ PrefabInstance:
     - target: {fileID: 1785397713343363432, guid: ece43762314bf410cba24074fbd9fae8,
         type: 3}
       propertyPath: m_LocalScale.y
-      value: 5
+      value: 6.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7377442610483402251, guid: ece43762314bf410cba24074fbd9fae8,
+        type: 3}
+      propertyPath: standable
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8791922788125365343, guid: ece43762314bf410cba24074fbd9fae8,
         type: 3}
@@ -398,7 +403,12 @@ PrefabInstance:
     - target: {fileID: 1785397713343363432, guid: ece43762314bf410cba24074fbd9fae8,
         type: 3}
       propertyPath: m_LocalScale.y
-      value: 5
+      value: 6.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 7377442610483402251, guid: ece43762314bf410cba24074fbd9fae8,
+        type: 3}
+      propertyPath: standable
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8791922788125365343, guid: ece43762314bf410cba24074fbd9fae8,
         type: 3}
@@ -478,7 +488,12 @@ PrefabInstance:
     - target: {fileID: 1785397713343363432, guid: ece43762314bf410cba24074fbd9fae8,
         type: 3}
       propertyPath: m_LocalScale.y
-      value: 5
+      value: 6.4375
+      objectReference: {fileID: 0}
+    - target: {fileID: 7377442610483402251, guid: ece43762314bf410cba24074fbd9fae8,
+        type: 3}
+      propertyPath: standable
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8791922788125365343, guid: ece43762314bf410cba24074fbd9fae8,
         type: 3}
