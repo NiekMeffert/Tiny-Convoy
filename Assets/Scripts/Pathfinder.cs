@@ -60,6 +60,7 @@ public class Pathfinder : MonoBehaviour
           Tile tileVars = maybeNewTile.GetComponent<Tile>();
           float fit = tileVars.canFit(cpu.cars[0], true);
           if (Mathf.Abs(cpu.cars[0].transform.position.y-fit)<.1){
+            cpu.cars[0].transform.position += new Vector3(0,fit,0);
             tileVars.moveOntoTile(cpu.cars[0]);
             firstCarVars.upgradeTile.GetComponent<UpgradeTile>().pos = roundedPos;
           } else {
