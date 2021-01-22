@@ -16,7 +16,7 @@ MonoBehaviour:
   m_AdvancedMode: 0
   shadows:
     m_OverrideState: 1
-    m_Value: {x: 0.7840384, y: 0.8239906, z: 1, w: 0.031545863}
+    m_Value: {x: 0.77217853, y: 0.82211965, z: 1, w: 0.031545863}
   midtones:
     m_OverrideState: 1
     m_Value: {x: 1, y: 0.94794714, z: 0.9512561, w: 0.047318615}
@@ -39,6 +39,28 @@ MonoBehaviour:
     m_OverrideState: 0
     m_Value: 1
     min: 0
+--- !u!114 &-813637035185366859
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e021b4c809a781e468c2988c016ebbea, type: 3}
+  m_Name: ColorLookup
+  m_EditorClassIdentifier: 
+  active: 1
+  m_AdvancedMode: 0
+  texture:
+    m_OverrideState: 0
+    m_Value: {fileID: 0}
+  contribution:
+    m_OverrideState: 0
+    m_Value: 1
+    min: 0
+    max: 1
 --- !u!114 &-96324104999042599
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -90,6 +112,7 @@ MonoBehaviour:
   - {fileID: 496408155681312570}
   - {fileID: 3763092978496555082}
   - {fileID: 7283627568900285305}
+  - {fileID: -813637035185366859}
 --- !u!114 &496408155681312570
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -125,7 +148,7 @@ MonoBehaviour:
     max: 180
   saturation:
     m_OverrideState: 1
-    m_Value: 0
+    m_Value: 20
     min: -100
     max: 100
 --- !u!114 &2923000229768691361
@@ -186,11 +209,11 @@ MonoBehaviour:
   m_AdvancedMode: 0
   threshold:
     m_OverrideState: 1
-    m_Value: 0.66
+    m_Value: 0.36
     min: 0
   intensity:
     m_OverrideState: 1
-    m_Value: 3.86
+    m_Value: 0.62
     min: 0
   scatter:
     m_OverrideState: 1
@@ -203,7 +226,7 @@ MonoBehaviour:
     min: 0
   tint:
     m_OverrideState: 1
-    m_Value: {r: 0.6603774, g: 0.62445456, b: 0.48905307, a: 1}
+    m_Value: {r: 0.51722145, g: 0.52365756, b: 0.5566038, a: 1}
     hdr: 0
     showAlpha: 0
     showEyeDropper: 1
@@ -292,7 +315,7 @@ MonoBehaviour:
   m_AdvancedMode: 0
   color:
     m_OverrideState: 1
-    m_Value: {r: 0.5660378, g: 0.41974503, b: 0, a: 1}
+    m_Value: {r: 0, g: 0, b: 0, a: 1}
     hdr: 0
     showAlpha: 0
     showEyeDropper: 1
@@ -301,7 +324,7 @@ MonoBehaviour:
     m_Value: {x: 0.5, y: 0.5}
   intensity:
     m_OverrideState: 1
-    m_Value: 0.319
+    m_Value: 0.147
     min: 0
     max: 1
   smoothness:
