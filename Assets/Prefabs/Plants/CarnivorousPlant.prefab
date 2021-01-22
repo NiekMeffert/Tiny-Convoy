@@ -100,8 +100,12 @@ MonoBehaviour:
   damageQueue: []
   witnessQueue: []
   turnTime: 1.1
+  biteRange: 2.1
   biteDamage: 1
   biteFromHeight: 0.8
+  sparkPrefab: {fileID: 1687974853036285661, guid: 03b99e2ae5ce64a86a2b20ad20789316,
+    type: 3}
+  damageSource: {fileID: 777996760387685409}
 --- !u!95 &-796764482975535801
 Animator:
   serializedVersion: 3
@@ -121,6 +125,36 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!1 &3208149868586985537
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 777996760387685409}
+  m_Layer: 0
+  m_Name: damagePoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &777996760387685409
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3208149868586985537}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.527, z: 0.633}
+  m_LocalScale: {x: 0.8855627, y: 0.642033, z: 0.642033}
+  m_Children: []
+  m_Father: {fileID: 6989387938210960046}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &7455131050865046853
 PrefabInstance:
   m_ObjectHideFlags: 0

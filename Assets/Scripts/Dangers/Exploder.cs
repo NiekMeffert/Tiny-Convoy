@@ -78,7 +78,7 @@ public class Exploder : Danger
         }
         scareAll();
         GameObject particle = Instantiate(blast);
-        blast.transform.position = damSource;
+        particle.transform.position = damSource;
         animator.SetBool("IsDead", true);
         gameObject.GetComponent<ActualThing>().die(.5f);
       }
