@@ -54,6 +54,8 @@ public class GameController : MonoBehaviour{
   public GameObject upgradeStatsUIHolder;
   bool gameHasStarted = false;
   public GameObject GameOverUI;
+  GameObject[] allBigTiles;
+  int bigTileCheck = 0;
 
   // Start is called before the first frame update
     void Start(){
@@ -235,6 +237,7 @@ public class GameController : MonoBehaviour{
   }
 
   void LateUpdate(){
+    cullBigTiles();
     updateVisibleTiles();
     uiBlocker = false;
     if (nextMode!=mode){
@@ -323,6 +326,18 @@ public class GameController : MonoBehaviour{
     upgradeSpacers.Clear();
   }
 
+  public void cullBigTiles(){
+    if (allBigTiles.Length==0) return;
+    if (bigTileCheck>=allBigTiles.Length) bigTileCheck=0;
+    GameObject candidate = allBigTiles[bigTileCheck];
+    if (Time.unscaledTime-candidate.GetComponent<BigTile>().lastTouched>120){
+      //delete if it hasn't been used for 2 minutes
+      Debug.Log(allBigTiles.Length);
+      Destroy(candidate);
+    }
+    bigTileCheck++;
+  }
+
   public void updateVisibleTiles(){
     for (int i=1; i>=0; i--){
       visibilityPainterX+=.07f;
@@ -343,7 +358,7 @@ public class GameController : MonoBehaviour{
     if (lastBigTile!=null && lastBigTile.GetComponent<BigTile>().pos.x==targetFloor.x && lastBigTile.GetComponent<BigTile>().pos.y==targetFloor.y){
       bigTile = lastBigTile;
     } else {
-      GameObject[] allBigTiles = GameObject.FindGameObjectsWithTag("BigTile");
+      allBigTiles = GameObject.FindGameObjectsWithTag("BigTile");
       foreach (GameObject candidate in allBigTiles){
         if (candidate.GetComponent<BigTile>().pos.x==targetFloor.x && candidate.GetComponent<BigTile>().pos.y==targetFloor.y){
           bigTile = candidate;
@@ -355,6 +370,7 @@ public class GameController : MonoBehaviour{
     }
     lastBigTile = bigTile;
     BigTile bigTileVars=bigTile.GetComponent<BigTile>();
+    bigTileVars.lastTouched = Time.unscaledTime;
     GameObject tile = bigTileVars.tiles[target.x-bigTileVars.pos.x, target.y-bigTileVars.pos.y];
     return tile;
   }

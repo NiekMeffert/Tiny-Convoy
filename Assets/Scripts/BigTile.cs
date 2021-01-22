@@ -14,9 +14,11 @@ public class BigTile : MonoBehaviour
   public int minLevel;
   public int maxLevel;
   public int fogLevel = 2;
+  public float lastTouched;
 
   // Start is called before the first frame update
   void Start(){
+    lastTouched = Time.unscaledTime;
     gameController=GameObject.Find("GameController").GetComponent<GameController>();
     foreach (Transform child in transform){
       if (child.gameObject.GetComponent<ThingOnBigTile>()!=null){
