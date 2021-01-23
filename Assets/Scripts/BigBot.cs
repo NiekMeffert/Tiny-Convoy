@@ -8,6 +8,7 @@ public class BigBot : MonoBehaviour
   public float currentDistance;
   public GameObject rightFoot;
   public GameObject leftFoot;
+  public AudioSource soundPlayer;
   Vector3 nextHeading;
   Vector3 flipX = new Vector3(-1,1,1);
   Vector3 flipZ = new Vector3(1,1,-1);
@@ -17,6 +18,7 @@ public class BigBot : MonoBehaviour
 
   // Start is called before the first frame update
   void Start(){
+    soundPlayer = gameObject.GetComponent<AudioSource>();
     nextHeading = Vector3.forward;
     gameController = GameObject.Find("GameController").GetComponent<GameController>();
     tacticsCam = GameObject.Find("TacticsCamera");
@@ -32,6 +34,7 @@ public class BigBot : MonoBehaviour
     transform.rotation = Quaternion.RotateTowards(transform.rotation, headingQuat, Mathf.Min(ang,2f*Time.deltaTime));
     currentDistance = Vector3.Distance(tacticsCam.transform.position, transform.position);
     if (currentDistance>maxDistance) newHeading();
+    float destructionCount = 0;
     for (int i = 0; i<7; i++){
       Vector3 footPos;
       if (foot==true) {
@@ -52,16 +55,20 @@ public class BigBot : MonoBehaviour
         foreach (GameObject aThing in listCopy){
           if (aThing.GetComponent<ActualThing>().maxHealth!=-1){
             aThing.GetComponent<ActualThing>().die(0);
+            destructionCount++;
           }
         }
         listCopy = new List<GameObject>(tileVars.actualThings);
         foreach (GameObject aThing in listCopy){
           if (aThing.GetComponent<ActualThing>().maxHealth!=-1){
             aThing.GetComponent<ActualThing>().die(0);
+            destructionCount++;
           }
         }
       }
     }
+    //soundPlayer.minDistance = destructionCount*4f;
+    //soundPlayer.maxDistance = destructionCount*10f;
   }
 
   void newHeading(){
