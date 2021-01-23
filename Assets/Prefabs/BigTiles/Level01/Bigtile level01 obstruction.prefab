@@ -151,6 +151,7 @@ MonoBehaviour:
   minLevel: 0
   maxLevel: 1
   fogLevel: 2
+  lastTouched: 0
 --- !u!1001 &63268802339741744
 PrefabInstance:
   m_ObjectHideFlags: 0

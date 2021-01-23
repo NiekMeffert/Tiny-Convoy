@@ -36,6 +36,7 @@ public class Car : ActualThing
     List<GameObject> listCopy = new List<GameObject>(tileVars.actualThings);
     for (int i=0; i<listCopy.Count; i++){
       GameObject aThing = listCopy[i];
+      if (aThing.GetComponent<UpgradeSpacer>()!=null) continue;
       ActualThing thingVars = aThing.GetComponent<ActualThing>();
       if (dontLiftCar==false && aThing.GetComponent<Upgrade>()==null && aThing!=gameObject){
         transform.position = new Vector3(transform.position.x, thingVars.bottomTop[1], transform.position.z);

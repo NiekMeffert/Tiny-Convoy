@@ -72,6 +72,7 @@ public class InvisibleObstruction : ActualThing
       GameObject rubble = Instantiate(dieAsPrefab);
       rubble.transform.position = transform.position;
       rubble.transform.Rotate(new Vector3(0, Mathf.Round(4f*Random.value)*90f, 0), Space.World);
+      rubble.transform.parent = transform.parent;
       tileVars.moveOntoTile(rubble);
     }
     Destroy(gameObject, 0);

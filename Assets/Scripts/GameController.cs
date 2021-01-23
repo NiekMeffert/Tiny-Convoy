@@ -56,6 +56,8 @@ public class GameController : MonoBehaviour{
   public GameObject GameOverUI;
   GameObject[] allBigTiles;
   int bigTileCheck = 0;
+  public AudioSource soundPlayer;
+  public AudioClip[] uiSounds;
 
   // Start is called before the first frame update
     void Start(){
@@ -73,6 +75,7 @@ public class GameController : MonoBehaviour{
     scannerNoise = GameObject.Find("NoiseParent").transform.GetChild(0).GetComponent<RectTransform>();
     scanner.SetActive(false);
     upgradeStats = GameObject.Find("UpgradesStats");
+    soundPlayer = gameObject.GetComponent<AudioSource>();
   }
 
   // Update is called once per frame
@@ -245,9 +248,11 @@ public class GameController : MonoBehaviour{
       if (mode==2){
         inventory.SetActive(false);
         removeUpgradeSpacers();
+        soundPlayer.PlayOneShot(uiSounds[0]);
       }
       if (mode==3){
         scanner.SetActive(false);
+        soundPlayer.PlayOneShot(uiSounds[3]);
       }
       if (nextMode==1){
         mode=1;
@@ -256,10 +261,12 @@ public class GameController : MonoBehaviour{
         mode=2;
         inventory.SetActive(true);
         addUpgradeSpacers();
+        soundPlayer.PlayOneShot(uiSounds[1]);
       }
       if (nextMode==3){
         mode=3;
         scanner.SetActive(true);
+        soundPlayer.PlayOneShot(uiSounds[2]);
       }
     }
   }
@@ -332,7 +339,7 @@ public class GameController : MonoBehaviour{
     GameObject candidate = allBigTiles[bigTileCheck];
     if (Time.unscaledTime-candidate.GetComponent<BigTile>().lastTouched>120){
       //delete if it hasn't been used for 2 minutes
-      Debug.Log(allBigTiles.Length);
+      //Debug.Log(allBigTiles.Length);
       Destroy(candidate);
     }
     bigTileCheck++;
