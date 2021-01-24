@@ -58,6 +58,7 @@ public class GameController : MonoBehaviour{
   int bigTileCheck = 0;
   public AudioSource soundPlayer;
   public AudioClip[] uiSounds;
+  int totemIndex;
 
   // Start is called before the first frame update
     void Start(){
@@ -76,6 +77,7 @@ public class GameController : MonoBehaviour{
     scanner.SetActive(false);
     upgradeStats = GameObject.Find("UpgradesStats");
     soundPlayer = gameObject.GetComponent<AudioSource>();
+    totemIndex=0;
   }
 
   // Update is called once per frame
@@ -98,9 +100,10 @@ public class GameController : MonoBehaviour{
     if (mode==1) {
       Time.timeScale = 1;
       totemCounter-=Time.deltaTime;
-      if (totemCounter<0 && CPUs.Count>0){
+      if ((totemCounter<0 || totem==null) && CPUs.Count>0) {
         gameHasStarted=true;
-        totem = CPUs[Mathf.FloorToInt(Random.value*CPUs.Count)];
+        if (totemIndex>=CPUs.Count) totemIndex=0;
+        totem = CPUs[totemIndex];
         totemCounter=120;
         bigBotCheck();
       }
@@ -112,7 +115,7 @@ public class GameController : MonoBehaviour{
         Vector2Int currPos = firstCar.GetComponent<Car>().tile.GetComponent<Tile>().pos;
         if (totemPos != currPos || totemSight!=totem.GetComponent<CPU>().sight) moveFog(currPos);
         totemLevel = Mathf.CeilToInt(Vector2Int.Distance(currPos,Vector2Int.zero)*(1f/newLevelEveryNTiles));
-        botsAllowed = 1+Mathf.FloorToInt(totemLevel*.2f);
+        botsAllowed = 2+Mathf.FloorToInt(totemLevel*.2f);
         if (Physics.Raycast(ray, out hit) && uiBlocker==false){
           mouseOver = hit.collider.gameObject;
           float maxDist = Mathf.Max(Mathf.Abs(mouseOver.transform.position.x-totem.transform.position.x), Mathf.Abs(mouseOver.transform.position.z-totem.transform.position.z));
@@ -185,8 +188,9 @@ public class GameController : MonoBehaviour{
           if (mouseOver.GetComponent<Upgrade>()!=null){
             reticuleUpgrade.SetActive(true);
             reticuleUpgrade.transform.position = mouseOver.transform.position;
+            /* Doesn't work yet
             upgradeStats.SetActive(true);
-            upgradeStats.transform.position = mouseOver.transform.position;
+            upgradeStats.transform.position = mouseOver.transform.position;*/
           }
           if (Input.GetMouseButtonDown(0) && mouseOver.GetComponent<ActualThing>()!=null && mouseOver.GetComponent<CPU>()==null && mouseOver.GetComponent<UpgradeSpacer>()==null){
             upgradeTimer = Time.unscaledTime;
