@@ -999,8 +999,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b6890ed651f1b438b80ec544e65c14ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxDistance: 50
-  currentDistance: 40
+  maxDistance: 150
+  currentDistance: 150
   rightFoot: {fileID: 744354925069309775}
   leftFoot: {fileID: 1382674011409363587}
   soundPlayer: {fileID: 0}
@@ -1011,7 +1011,7 @@ AudioSource:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3461860374175526099}
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 95578d8d301b84e128a6266b0d4010ea, type: 3}

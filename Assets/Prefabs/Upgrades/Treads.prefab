@@ -268,7 +268,7 @@ MonoBehaviour:
   drain: 0.5
   inputs: 0
   outputs: 1
-  hSpeed: 5
+  hSpeed: 4
   turnSpeed: 1
   waitForRotation: 0
   soundPlayer: {fileID: 0}
